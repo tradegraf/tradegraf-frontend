@@ -1,5 +1,7 @@
 import React from 'react';
 
 export const DashboardPage = () => {
-  return <div></div>;
+	// eslint-disable-next-line no-console
+	console.log('kfdhd');
+	return <div></div>;
 };

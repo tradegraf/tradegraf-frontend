@@ -1,28 +1,37 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import { routerMiddleware } from 'connected-react-router';
-import createSagaMiddleware from 'redux-saga';
+ import { createStore, applyMiddleware, compose } from 'redux';
+ import { routerMiddleware } from 'connected-react-router';
+ import createSagaMiddleware from 'redux-saga';
 
-import createReducer from './reducers';
+ import createReducer from './reducers';
 
-const configureStore = (initialState = {}, history) => {
-  const composeEngancers = compose;
+ export default function configureStore(initialState = {}, history) {
+   let composeEnhancers = compose;
+   const reduxSagaMonitorOptions = {
+     onError: error => {
+       console.error(error);
+     },
+   };
 
-  const sagaMiddleware = createSagaMiddleware();
-  const middlewares = [routerMiddleware(history)];
+   if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
+     composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({});
+  }
 
-  const enhancers = [applyMiddleware(...middlewares)];
+   const sagaMiddleware = createSagaMiddleware(reduxSagaMonitorOptions);
 
-  const store = createStore(
-    createReducer(),
-    initialState,
-    composeEngancers(...enhancers),
-  );
+   const middlewares = [sagaMiddleware, routerMiddleware(history)];
 
-  store.runSaga = sagaMiddleware.run;
-  store.injectedReducers = {};
-  store.injectedSagas = {};
+   const enhancers = [applyMiddleware(...middlewares)];
 
-  return store;
-};
+   const store = createStore(
+     createReducer(),
+     initialState,
+     composeEnhancers(...enhancers),
+   );
 
-export default configureStore;
+   // Extensions
+   store.runSaga = sagaMiddleware.run;
+   store.injectedReducers = {}; // Reducer registry
+   store.injectedSagas = {}; // Saga registry
+
+   return store;
+ }

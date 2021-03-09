@@ -10,16 +10,16 @@ const getRouteObject = routes => {
 
 // eslint-disable-next-line no-underscore-dangle
 const _ROUTE = {
- LOGIN: {
-   path: '/login',
-   component: pages.Login,
- },
-//  TRANSFER_GROUP_LIST: {
-//    path: '/transferGroup/list',
-//    component: pages.TransferGroupList,
-//    exact: true,
-//    allowed: [],
-//  },
+	DASHBOARD: {
+		path: '/dashboard',
+		component: pages.Dashboard,
+	},
+	//  TRANSFER_GROUP_LIST: {
+	//    path: '/transferGroup/list',
+	//    component: pages.TransferGroupList,
+	//    exact: true,
+	//    allowed: [],
+	//  },
 };
 
 const routes = Object.entries(_ROUTE).map(([key, route]) => {
@@ -31,6 +31,6 @@ const routes = Object.entries(_ROUTE).map(([key, route]) => {
 
 export const ROUTE = getRouteObject(routes);
 
-export const INITIAL_ROUTE = ROUTE.TRANSFER_GROUP_LIST;
+export const INITIAL_ROUTE = ROUTE.DASHBOARD;
 
 export default routes;
