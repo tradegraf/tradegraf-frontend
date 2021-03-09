@@ -1,0 +1,26 @@
+node_modules
+.tmp
+.sass-cache
+.idea
+.DS_Store
+.vscode
+dist
+*.iml
+npm-debug.log
+npm-debug.log.*
+client/build
+newrelic_agent.log
+npm-debug.log*
+yarn-error.log*
+yarn.lock
+package-lock.json
+build
+stats.json
+git_stats
+
+# misc
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env
