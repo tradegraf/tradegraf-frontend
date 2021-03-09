@@ -1,6 +1,6 @@
 import { take, call, put, fork, all } from 'redux-saga/effects';
 
-// import { login, authTempToken, logout } from '@app/api/auth';
+import { login, authTempToken, logout } from '../../api/auth';
 import history from '../../utils/history';
 import { Types } from '../actions/auth';
 import { INITIAL_ROUTE } from '../../routes';
