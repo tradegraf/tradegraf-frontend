@@ -46,8 +46,6 @@ export const destroy = () => {
 	return { ...INITIAL_STATE };
 };
 
-// eslint-disable-next-line no-console
-console.log(Types);
 export const HANDLERS = {
 	[Types.GET_DASHBOARD_REQUEST]: getDashboardRequest,
 	[Types.GET_DASHBOARD_SUCCESS]: getDashboardSuccess,

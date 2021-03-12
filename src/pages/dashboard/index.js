@@ -24,8 +24,6 @@ const DashboardPage = () => {
 };
 
 const reduxKey = REDUX_KEY.DASHBOARD;
-// eslint-disable-next-line no-console
-console.log(reduxKey);
 const withSaga = injectSaga({ key: reduxKey, saga });
 const withReducer = injectReducer({ key: reduxKey, reducer });
 

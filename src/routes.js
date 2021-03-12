@@ -32,9 +32,6 @@ const routes = Object.entries(_ROUTE).map(([key, route]) => {
 
 export const ROUTE = getRouteObject(routes);
 
-// eslint-disable-next-line no-console
-console.log(ROUTE);
-
 export const INITIAL_ROUTE = ROUTE.DASHBOARD;
 
 export default routes;
