@@ -24,4 +24,28 @@ Navigation.SignForm = () => {
 	);
 };
 
+Navigation.DashboardHidden = () => {
+	return (
+		<div className="hidden md:block">
+			<div className="ml-10 flex items-baseline space-x-4">
+				<Link.Text href="/">Home</Link.Text>
+				<Link.Text href="/">Dashboard</Link.Text>
+				<Link.Text href="/">Dummy</Link.Text>
+				<Link.Text href="/">Hello</Link.Text>
+			</div>
+		</div>
+	);
+};
+
+Navigation.Dashboard = () => {
+	return (
+		<>
+			<Link.Text href="/">Home</Link.Text>
+			<Link.Text href="/">Dashboard</Link.Text>
+			<Link.Text href="/">Dummy</Link.Text>
+			<Link.Text href="/">Hello</Link.Text>
+		</>
+	);
+};
+
 export default Navigation;

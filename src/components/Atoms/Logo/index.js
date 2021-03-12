@@ -1,11 +1,9 @@
 import React from 'react';
 
-const Logo = () => {
+export const Logo = () => {
 	return (
-		<a href="/" className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
-			<span className="ml-3 text-xl">Logo</span>
+		<a className="flex-shrink-0" href="/">
+			Logo
 		</a>
 	);
 };
-
-export default Logo;

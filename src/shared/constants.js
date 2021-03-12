@@ -1,6 +1,7 @@
 export const REDUX_KEY = {
 	LOADING_BAR: 'LOADING_BAR',
 	AUTH: 'AUTH',
+	COMMON: 'COMMON',
 };
 
 export const SPINNER = {
