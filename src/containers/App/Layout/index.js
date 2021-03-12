@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // import { INITIAL_ROUTE } from '../../../routes';
 
+import AppContent from './AppContent';
 import { MainLayout } from '../../../components/Layout';
 import { DashboardHeader } from '../../Header';
 import { Sidebar } from '../../Sidebar';
@@ -76,7 +77,10 @@ const AppLayout = () => {
 	return (
 		<MainLayout theme={isDarkMode ? 'dark' : ''}>
 			<DashboardHeader darkModeToggle={handleThemeModeChange} />
-			<Sidebar />
+      <div className="flex items-start justify-between">
+        <Sidebar />
+        <AppContent />
+      </div>
 			{/* <AppSidebar
 				menus={menus}
 				currentKey={currentMenuKey}
