@@ -3,6 +3,7 @@
  import createSagaMiddleware from 'redux-saga';
 
  import createReducer from './reducers';
+
  import { ENVIRONMENT } from '../config';
 
  export default function configureStore(initialState = {}, history) {
@@ -31,6 +32,7 @@
      composeEnhancers(...enhancers),
    );
 
+
    store.runSaga = sagaMiddleware.run;
    store.injectedReducers = {}; // Reducer registry
    store.injectedSagas = {}; // Saga registry
@@ -40,6 +42,6 @@
        store.replaceReducer(createReducer(store.injectedReducers));
      });
    }
-
+   
    return store;
  }

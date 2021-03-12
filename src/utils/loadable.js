@@ -1,9 +1,10 @@
 import React from 'react';
 import loadable from '@loadable/component';
 
-import { SPINNER } from '../shared/constants';
 import Spinner from '../components/Spinner';
 import EmptyDiv from '../components/EmptyDiv';
+
+import { SPINNER } from '../shared/constants';
 
 const Loadable = (importFunction, spinnerType = SPINNER.DEFAULT, options) => {
 	let fallback;
