@@ -1,5 +1,5 @@
-// import authAxios from '@app/axios/auth';
-// import axios from '@app/axios/common';
+import authAxios from '../../axios/auth';
+import axios from '../../axios/common';
 
 export const login = ({ email }) => {
 	// return authAxios({
