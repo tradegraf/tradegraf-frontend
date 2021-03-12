@@ -1,6 +1,7 @@
 // import authAxios from '../../axios/auth';
 // import axios from '../../axios/common';
 
+
 export const login = ({ email }) => {
 	// return authAxios({
 	//   method: 'POST',
