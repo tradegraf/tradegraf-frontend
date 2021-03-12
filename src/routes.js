@@ -13,6 +13,7 @@ const _ROUTE = {
 	DASHBOARD: {
 		path: '/dashboard',
 		component: pages.Dashboard,
+		exact: true,
 	},
 	//  TRANSFER_GROUP_LIST: {
 	//    path: '/transferGroup/list',
@@ -23,13 +24,16 @@ const _ROUTE = {
 };
 
 const routes = Object.entries(_ROUTE).map(([key, route]) => {
- return {
-   key,
-   ...route,
- };
+	return {
+		key,
+		...route,
+	};
 });
 
 export const ROUTE = getRouteObject(routes);
+
+// eslint-disable-next-line no-console
+console.log(ROUTE);
 
 export const INITIAL_ROUTE = ROUTE.DASHBOARD;
 

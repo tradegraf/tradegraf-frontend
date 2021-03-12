@@ -2,12 +2,17 @@ export const REDUX_KEY = {
 	LOADING_BAR: 'LOADING_BAR',
 	AUTH: 'AUTH',
 	COMMON: 'COMMON',
+	DASHBOARD: 'DASHBOARD',
 };
 
 export const SPINNER = {
   DEFAULT: 1,
   EMPTY: 2,
 };
+
+export const RESTART_ON_REMOUNT = '@@saga-injector/restart-on-remount';
+export const DAEMON = '@@saga-injector/daemon';
+export const ONCE_TILL_UNMOUNT = '@@saga-injector/once-till-unmount';
 
 export const HTTP_STATUS_CODE = {
   ACCEPTED: 202,

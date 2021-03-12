@@ -12,6 +12,7 @@
     "connected-react-router": "^6.9.1",
     "history": "^5.0.0",
     "immer": "^8.0.1",
+    "invariant": "^2.2.4",
     "lodash": "^4.17.21",
     "node-sass": "^5.0.0",
     "react": "^17.0.1",

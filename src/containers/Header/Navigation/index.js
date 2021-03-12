@@ -40,10 +40,7 @@ Navigation.DashboardHidden = () => {
 Navigation.Dashboard = () => {
 	return (
 		<>
-			<Link.Text href="/">Home</Link.Text>
-			<Link.Text href="/">Dashboard</Link.Text>
-			<Link.Text href="/">Dummy</Link.Text>
-			<Link.Text href="/">Hello</Link.Text>
+			<Link.Text href="/">Burak Saraloglu</Link.Text>
 		</>
 	);
 };

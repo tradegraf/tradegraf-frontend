@@ -194,8 +194,6 @@ export const getRolesFailure = (state = INITIAL_STATE, { error }) => {
 };
 
 export const setDarkMode = (state = INITIAL_STATE, { data }) => {
-	// eslint-disable-next-line no-console
-	console.log(data);
 	return {
 		...state,
 		darkMode: {

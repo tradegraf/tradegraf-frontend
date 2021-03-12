@@ -25,7 +25,7 @@ const DashboardHeader = props => {
 					<div className="flex items-center justify-between h-16">
 						<div className="w-full justify-between flex items-center">
 							<Logo />
-							<div className="flex items-center px-2 pt-2 pb-3 sm:px-3">
+							<div className="flex items-center pt-2 pb-3 px-0">
 								<DarkModeToggle themeToggle={props.darkModeToggle} />
 								<Navigation.Dashboard />
 							</div>

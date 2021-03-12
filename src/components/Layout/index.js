@@ -1,3 +1,4 @@
 import { MainLayout } from './Main';
+import { ContentLayout } from './Content';
 
-export { MainLayout };
+export { MainLayout, ContentLayout };

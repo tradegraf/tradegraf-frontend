@@ -6,16 +6,13 @@ import { darkModeSelector } from '../../redux/selectors/common';
 export const DarkModeToggle = ({ themeToggle }) => {
 	const isDarkMode = useSelector(darkModeSelector.getDarkMode);
 
-	// eslint-disable-next-line no-console
-	console.log(isDarkMode);
-
 	const classString =
 		'text-gray-600 dark:text-gray-200 hover:text-gray-800 dark:hover:text-gray-100';
 
 	return (
 		<button
 			type="button"
-			className="mr-6 p-2 focus:outline-none focus:border-none hover:bg-gray-200 dark:hover:bg-gray-600 rounded-full"
+			className="mr-4 p-2 focus:outline-none focus:border-none hover:bg-gray-200 dark:hover:bg-gray-600 rounded-full"
 			onClick={themeToggle}
 		>
 			{!isDarkMode ? (
