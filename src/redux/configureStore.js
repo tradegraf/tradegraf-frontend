@@ -32,7 +32,6 @@
      composeEnhancers(...enhancers),
    );
 
-
    store.runSaga = sagaMiddleware.run;
    store.injectedReducers = {}; // Reducer registry
    store.injectedSagas = {}; // Saga registry
