@@ -96,7 +96,6 @@
 			}
 		],
 		"operator-linebreak": "off",
-		"brace-style": ["error", "stroustrup"],
 		"strict": ["error", "global"],
 		"react/jsx-filename-extension": [
 			1,
