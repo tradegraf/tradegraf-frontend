@@ -19,8 +19,8 @@ export const { Types, Creators } = createActions(
 		getRolesRequest: { limit: 9999, offset: 0, queryText: '' },
 		getRolesSuccess: { data: [] },
 		getRolesFailure: { error: null },
-		getDarkMode: { data: null },
-		setDarkMode: { data: null },
+		getDarkMode: { data: false },
+		setDarkMode: { data: false },
 	},
 	{ prefix: `${REDUX_KEY.COMMON}_` },
 );

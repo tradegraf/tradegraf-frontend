@@ -33,7 +33,6 @@ const AppLayout = () => {
 	// const [currentMenuKey, setCurrentMenuKey] = useState(INITIAL_ROUTE.key);
 
 	const handleThemeModeChange = () => {
-		localStorage.setItem('darkMode', true);
 		dispatch(CommonCreators.setDarkMode({ data: !isDarkMode }));
 	};
 
@@ -75,12 +74,12 @@ const AppLayout = () => {
 	// 	return setIsSidebarCollapsed(!isSidebarCollapsed);
 	// };
 	return (
-		<MainLayout theme={isDarkMode ? 'dark' : ''}>
+		<MainLayout theme={isDarkMode === true ? 'dark' : ''}>
 			<DashboardHeader darkModeToggle={handleThemeModeChange} />
-      <div className="flex items-start justify-between">
-        <Sidebar />
-        <AppContent />
-      </div>
+			<div className="flex items-start">
+				<Sidebar />
+				<AppContent />
+			</div>
 			{/* <AppSidebar
 				menus={menus}
 				currentKey={currentMenuKey}

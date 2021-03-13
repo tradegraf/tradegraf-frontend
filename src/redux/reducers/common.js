@@ -29,7 +29,7 @@ export const INITIAL_STATE = {
 		error: null,
 	},
 	darkMode: {
-		data: localStorage.getItem('darkMode') || false,
+		data: JSON.parse(localStorage.getItem('darkMode')) || false,
 	},
 };
 
@@ -194,11 +194,12 @@ export const getRolesFailure = (state = INITIAL_STATE, { error }) => {
 };
 
 export const setDarkMode = (state = INITIAL_STATE, { data }) => {
+	localStorage.setItem('darkMode', JSON.stringify(data));
 	return {
 		...state,
 		darkMode: {
 			...INITIAL_STATE.darkMode,
-			data,
+			data: !!data,
 		},
 	};
 };

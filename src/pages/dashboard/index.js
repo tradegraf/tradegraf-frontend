@@ -10,6 +10,9 @@ import saga from './redux/saga';
 import reducer from './redux/reducer';
 import { Creators } from './redux/actions';
 
+import { Stats } from './components/Stats';
+import { DashboardChart } from './components/Chart';
+
 const DashboardPage = () => {
 	const dispatch = useDispatch();
 
@@ -20,7 +23,12 @@ const DashboardPage = () => {
 		};
 	}, []);
 
-	return <div>Merhaba</div>;
+	return (
+		<>
+			<Stats />
+			<DashboardChart />
+		</>
+	);
 };
 
 const reduxKey = REDUX_KEY.DASHBOARD;

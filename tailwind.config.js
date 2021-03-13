@@ -11,7 +11,10 @@ module.exports = {
 			xl: '1440px',
 		},
 		colors: {
-			gray: colors.trueGray,
+			gray: {
+        ...colors.trueGray,
+				800: '#1c1c1c',
+			},
 			blue: colors.blue,
 			red: colors.red,
 			pink: colors.fuchsia,
@@ -25,14 +28,14 @@ module.exports = {
 	},
 	variants: {
 		extend: {
-      backgroundColor: ["checked"],
-      borderColor: ["checked"],
-      inset: ["checked"],
-      zIndex: ["hover", "active"],
-    },
+			backgroundColor: ['checked'],
+			borderColor: ['checked'],
+			inset: ['checked'],
+			zIndex: ['hover', 'active'],
+		},
 	},
 	plugins: [],
-  future: {
-    purgeLayersByDefault: true,
-  },
+	future: {
+		purgeLayersByDefault: true,
+	},
 };
