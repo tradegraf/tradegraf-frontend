@@ -1,7 +1,5 @@
 import React from 'react';
 
 export const ContentLayout = ({ children }) => {
-	return (
-		<div className="overflow-auto h-screen w-full pb-24 px-4 md:px-6 xl:px-10">{children}</div>
-	);
+	return <div className="overflow-auto h-screen w-full pb-24 px-4 md:px-6">{children}</div>;
 };

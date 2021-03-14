@@ -21,11 +21,11 @@ const DashboardHeader = props => {
 	return (
 		<div>
 			<nav className="bg-white dark:bg-gray-800">
-				<div className="mx-auto px-8">
+				<div className="mx-auto px-4 md:px-6">
 					<div className="flex items-center justify-between h-16">
 						<div className="w-full justify-between flex items-center">
 							<Logo />
-							<div className="flex items-center pt-2 pb-3 px-0">
+							<div className="hidden md:flex items-center pt-2 pb-3 px-0">
 								<DarkModeToggle themeToggle={props.darkModeToggle} />
 								<Navigation.Dashboard />
 							</div>
@@ -35,7 +35,7 @@ const DashboardHeader = props => {
 						</div> */}
 						<div className="-mr-2 flex md:hidden">
 							<button
-								className="text-gray-800 dark:text-white hover:text-gray-300 inline-flex items-center justify-center p-2 rounded-md focus:outline-none"
+								className="text-gray-800 dark:text-gray-50 hover:text-gray-300 inline-flex items-center justify-center p-2 rounded-md focus:outline-none"
 								type="button"
 							>
 								<svg

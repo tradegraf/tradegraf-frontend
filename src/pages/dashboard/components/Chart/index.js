@@ -36,8 +36,6 @@ export const DashboardChart = props => {
 	const brush = useMemo(() => {
 		return {
 			onSelect: brushData => {
-				// eslint-disable-next-line no-console
-				console.log(brushData);
 				setState({
 					min: Math.min(brushData.start, brushData.end),
 					max: Math.max(brushData.start, brushData.end),
@@ -53,8 +51,8 @@ export const DashboardChart = props => {
 	}, []);
 
 	return (
-		<div className="bg-gray-50 dark:bg-gray-900 my-8 px-10 py-12 rounded-lg">
-			<div className="w-full sm:h-48 md:h-64 lg:h-96">
+		<div className="bg-gray-50 dark:bg-gray-900 my-4 px-6 py-4 md:px-6 md:py-12 rounded-lg">
+			<div className="w-full h-56 md:h-64 lg:h-96">
 				<Chart
 					data={data}
 					axes={axes}
