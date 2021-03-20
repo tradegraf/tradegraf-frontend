@@ -12,7 +12,7 @@ export const DarkModeToggle = ({ themeToggle }) => {
 	return (
 		<button
 			type="button"
-			className="mr-4 p-2 focus:outline-none focus:border-none hover:bg-gray-200 dark:hover:bg-gray-600 rounded-full"
+			className="mr-4 p-4 sm:p-2 focus:outline-none focus:border-none hover:bg-gray-200 dark:hover:bg-gray-600 rounded-full"
 			onClick={themeToggle}
 		>
 			{isDarkMode === true ? (
