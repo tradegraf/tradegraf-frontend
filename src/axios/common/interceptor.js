@@ -22,9 +22,7 @@ export default function commonInterceptor(instance) {
 	});
 
 	instance.interceptors.response.use(
-		response => {
-			return response;
-		},
+		response => response,
 		error => {
 			const httpResponseStatusCode = _.get(error, 'response.status');
 			if (

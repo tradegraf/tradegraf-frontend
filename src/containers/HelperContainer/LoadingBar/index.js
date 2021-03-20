@@ -38,9 +38,7 @@ const LoadingBarComponent = ({ status, ...props }) => {
   );
 };
 
-const mapStateToProps = state => {
-  return { status: getStatus(state) };
-};
+const mapStateToProps = state => ({ status: getStatus(state) });
 
 const withConnect = connect(mapStateToProps);
 

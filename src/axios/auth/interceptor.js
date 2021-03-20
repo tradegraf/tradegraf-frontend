@@ -11,9 +11,7 @@ import { clearLocalStorage } from '../../utils/localStorage';
  */
 export default function authInterceptor(instance) {
 	instance.interceptors.response.use(
-		response => {
-			return response;
-		},
+		response => response,
 		error => {
 			const httpResponseStatusCode = _.get(error, 'response.status');
 			if (

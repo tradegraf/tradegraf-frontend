@@ -22,7 +22,6 @@
 		"react-hooks/rules-of-hooks": "error",
 		"no-inline-styles/no-inline-styles": 2,
 		"semi": [2, "always"],
-		"arrow-body-style": ["error", "always"],
 		"arrow-parens": ["error", "as-needed"],
 		"import/order": [
 			"error",
@@ -96,7 +95,6 @@
 			}
 		],
 		"operator-linebreak": "off",
-		"brace-style": ["error", "stroustrup"],
 		"strict": ["error", "global"],
 		"react/jsx-filename-extension": [
 			1,

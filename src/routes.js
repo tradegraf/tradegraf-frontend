@@ -1,18 +1,23 @@
 import pages from './pages';
 
 const getRouteObject = routes => {
- const route = {};
- routes.forEach(item => {
-   route[item.key] = item;
- });
- return route;
+	const route = {};
+	routes.forEach(item => {
+		route[item.key] = item;
+	});
+	return route;
 };
 
 // eslint-disable-next-line no-underscore-dangle
 const _ROUTE = {
+	LOGIN: {
+		path: '/login',
+		component: pages.Login,
+	},
 	DASHBOARD: {
 		path: '/dashboard',
 		component: pages.Dashboard,
+		exact: true,
 	},
 	//  TRANSFER_GROUP_LIST: {
 	//    path: '/transferGroup/list',
@@ -22,12 +27,10 @@ const _ROUTE = {
 	//  },
 };
 
-const routes = Object.entries(_ROUTE).map(([key, route]) => {
- return {
-   key,
-   ...route,
- };
-});
+const routes = Object.entries(_ROUTE).map(([key, route]) => ({
+	key,
+	...route,
+}));
 
 export const ROUTE = getRouteObject(routes);
 

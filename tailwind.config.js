@@ -2,7 +2,7 @@ const colors = require('tailwindcss/colors');
 
 module.exports = {
 	purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
-	darkMode: 'media', // or 'media' or 'class'
+	darkMode: 'class', // or 'media' or 'class'
 	theme: {
 		screens: {
 			sm: '480px',
@@ -11,7 +11,10 @@ module.exports = {
 			xl: '1440px',
 		},
 		colors: {
-			gray: colors.trueGray,
+			gray: {
+        ...colors.trueGray,
+				800: '#1c1c1c',
+			},
 			blue: colors.blue,
 			red: colors.red,
 			pink: colors.fuchsia,
@@ -24,7 +27,15 @@ module.exports = {
 		extend: {},
 	},
 	variants: {
-		extend: {},
+		extend: {
+			backgroundColor: ['checked'],
+			borderColor: ['checked'],
+			inset: ['checked'],
+			zIndex: ['hover', 'active'],
+		},
 	},
 	plugins: [],
+	future: {
+		purgeLayersByDefault: true,
+	},
 };

@@ -1,7 +1,5 @@
 import React from 'react';
 
-const EmptyDiv = () => {
-	return <div />;
-};
+const EmptyDiv = () => <div />;
 
 export default EmptyDiv;

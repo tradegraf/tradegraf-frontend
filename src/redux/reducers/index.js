@@ -5,16 +5,15 @@ import history from '../../utils/history';
 import { REDUX_KEY } from '../../shared/constants';
 import authReducer from './auth';
 import loadingBarReducer from './loadingBar';
+import commonReducer from './common';
 
-const createReducer = (injectedReducers = {}) => {
-  const rootReducer = combineReducers({
+const createRootReducer = (injectedReducers = {}) =>
+	combineReducers({
+		router: connectRouter(history),
 		[REDUX_KEY.LOADING_BAR]: loadingBarReducer,
 		[REDUX_KEY.AUTH]: authReducer,
-		router: connectRouter(history),
+		[REDUX_KEY.COMMON]: commonReducer,
 		...injectedReducers,
 	});
 
-  return rootReducer;
-};
-
-export default createReducer;
+export default createRootReducer;
