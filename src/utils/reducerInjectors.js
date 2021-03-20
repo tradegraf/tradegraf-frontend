@@ -2,7 +2,7 @@ import invariant from 'invariant';
 import _ from 'lodash';
 
 import checkStore from './checkStore';
-import createReducer from '../redux/reducers';
+import createRootReducer from '../redux/reducers';
 
 export function injectReducerFactory(store, isValid) {
 	return function injectReducer(key, reducer) {
@@ -20,7 +20,7 @@ export function injectReducerFactory(store, isValid) {
 		}
 
 		store.injectedReducers[key] = reducer; // eslint-disable-line no-param-reassign
-		store.replaceReducer(createReducer(store.injectedReducers));
+		store.replaceReducer(createRootReducer(store.injectedReducers));
 	};
 }
 

@@ -7,16 +7,13 @@ import authReducer from './auth';
 import loadingBarReducer from './loadingBar';
 import commonReducer from './common';
 
-const createReducer = (injectedReducers = {}) => {
-  const rootReducer = combineReducers({
+const createRootReducer = (injectedReducers = {}) =>
+	combineReducers({
+		router: connectRouter(history),
 		[REDUX_KEY.LOADING_BAR]: loadingBarReducer,
 		[REDUX_KEY.AUTH]: authReducer,
 		[REDUX_KEY.COMMON]: commonReducer,
-		router: connectRouter(history),
 		...injectedReducers,
 	});
 
-  return rootReducer;
-};
-
-export default createReducer;
+export default createRootReducer;

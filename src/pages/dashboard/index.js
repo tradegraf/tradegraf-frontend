@@ -12,6 +12,7 @@ import { Creators } from './redux/actions';
 
 import { Stats } from './components/Stats';
 import { DashboardChart } from './components/Chart';
+import { Table } from '../../components/Table';
 
 const DashboardPage = () => {
 	const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const DashboardPage = () => {
 		<>
 			<Stats />
 			<DashboardChart />
+			<Table />
 		</>
 	);
 };

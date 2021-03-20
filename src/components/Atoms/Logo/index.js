@@ -6,12 +6,12 @@ import { darkModeSelector } from '../../../redux/selectors/common';
 import LogoWhite from './src/tradegraf-white.svg';
 import LogoBlack from './src/tradegraf-black.svg';
 
-export const Logo = () => {
+export const Logo = ({ darkMode, classString, href }) => {
 	const isDarkMode = useSelector(darkModeSelector.getDarkMode);
 
-  return (
-		<a className="w-36" href="/">
-			<img src={isDarkMode ? LogoWhite : LogoBlack} alt="Tradegraf Logo" />
+	return (
+		<a className={classString || 'w-36'} href={href}>
+			<img src={isDarkMode || darkMode ? LogoWhite : LogoBlack} alt="Tradegraf Logo" />
 		</a>
 	);
 };

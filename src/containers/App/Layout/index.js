@@ -1,97 +1,62 @@
+/* eslint-disable arrow-body-style */
+/* eslint-disable no-unused-vars */
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-// import { useHistory, useLocation } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
+import _ from 'lodash';
+import { ToastContainer } from 'react-toastify';
 
-// import { INITIAL_ROUTE } from '../../../routes';
+import Spinner from '../../../components/Spinner';
 
-import AppContent from './AppContent';
-import { MainLayout } from '../../../components/Layout';
-import { DashboardHeader } from '../../Header';
-import { Sidebar } from '../../Sidebar';
+import { ROUTE } from '../../../routes';
 
-// import TGLocalStorage from '../../../utils/tgLocalStorage';
+import { getToken, getUser, getIsAuthTempTokenPending } from '../../../redux/selectors/auth';
 
-// import AppSidebar from './AppSidebar';
-// import AppHeader from './AppHeader';
-// import AppContent from './AppContent';
-// import menus from './AppSidebar/menus';
-// import TGLocalStorage from '../../../utils/tgLocalStorage';
+import AppLayout from './AppLayout';
 
-import { darkModeSelector } from '../../../redux/selectors/common';
+const LandingRedirect = ({ children }) => {
+	// const token = getToken();
+	// const user = getUser();
 
-import { Creators as CommonCreators } from '../../../redux/actions/common';
+	// if (!token || _.isEmpty(user)) {
+	// 	return <Redirect to={ROUTE.LOGIN.path} />;
+	// }
 
-const AppLayout = () => {
-	const dispatch = useDispatch();
-	// const localStorage = new TGLocalStorage({ prefix: 'tg', key: 'darkMode' });
-	// const darkMode = localStorage.getItem();
+	return children;
+};
 
-	const isDarkMode = useSelector(darkModeSelector.getDarkMode);
-	// const history = useHistory();
-	// const location = useLocation();
-	// const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-	// const [currentMenuKey, setCurrentMenuKey] = useState(INITIAL_ROUTE.key);
+const AuthRedirect = ({ component: Component }) => (
+	<Route
+		render={props =>
+			getToken() ? <Redirect to={ROUTE.COUNTRY_SELECTION.path} /> : <Component {...props} />
+		}
+	/>
+);
 
-	const handleThemeModeChange = () => {
-		dispatch(CommonCreators.setDarkMode({ data: !isDarkMode }));
-	};
-
-	// const getAndUpdateCurrentMenu = ({ prefix, key, pathName }) => {
-	// 	const localStorage = new TGLocalStorage({ prefix, key });
-	// 	const storageMenu = localStorage.getItem();
-
-	// 	const currentMenu = menus.find(menu => {
-	// 		return menu.path === pathName;
-	// 	});
-
-	// 	if (currentMenu && (!storageMenu || currentMenu.key !== storageMenu.key)) {
-	// 		localStorage.setItem({ value: { key: currentMenu.key } });
-	// 		return currentMenu.key;
-	// 	}
-
-	// 	return storageMenu.key;
-	// };
-
-	// useEffect(() => {
-	// 	const currentMenu = getAndUpdateCurrentMenu({
-	// 		prefix: 'CURRENT',
-	// 		key: 'MENU_KEY',
-	// 		pathName: location.pathname,
-	// 	});
-
-	// 	if (currentMenu) {
-	// 		setCurrentMenuKey(currentMenu);
-	// 	}
-	// }, [location, setCurrentMenuKey]);
-
-	// const handleSidebarMenuClick = path => {
-	// 	if (path && location.pathname !== path) {
-	// 		history.push(path);
-	// 	}
-	// };
-
-	// const toggleSidebar = () => {
-	// 	return setIsSidebarCollapsed(!isSidebarCollapsed);
-	// };
+const App = props => {
+	const { isAuthTempTokenPending } = props;
 	return (
-		<MainLayout theme={isDarkMode === true ? 'dark' : ''}>
-			<DashboardHeader darkModeToggle={handleThemeModeChange} />
-			<div className="flex items-start">
-				<Sidebar />
-				<AppContent />
-			</div>
-			{/* <AppSidebar
-				menus={menus}
-				currentKey={currentMenuKey}
-				onMenuClick={handleSidebarMenuClick}
-				isCollapsed={isSidebarCollapsed}
-			/> */}
-			{/* <Layout className="site-layout">
-				<AppHeader isSidebarCollapsed={isSidebarCollapsed} onSidebarToggled={toggleSidebar} />
-				<AppContent isSidebarCollapsed={isSidebarCollapsed} />
-			</Layout> */}
-		</MainLayout>
+		<>
+			<Helmet titleTemplate="%s - Tradegraf" defaultTitle="Tradegraf" />
+			<ToastContainer position="top-right" className="toast-z-index" />
+			<Switch>
+				<Route exact path="/health" name="Health Check" render={() => <p>{Date.now()}</p>} />
+				<AuthRedirect path={ROUTE.LOGIN.path} component={ROUTE.LOGIN.component} />
+				{isAuthTempTokenPending ? (
+					<Spinner />
+				) : (
+					<LandingRedirect>
+						<Route path="/" render={_props => <AppLayout {..._props} />} />
+					</LandingRedirect>
+				)}
+			</Switch>
+		</>
 	);
 };
 
-export default AppLayout;
+const mapStateToProps = state => ({ isAuthTempTokenPending: getIsAuthTempTokenPending(state) });
+
+const withConnect = connect(mapStateToProps);
+
+export default withConnect(App);
