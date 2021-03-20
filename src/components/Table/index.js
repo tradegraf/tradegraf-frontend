@@ -65,7 +65,7 @@ export const Table = () => (
 									<div className="text-sm text-gray-900 dark:text-gray-50">57640$</div>
 								</td>
 								<td className="px-6 py-4 whitespace-nowrap">
-									<div className="text-sm text-gray-900 dark:text-gray-50">32535$</div>
+									<div className="text-sm text-gray-900 dark:text-gray-50">26535$</div>
 								</td>
 								<td className="px-6 py-4 text-right whitespace-nowrap">
 									<span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-200 text-green-800">
