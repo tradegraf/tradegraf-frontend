@@ -1,15 +1,12 @@
 import React from 'react';
 
-const Link = ({ href = '/', children }) => {
-	return (
+const Link = ({ href = '/', children }) => (
 		<a href={href} className="mr-6 hover:text-gray-900">
 			{children}
 		</a>
 	);
-};
 
-Link.Text = ({ href = '/', children }) => {
-	return (
+Link.Text = ({ href = '/', children }) => (
 		<a
 			href={href}
 			className="text-gray-600 dark:text-gray-300 px-3 py-2 rounded-md text-sm font-medium hover:text-gray-900 dark:hover:text-gray-100"
@@ -17,10 +14,8 @@ Link.Text = ({ href = '/', children }) => {
 			{children}
 		</a>
 	);
-};
 
-Link.Pill = ({ href = '/', children }) => {
-	return (
+Link.Pill = ({ href = '/', children }) => (
 		<a
 			href={href}
 			className="bg-blue-600 border-0 py-1 px-6 focus:outline-none hover:bg-blue-700 rounded-full text-base text-gray-50 mt-4 md:mt-0 transition-all"
@@ -28,7 +23,6 @@ Link.Pill = ({ href = '/', children }) => {
 			{children}
 		</a>
 	);
-};
 
 Link.SidebarItem = ({ selected, href = '/', children }) => {
 	const defaultClass =

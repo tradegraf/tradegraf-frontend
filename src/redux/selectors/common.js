@@ -7,19 +7,11 @@ const reducerKey = REDUX_KEY.COMMON;
 
 export const darkModeSelector = {
 	getDarkMode: createSelector(
-		state => {
-      return getStateObject(state, reducerKey, 'darkMode');
-		},
-		({ data }) => {
-      return data;
-		},
+		state => getStateObject(state, reducerKey, 'darkMode'),
+		({ data }) => data,
     ),
     setDarkMode: createSelector(
-      state => {
-        return getStateObject(state, reducerKey, 'darkMode');
-      },
-      ({ data }) => {
-				return !!data;
-			},
+      state => getStateObject(state, reducerKey, 'darkMode'),
+      ({ data }) => !!data,
 	),
 };

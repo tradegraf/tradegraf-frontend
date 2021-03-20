@@ -5,8 +5,7 @@ import { DarkModeToggle } from '../../components/DarkModeToggle';
 
 import Navigation from './Navigation';
 
-const Header = () => {
-	return (
+const Header = () => (
 		<header classNameName="text-gray-600 body-font">
 			<div classNameName="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
 				<Logo />
@@ -14,11 +13,10 @@ const Header = () => {
 			</div>
 		</header>
 	);
-};
 
-const DashboardHeader = props => {
+const DashboardHeader = props => 
 	// const [isOpen, setIsOpen] = useState(false);
-	return (
+	 (
 		<div>
 			<nav className="bg-white dark:bg-gray-800">
 				<div className="mx-auto px-4 md:px-6">
@@ -55,7 +53,7 @@ const DashboardHeader = props => {
 				</div>
 			</nav>
 		</div>
-	);
-};
+	)
+;
 
 export { Header, DashboardHeader };

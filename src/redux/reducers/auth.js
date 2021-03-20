@@ -10,64 +10,50 @@ export const INITIAL_STATE = {
   isAuthTempTokenPending: false,
 };
 
-export const loginRequest = (state = INITIAL_STATE) => {
-  return {
+export const loginRequest = (state = INITIAL_STATE) => ({
     ...state,
     isLoginSuccess: false,
     isLoginPending: true,
-  };
-};
+  });
 
-export const loginSuccess = (state = INITIAL_STATE) => {
-  return {
+export const loginSuccess = (state = INITIAL_STATE) => ({
     ...state,
     isLoginSuccess: true,
     isLoginPending: false,
-  };
-};
+  });
 
-export const loginFailure = (state = INITIAL_STATE) => {
-  return {
+export const loginFailure = (state = INITIAL_STATE) => ({
     ...state,
     isLoginSuccess: false,
     isLoginPending: false,
-  };
-};
+  });
 
-export const authTempTokenRequest = (state = INITIAL_STATE) => {
-  return {
+export const authTempTokenRequest = (state = INITIAL_STATE) => ({
     ...state,
     isAuthTempTokenPending: true,
     user: {},
     token: null,
-  };
-};
+  });
 
-export const authTempTokenSuccess = (state = INITIAL_STATE, { user = {}, token }) => {
-  return {
+export const authTempTokenSuccess = (state = INITIAL_STATE, { user = {}, token }) => ({
     ...state,
     isAuthTempTokenPending: false,
     user,
     token,
-  };
-};
+  });
 
-export const authTempTokenFailure = (state = INITIAL_STATE, { user = {}, token }) => {
-  return {
+export const authTempTokenFailure = (state = INITIAL_STATE, { user = {}, token }) => ({
     ...state,
     isAuthTempTokenPending: false,
     user: {},
     token: null,
-  };
-};
+  });
 
-export const logoutRequest = (state = INITIAL_STATE) => {
-  return {
+export const logoutRequest = (state = INITIAL_STATE) => ({
     ...state,
     user: {},
     token: null,
-  };
-};
+  });
 
 export const HANDLERS = {
   [Types.LOGIN_REQUEST]: loginRequest,

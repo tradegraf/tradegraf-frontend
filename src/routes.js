@@ -23,12 +23,10 @@ const _ROUTE = {
 	//  },
 };
 
-const routes = Object.entries(_ROUTE).map(([key, route]) => {
-	return {
+const routes = Object.entries(_ROUTE).map(([key, route]) => ({
 		key,
 		...route,
-	};
-});
+	}));
 
 export const ROUTE = getRouteObject(routes);
 

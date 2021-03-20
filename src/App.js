@@ -11,7 +11,7 @@ import AppLayout from './containers/App/Layout';
 // import Spinner from './components/Spinner';
 // import { ROUTE } from './routes';
 
-const LandingRedirect = ({ children }) => {
+const LandingRedirect = ({ children }) => 
 	// const token = getToken();
 	// const user = getUser();
 
@@ -19,8 +19,8 @@ const LandingRedirect = ({ children }) => {
 	// 	return <Redirect to={ROUTE.LOGIN.path} />;
 	// }
 
-	return children;
-};
+	 children
+;
 
 // const AuthRedirect = ({ component: Component }) => {
 // 	return (
@@ -36,9 +36,9 @@ const LandingRedirect = ({ children }) => {
 // 	);
 // };
 
-const App = props => {
+const App = props => 
 	// const { isAuthTempTokenPending } = props;
-	return (
+	 (
 		<>
 			<Helmet titleTemplate="%s - Tradegraf" defaultTitle="Tradegraf" />
 			<ToastContainer position="top-right" className="toast-z-index" />
@@ -47,9 +47,7 @@ const App = props => {
 					exact
 					path="/health"
 					name="Health Check"
-					render={() => {
-						return <p>{Date.now()}</p>;
-					}}
+					render={() => <p>{Date.now()}</p>}
 				/>
 				{/* <AuthRedirect path={ROUTE.LOGIN.path} component={ROUTE.LOGIN.component} /> */}
 				{/* {isAuthTempTokenPending ? ( */}
@@ -57,22 +55,20 @@ const App = props => {
 				<LandingRedirect>
 					<Route
 						path="/"
-						render={_props => {
-							return <AppLayout {..._props} />;
-						}}
+						render={_props => <AppLayout {..._props} />}
 					/>
 				</LandingRedirect>
 			</Switch>
 		</>
-	);
-};
+	)
+;
 
-const mapStateToProps = state => {
+const mapStateToProps = state => 
 	// return { isAuthTempTokenPending: getIsAuthTempTokenPending(state) };
-	return {
+	 ({
 		isAuthTempTokenPending: false,
-	};
-};
+	})
+;
 
 const withConnect = connect(mapStateToProps);
 

@@ -11,36 +11,35 @@ import getInjectors from './reducerInjectors';
  * @param {function} reducer A reducer that will be injected
  *
  */
-export default ({ key, reducer }) => {
-	return WrappedComponent => {
-		class ReducerInjector extends React.Component {
-			static WrappedComponent = WrappedComponent;
+export default ({ key, reducer }) => WrappedComponent => {
+	class ReducerInjector extends React.Component {
+		static WrappedComponent = WrappedComponent;
 
-			static contextType = ReactReduxContext;
+		static contextType = ReactReduxContext;
 
-			static displayName = `withReducer(${
-				WrappedComponent.displayName || WrappedComponent.name || 'Component'
-			})`;
+		static displayName = `withReducer(${
+			WrappedComponent.displayName || WrappedComponent.name || 'Component'
+		})`;
 
-			constructor(props, context) {
-				super(props, context);
+		constructor(props, context) {
+			super(props, context);
 
-				getInjectors(context.store).injectReducer(key, reducer);
-			}
-
-			render() {
-				return <WrappedComponent {...this.props} />;
-			}
+			getInjectors(context.store).injectReducer(key, reducer);
 		}
 
-		return hoistNonReactStatics(ReducerInjector, WrappedComponent);
-	};
+		render() {
+			return <WrappedComponent {...this.props} />;
+		}
+	}
+
+	return hoistNonReactStatics(ReducerInjector, WrappedComponent);
 };
 
 const useInjectReducer = ({ key, reducer }) => {
 	const context = React.useContext(ReactReduxContext);
 	React.useEffect(() => {
 		getInjectors(context.store).injectReducer(key, reducer);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 };
 

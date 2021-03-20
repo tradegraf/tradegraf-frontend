@@ -17,8 +17,7 @@ export const DashboardChart = props => {
 		series: 2,
 	});
 
-	const axes = useMemo(() => {
-		return [
+	const axes = useMemo(() => [
 			{
 				primary: true,
 				type: 'time',
@@ -30,25 +29,20 @@ export const DashboardChart = props => {
 				type: 'linear',
 				position: 'left',
 			},
-		];
-	}, [max, min]);
+		], [max, min]);
 
-	const brush = useMemo(() => {
-		return {
+	const brush = useMemo(() => ({
 			onSelect: brushData => {
 				setState({
 					min: Math.min(brushData.start, brushData.end),
 					max: Math.max(brushData.start, brushData.end),
 				});
 			},
-		};
-	}, []);
+		}), []);
 
-	const series = useMemo(() => {
-		return {
+	const series = useMemo(() => ({
 			showPoints: true,
-		};
-	}, []);
+		}), []);
 
 	return (
 		<div className="bg-gray-50 dark:bg-gray-900 my-4 px-6 py-4 md:px-6 md:py-12 rounded-lg">

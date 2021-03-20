@@ -87,54 +87,41 @@ export default function useChartConfig({
 	});
 
 	React.useEffect(() => {
-		setState(old => {
-			return {
-				...old,
-				data: makeDataFrom(dataType, series, useR, datums),
-			};
-		});
+		setState(old => ({
+			...old,
+			data: makeDataFrom(dataType, series, useR, datums),
+		}));
 	}, [count, dataType, datums, series, useR]);
 
-	const randomizeData = () => {
-		return setState(old => {
-			return {
-				...old,
-				data: makeDataFrom(dataType, series, useR, datums),
-			};
-		});
-	};
+	const randomizeData = () =>
+		setState(old => ({
+			...old,
+			data: makeDataFrom(dataType, series, useR, datums),
+		}));
 
 	const Options = optionKeys
-		.filter(option => {
-			return show.indexOf(option) > -1;
-		})
-		.map(option => {
-			return (
-				<div key={option}>
-					{option}: &nbsp;
-					<select
-						value={state[option]}
-						onChange={({ target: { value } }) => {
-							return setState(old => {
-								return {
-									...old,
-									[option]: typeof options[option][0] === 'boolean' ? value === 'true' : value,
-								};
-							});
-						}}
-					>
-						{options[option].map(d => {
-							return (
-								<option value={d} key={d.toString()}>
-									{d.toString()}
-								</option>
-							);
-						})}
-					</select>
-					<br />
-				</div>
-			);
-		});
+		.filter(option => show.indexOf(option) > -1)
+		.map(option => (
+			<div key={option}>
+				{option}: &nbsp;
+				<select
+					value={state[option]}
+					onChange={({ target: { value } }) =>
+						setState(old => ({
+							...old,
+							[option]: typeof options[option][0] === 'boolean' ? value === 'true' : value,
+						}))
+					}
+				>
+					{options[option].map(d => (
+						<option value={d} key={d.toString()}>
+							{d.toString()}
+						</option>
+					))}
+				</select>
+				<br />
+			</div>
+		));
 
 	return {
 		...state,
@@ -144,9 +131,9 @@ export default function useChartConfig({
 }
 
 function makeDataFrom(dataType, series, useR, datums) {
-	return [...new Array(series || Math.max(Math.round(Math.random() * 5), 1))].map((d, i) => {
-		return makeSeries(i, dataType, useR, datums);
-	});
+	return [...new Array(series || Math.max(Math.round(Math.random() * 5), 1))].map((d, i) =>
+		makeSeries(i, dataType, useR, datums),
+	);
 }
 
 function makeSeries(i, dataType, useR, datums) {

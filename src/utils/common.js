@@ -1,8 +1,6 @@
 import _ from 'lodash';
 
-export const getStateObject = (state, reducerKey, objectKey, { initialValue = {} } = {}) => {
-	return _.get(state, `[${reducerKey}].${objectKey}`, initialValue);
-};
+export const getStateObject = (state, reducerKey, objectKey, { initialValue = {} } = {}) => _.get(state, `[${reducerKey}].${objectKey}`, initialValue);
 
 export const searchItemFields = (item, searchString, searchFields) => {
 	if (!item || !searchString || searchString.trim() === '') {
@@ -136,8 +134,4 @@ export const removeItemFromArrayByPath = (data, arrayPath, indexToRemove) => {
  *
  * @returns {Boolean}
  */
-export const hasPathsAndNonEmptyValues = (object = {}, paths = []) => {
-	return paths.every(path => {
-		return !!_.get(object, path);
-	});
-};
+export const hasPathsAndNonEmptyValues = (object = {}, paths = []) => paths.every(path => !!_.get(object, path));

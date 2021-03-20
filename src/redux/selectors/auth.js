@@ -3,30 +3,18 @@ import { createSelector } from 'reselect';
 import { REDUX_KEY } from '../../shared/constants';
 
 export const getIsLoginPending = createSelector(
- state => {
-   return state[REDUX_KEY.AUTH].isLoginPending;
- },
- isLoginPending => {
-   return isLoginPending;
- }
+ state => state[REDUX_KEY.AUTH].isLoginPending,
+ isLoginPending => isLoginPending
 );
 
 export const getIsLoginSuccess = createSelector(
- state => {
-   return state[REDUX_KEY.AUTH].isLoginSuccess;
- },
- isLoginSuccess => {
-   return isLoginSuccess;
- }
+ state => state[REDUX_KEY.AUTH].isLoginSuccess,
+ isLoginSuccess => isLoginSuccess
 );
 
 export const getIsAuthTempTokenPending = createSelector(
- state => {
-   return state[REDUX_KEY.AUTH].isAuthTempTokenPending;
- },
- isAuthTempTokenPending => {
-   return isAuthTempTokenPending;
- }
+ state => state[REDUX_KEY.AUTH].isAuthTempTokenPending,
+ isAuthTempTokenPending => isAuthTempTokenPending
 );
 
 export const getToken = state => {

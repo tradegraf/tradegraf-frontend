@@ -10,41 +10,33 @@ export const INITIAL_STATE = {
 	},
 };
 
-export const getDashboardRequest = (state = INITIAL_STATE) => {
-	return {
+export const getDashboardRequest = (state = INITIAL_STATE) => ({
 		...state,
 		dashboard: {
 			...INITIAL_STATE.dashboard,
 			isPending: true,
 		},
-	};
-};
+	});
 
-export const getDashboardSuccess = (state = INITIAL_STATE, { data, total }) => {
-	return {
+export const getDashboardSuccess = (state = INITIAL_STATE, { data, total }) => ({
 		...state,
 		dashboard: {
 			...INITIAL_STATE.dashboard,
 			data,
 			isPending: false,
 		},
-	};
-};
+	});
 
-export const getDashboardFailure = (state = INITIAL_STATE, { error }) => {
-	return {
+export const getDashboardFailure = (state = INITIAL_STATE, { error }) => ({
 		...state,
 		dashboard: {
 			...INITIAL_STATE.dashboard,
 			isPending: false,
 			error,
 		},
-	};
-};
+	});
 
-export const destroy = () => {
-	return { ...INITIAL_STATE };
-};
+export const destroy = () => ({ ...INITIAL_STATE });
 
 export const HANDLERS = {
 	[Types.GET_DASHBOARD_REQUEST]: getDashboardRequest,

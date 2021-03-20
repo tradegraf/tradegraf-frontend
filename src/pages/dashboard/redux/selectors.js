@@ -8,19 +8,11 @@ const reducerKey = REDUX_KEY.DASHBOARD;
 
 export const dashboardSelector = {
 	getData: createSelector(
-		state => {
-			return getStateObject(state, reducerKey, 'dashboard');
-		},
-		({ data }) => {
-			return data;
-		},
+		state => getStateObject(state, reducerKey, 'dashboard'),
+		({ data }) => data,
 	),
 	getIsPending: createSelector(
-		state => {
-			return getStateObject(state, reducerKey, 'dashboard');
-		},
-		({ isPending }) => {
-			return isPending;
-		},
+		state => getStateObject(state, reducerKey, 'dashboard'),
+		({ isPending }) => isPending,
 	),
 };

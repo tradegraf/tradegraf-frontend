@@ -1,7 +1,6 @@
 import React from 'react';
 
-export const StatsCard = props => {
-	return (
+export const StatsCard = props => (
 		<div className="flex flex-col px-6 py-5 bg-gray-50 dark:bg-gray-900 rounded-lg">
 			<div className="text-base text-gray-400 ">{props.title}</div>
 			<div className="flex items-center pt-1">
@@ -12,7 +11,6 @@ export const StatsCard = props => {
 			</div>
 		</div>
 	);
-};
 
 const PercentagePill = props => {
 	const pillClassName =
