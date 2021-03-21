@@ -1,4 +1,5 @@
 const colors = require('tailwindcss/colors');
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
 	purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
@@ -12,7 +13,7 @@ module.exports = {
 		},
 		colors: {
 			gray: {
-        ...colors.trueGray,
+				...colors.trueGray,
 				800: '#1c1c1c',
 			},
 			blue: colors.blue,
@@ -21,10 +22,11 @@ module.exports = {
 			green: colors.green,
 			yellow: colors.yellow,
 		},
-		fontFamily: {
-			sans: ['Roboto', 'sans-serif'],
+		extend: {
+			fontFamily: {
+				sans: ['Roboto', ...defaultTheme.fontFamily.sans],
+			},
 		},
-		extend: {},
 	},
 	variants: {
 		extend: {

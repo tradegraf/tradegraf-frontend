@@ -21,7 +21,7 @@ export const Row = props => (
 		</td>
 		<td className="px-6 py-4 text-right whitespace-nowrap">
 			<span
-				className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
+				className={`px-3 py-1 inline-flex text-sm font-medium leading-4 tracking-tight rounded-full ${
 					props.status === 'fulfilled'
 						? 'bg-green-200 text-green-800'
 						: 'text-yellow-600 bg-yellow-200'

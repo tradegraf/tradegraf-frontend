@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { MdTrendingUp, MdTrendingDown } from 'react-icons/md';
+
 export const StatsCard = props => (
 	<div className="flex flex-col px-6 py-5 bg-gray-50 dark:bg-gray-900 rounded-lg">
 		<div className="text-base text-gray-400 ">{props.title}</div>
@@ -19,16 +21,8 @@ const PercentagePill = props => {
 			: 'flex items-center justify-center px-2 py-0.5 ml-3 text-sm text-red-600 bg-red-100 rounded-full';
 	return (
 		<span className={pillClassName}>
-			<svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<path
-					d={props.percentage >= 0 ? 'M18 15L12 9L6 15' : 'M6 9L12 15L18 9'}
-					stroke="currentColor"
-					strokeWidth="2"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-				></path>
-			</svg>
-			<span className="font-medium">{props.percentage}%</span>
+			{props.percentage >= 0 ? <MdTrendingUp /> : <MdTrendingDown />}
+			<span className="ml-1 font-medium">{props.percentage}%</span>
 		</span>
 	);
 };

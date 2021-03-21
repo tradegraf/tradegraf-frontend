@@ -73,7 +73,7 @@
 		"no-underscore-dangle": [
 			"off",
 			{
-				"allow": ["_id", "_doc", "__REDUX_DEVTOOLS_EXTENSION_COMPOSE__", "_coordinates"]
+				"allow": ["_id", "_doc", "__REDUX_DEVTOOLS_EXTENSION_COMPOSE__", "_coordinates", "_ROUTE"]
 			}
 		],
 		"comma-dangle": [
@@ -164,10 +164,12 @@
 	},
 	"settings": {
 		"import/resolver": {
-			"alias": [
-				["@app", "./src/"],
-				["@public", "./public/"]
-			]
+			"node": {
+				"paths": ["src"]
+			},
+			"alias": {
+				"map": [["@", "./src"]]
+			}
 		}
 	},
 	"parser": "babel-eslint",
