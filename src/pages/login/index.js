@@ -90,7 +90,6 @@ const LoginPage = () => {
 								/>
 							</div>
 						</div>
-
 						<div className="flex items-center justify-between">
 							<div className="flex items-center">
 								<input
@@ -101,19 +100,17 @@ const LoginPage = () => {
 								/>
 								<label
 									htmlFor="remember_me"
-									className="ml-2 block text-sm text-gray-200 select-none"
+									className="ml-2 block text-sm text-gray-300 hover:text-gray-50 focus:text-gray-50 select-none"
 								>
 									Remember me
 								</label>
 							</div>
-
 							<div className="text-sm">
-								<a href="/" className="font-medium text-gray-50 hover:text-gray-200">
+								<a href="/" className="font-medium text-gray-200 hover:text-gray-50">
 									Forgot your password?
 								</a>
 							</div>
 						</div>
-
 						<div>
 							<button
 								type="submit"
@@ -123,35 +120,6 @@ const LoginPage = () => {
 							</button>
 						</div>
 					</form>
-					{/* <Card className="">
-          <div className="mb-5">
-            <Image src="" height={50} alt="logo" />
-          </div>
-          {isLoginSuccess ? (
-            <Title level={3}>{t('LOGIN_LINK_HAS_BEEN_SENT')}</Title>
-          ) : (
-            <Form className="" onFinish={handleSubmit}>
-              <Form.Item
-                help={touched.email && errors.email}
-                validateStatus={touched.email && errors.email ? 'error' : 'success'}
-                name="email"
-              >
-                <Input
-                  size="large"
-                  value={values.email}
-                  onChange={handleChange}
-                  prefix={<MailOutlined />}
-                  placeholder={t('EMAIL')}
-                />
-              </Form.Item>
-              <Form.Item className="mt-3">
-                <Button size="large" type="primary" htmlType="submit" block>
-                  {t('LOGIN')}
-                </Button>
-              </Form.Item>
-            </Form>
-          )}
-        </Card> */}
 				</div>
 			</div>
 		</>
