@@ -8,7 +8,6 @@ const getRouteObject = routes => {
 	return route;
 };
 
-// eslint-disable-next-line no-underscore-dangle
 const _ROUTE = {
 	LOGIN: {
 		path: '/login',
