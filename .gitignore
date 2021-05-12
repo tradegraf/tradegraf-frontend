@@ -9,9 +9,6 @@ yarn-error.log*
 # Optional npm cache directory
 .npm
 
-# Yarn Locl
-yarn.lock
-
 # Dependency directories
 /node_modules
 /jspm_packages
