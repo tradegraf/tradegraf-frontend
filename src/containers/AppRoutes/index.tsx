@@ -15,7 +15,10 @@ export const AppRoutes: React.FC = () => {
 		<Switch>
 			{isAuthenticated &&
 				appRoutes.map(
-					route => route.private && <PrivateRoute page={route} isAuthenticated={isAuthenticated} />,
+					route =>
+						route.private && (
+							<PrivateRoute key={route.name} page={route} isAuthenticated={isAuthenticated} />
+						),
 				)}
 		</Switch>
 	);

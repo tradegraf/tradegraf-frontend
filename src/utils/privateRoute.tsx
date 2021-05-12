@@ -9,8 +9,6 @@ interface IRouteProps {
 }
 
 const PrivateRoute: React.FC<IRouteProps> = ({ page, isAuthenticated }) => {
-	console.log(page.path);
-
 	if (page.path === '/') {
 		if (!isAuthenticated) {
 			return <Route path={page.path} exact={page.exact} component={page.component} />;
