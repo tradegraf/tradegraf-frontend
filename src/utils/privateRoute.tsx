@@ -13,14 +13,14 @@ const PrivateRoute: React.FC<IRouteProps> = ({ page, isAuthenticated }) => {
 		if (!isAuthenticated) {
 			return <Route path={page.path} exact={page.exact} component={page.component} />;
 		} else {
-			<Redirect to={routes.get('DASHBOARD').path} />;
+			return <Redirect to={routes.get('DASHBOARD').path} />;
 		}
 	}
 
-	return !isAuthenticated ? (
-		<Redirect to={routes.get('LANDING').path} />
-	) : (
-		<Route path={page.path} exact={page.exact} component={page.component} />
-	);
+	if (!isAuthenticated) {
+		return <Redirect to={routes.get('LANDING').path} />;
+	}
+
+	return <Route path={page.path} exact={page.exact} component={page.component} />;
 };
 export default PrivateRoute;
