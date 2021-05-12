@@ -1,0 +1,20 @@
+{
+	"prettier.enableDebugLogs": true,
+	"ponicode.testSettings.testLocation.locationType": "Same folder as source file",
+	"ponicode.testSettings.testLocation.path": "{rootDir}/{filePath}/{fileName}.test.{ext}",
+	"[javascript]": {
+		"editor.formatOnSave": false
+	},
+	"[javascriptreact]": {
+		"editor.formatOnSave": false
+	},
+	"[typescript]": {
+		"editor.formatOnSave": false
+	},
+	"[typescriptreact]": {
+		"editor.formatOnSave": false
+	},
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
+	}
+}
