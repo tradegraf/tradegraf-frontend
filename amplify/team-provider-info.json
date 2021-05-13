@@ -1,0 +1,27 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-aphrodite-dev-195518-authRole",
+      "UnauthRoleArn": "arn:aws:iam::751538339031:role/amplify-aphrodite-dev-195518-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::751538339031:role/amplify-aphrodite-dev-195518-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-aphrodite-dev-195518-deployment",
+      "UnauthRoleName": "amplify-aphrodite-dev-195518-unauthRole",
+      "StackName": "amplify-aphrodite-dev-195518",
+      "StackId": "arn:aws:cloudformation:eu-central-1:751538339031:stack/amplify-aphrodite-dev-195518/d7210150-b342-11eb-8254-065a0055dc2c",
+      "AmplifyAppId": "d15taanscynaxq"
+    },
+    "categories": {
+      "function": {
+        "aphrodite9aa59596PostConfirmation": {
+          "GROUP": "waitlist",
+          "deploymentBucketName": "amplify-aphrodite-dev-195518-deployment",
+          "s3Key": "amplify-builds/aphrodite9aa59596PostConfirmation-56575541306d68725448-build.zip"
+        }
+      },
+      "auth": {
+        "aphrodite9aa59596": {}
+      }
+    }
+  }
+}

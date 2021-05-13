@@ -17,10 +17,6 @@ const PrivateRoute: React.FC<IRouteProps> = ({ page, isAuthenticated }) => {
 		}
 	}
 
-	if (!isAuthenticated) {
-		return <Redirect to={routes.get('LANDING').path} />;
-	}
-
 	return <Route path={page.path} exact={page.exact} component={page.component} />;
 };
 export default PrivateRoute;

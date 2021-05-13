@@ -26,13 +26,13 @@ const ROUTE_LIST: RoutesArr = [
 		exact: true,
 		private: true,
 	},
-	// LOGIN: {
-	//   key: 'DASHBOARD',
-	// 	path: '/login',
-	// 	component: pages.Login,
-	// 	exact: true,
-	// 	private: false,
-	// },
+	{
+		name: 'LOGIN',
+		path: '/login',
+		component: pages.Login,
+		exact: true,
+		private: false,
+	},
 	// PROFILE: {
 	//   key: 'PROFILE',
 	// 	path: '/profile',

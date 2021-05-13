@@ -1,7 +1,8 @@
-import * as React from 'react';
+import React, { useEffect, FC } from 'react';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
-import { useAuth0 } from '@auth0/auth0-react';
+import Amplify, { Hub } from 'aws-amplify';
+import { useRecoilState } from 'recoil';
 
 import theme from './theme';
 import { AppHeader } from './containers/Layout/AppHeader';
@@ -11,18 +12,33 @@ import { AppRoutes } from './containers/AppRoutes';
 import { Loading } from './components/Loading';
 import PrivateRoute from './utils/privateRoute';
 import routes from './shared/routes';
+import awsconfig from './aws-exports';
+import _ from 'lodash';
 
-export const App: React.FC = () => {
-	const { isAuthenticated } = useAuth0();
+import './index.css';
+import { userAtom } from './state/user/atoms';
 
+Amplify.configure(awsconfig);
+
+const App: FC = () => {
+	const [user, setUser] = useRecoilState(userAtom);
+
+	useEffect(() => {
+		Hub.listen('auth', ({ payload }) => {
+			if (payload.event === 'signIn') setUser(payload.data);
+		});
+	}, []);
+
+	console.log(user);
 	return (
 		<ChakraProvider theme={theme}>
 			<AppLayout>
 				<Router>
 					<Switch>
 						<React.Suspense fallback={<Loading />}>
-							<PrivateRoute page={routes.get('LANDING')} isAuthenticated={isAuthenticated} />
-							<AppHeader isAuthenticated={isAuthenticated} />
+							<PrivateRoute page={routes.get('LOGIN')} isAuthenticated={!_.isEmpty(user)} />
+							<PrivateRoute page={routes.get('LANDING')} isAuthenticated={!_.isEmpty(user)} />
+							<AppHeader isAuthenticated={!_.isEmpty(user)} />
 							<ContentLayout>
 								<AppRoutes />
 							</ContentLayout>
@@ -33,3 +49,5 @@ export const App: React.FC = () => {
 		</ChakraProvider>
 	);
 };
+
+export default App;

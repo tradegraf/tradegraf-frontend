@@ -1,31 +1,29 @@
 import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Center, Box, Button } from '@chakra-ui/react';
+import { useHistory, Link as RouterLink } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { Center, Box, Link } from '@chakra-ui/react';
 import { ArrowForwardIcon } from '@chakra-ui/icons';
-import { useAuth0 } from '@auth0/auth0-react';
 
 import routes from '../../shared/routes';
+import { userSelector } from '../../state/user/selectors';
 
 const Landing: React.FC = () => {
-	const { isAuthenticated, loginWithRedirect } = useAuth0();
+	const userState = useRecoilValue(userSelector);
+
 	const history = useHistory();
 
 	useEffect(() => {
-		if (isAuthenticated) {
+		if (userState) {
 			history.push(routes.get('DASHBOARD').path);
 		}
-	}, [isAuthenticated]);
+	}, [userState]);
 
 	return (
 		<Box h="100vh" w="100%">
 			<Center flexDirection="column" h="100%">
-				<Button
-					rightIcon={<ArrowForwardIcon />}
-					colorScheme="gray"
-					onClick={() => loginWithRedirect()}
-				>
-					Sign in
-				</Button>
+				<Link as={RouterLink} to={routes.get('LOGIN').path} _focus={{ shadow: 'none' }}>
+					Sign in <ArrowForwardIcon />
+				</Link>
 			</Center>
 		</Box>
 	);

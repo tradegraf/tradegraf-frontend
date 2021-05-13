@@ -1,0 +1,55 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Parameters": {
+        "authaphrodite9aa59596UserPoolId": {
+            "Type": "String",
+            "Default": "authaphrodite9aa59596UserPoolId"
+        },
+        
+        "authaphrodite9aa59596AppClientID": {
+            "Type": "String",
+            "Default": "authaphrodite9aa59596AppClientID"
+        },
+        "authaphrodite9aa59596AppClientIDWeb": {
+            "Type": "String",
+            "Default": "authaphrodite9aa59596AppClientIDWeb"
+        },
+        "AuthRoleArn": {
+            "Type": "String"
+        },
+        "UnauthRoleArn": {
+            "Type": "String"
+        },
+        "env": {
+            "Type": "String"
+        }
+    },
+    "Conditions": {
+        "ShouldNotCreateEnvResources": {
+            "Fn::Equals": [
+                {
+                    "Ref": "env"
+                },
+                "NONE"
+            ]
+        }
+    },
+    "Resources": {
+    
+        "waitlistGroup": {
+          "Type" : "AWS::Cognito::UserPoolGroup",
+          "Properties" : {
+              "GroupName" : "waitlist",
+              "Precedence" : 1,
+              
+              "UserPoolId" : {
+                "Ref": "authaphrodite9aa59596UserPoolId"
+              }
+            }
+        },
+        
+    
+    
+    },
+    
+}
