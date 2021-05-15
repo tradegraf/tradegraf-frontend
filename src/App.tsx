@@ -1,7 +1,7 @@
 import React, { useEffect, FC } from 'react';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
-import Amplify, { Hub, Auth } from 'aws-amplify';
+import Amplify, { Hub } from 'aws-amplify';
 import { useRecoilState } from 'recoil';
 
 import theme from './theme';
