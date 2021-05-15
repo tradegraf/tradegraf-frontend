@@ -13,6 +13,7 @@ export const AppRoutes: React.FC = () => {
 	const appRoutes: RoutesArr = [];
 	routes.forEach(route => appRoutes.push(route));
 
+	console.log(user);
 	return (
 		<Switch>
 			{!_.isEmpty(user) ? (

@@ -1,14 +1,13 @@
 import React from 'react';
-import { Alert, AlertIcon, AlertTitle, AlertDescription } from '@chakra-ui/react';
+import { Alert, AlertIcon, AlertTitle, AlertDescription, AlertProps } from '@chakra-ui/react';
 
-interface Props {
-	title: string;
+interface Props extends AlertProps {
 	message: string;
 }
 
-export const ErrorComponent: React.FC<Props> = ({ title, message }) => (
+export const AlertComponentXL: React.FC<Props> = ({ title, message, status }) => (
 	<Alert
-		status="error"
+		status={status}
 		variant="subtle"
 		flexDirection="column"
 		alignItems="center"
@@ -16,9 +15,19 @@ export const ErrorComponent: React.FC<Props> = ({ title, message }) => (
 		textAlign="center"
 	>
 		<AlertIcon boxSize="40px" mr={0} />
-		<AlertTitle mt={4} mb={1} fontSize="lg">
-			{title}
-		</AlertTitle>
+		{title && (
+			<AlertTitle mt={4} mb={1} fontSize="lg">
+				{title}
+			</AlertTitle>
+		)}
 		<AlertDescription maxWidth="sm">{message}</AlertDescription>
+	</Alert>
+);
+
+export const AlertComponent: React.FC<Props> = ({ title, message, status = 'error' }) => (
+	<Alert status={status}>
+		<AlertIcon />
+		{title && <AlertTitle mr={2}>{title}</AlertTitle>}
+		<AlertDescription>{message}</AlertDescription>
 	</Alert>
 );

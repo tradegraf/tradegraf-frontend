@@ -9,11 +9,7 @@ export const authAtom = atom({
 export const userAtom = atom({
 	key: 'userAtom',
 	default: Auth.currentAuthenticatedUser()
-		.then(user => {
-			return user;
-		})
-		.catch(() => {
-			return null;
-		}),
+		.then(user => user)
+		.catch(() => null),
 	dangerouslyAllowMutability: true,
 });

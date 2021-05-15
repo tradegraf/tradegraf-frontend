@@ -33,6 +33,20 @@ const ROUTE_LIST: RoutesArr = [
 		exact: true,
 		private: false,
 	},
+	{
+		name: 'SIGNUP',
+		path: '/signup',
+		component: pages.Signup,
+		exact: true,
+		private: false,
+	},
+	{
+		name: 'VERIFICATION',
+		path: '/verification',
+		component: pages.Verification,
+		exact: true,
+		private: false,
+	},
 	// PROFILE: {
 	//   key: 'PROFILE',
 	// 	path: '/profile',

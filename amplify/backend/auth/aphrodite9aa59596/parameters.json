@@ -1,4 +1,6 @@
 {
+    "identityPoolName": "aphrodite43f70d61_identitypool_43f70d61",
+    "allowUnauthenticatedIdentities": false,
     "resourceNameTruncated": "aphrod9aa59596",
     "userPoolName": "aphrodite9aa59596_userpool_9aa59596",
     "autoVerifiedAttributes": [
@@ -10,8 +12,8 @@
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
-    "emailVerificationSubject": "Your verification code",
-    "emailVerificationMessage": "Your verification code is {####}",
+    "emailVerificationSubject": "Verify your TradeGraf account!",
+    "emailVerificationMessage": "Your verification code for TradeGraf is: {####}",
     "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
@@ -30,7 +32,7 @@
     "userpoolClientSetAttributes": false,
     "sharedId": "9aa59596",
     "resourceName": "aphrodite9aa59596",
-    "authSelections": "userPoolOnly",
+    "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
             "AuthRole",
@@ -49,7 +51,8 @@
     ],
     "triggers": "{\n  \"PostConfirmation\": [\n    \"add-to-group\"\n  ]\n}",
     "userPoolGroupList": [
-        "waitlist"
+        "waitlist",
+        "active"
     ],
     "serviceName": "Cognito",
     "verificationBucketName": "aphrodite9aa59596verificationbucket",
@@ -77,6 +80,7 @@
     "hostedUIDomainName": "aphrodite38b42e05-38b42e05",
     "authProvidersUserPool": [],
     "hostedUIProviderMeta": "[]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://tradegraf.com/\"],\"LogoutURLs\":[\"https://tradegraf.com/\"]}",
-    "authProviders": []
+    "authProviders": [],
+    "thirdPartyAuth": false,
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://tradegraf.com/\",\"http://localhost:3000/\"],\"LogoutURLs\":[\"https://tradegraf.com/\",\"http://localhost:3000/\"]}"
 }

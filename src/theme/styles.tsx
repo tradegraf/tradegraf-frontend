@@ -12,9 +12,4 @@ export default {
 			lineHeight: 'base',
 		},
 	}),
-	colors: {
-		black: {
-			900: 'red',
-		},
-	},
 };

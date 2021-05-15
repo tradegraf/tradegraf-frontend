@@ -1,6 +1,6 @@
-import React, { Suspense } from 'react';
+import React, { memo, Suspense, FC } from 'react';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
-import { Flex, Spinner, Link, Button } from '@chakra-ui/react';
+import { Flex, Spinner, Link, Button, Stack } from '@chakra-ui/react';
 import { useSetRecoilState } from 'recoil';
 import { Auth } from 'aws-amplify';
 
@@ -11,7 +11,7 @@ import { userAtom } from '../../../state/user/atoms';
 const ColorModeSwitcher = React.lazy(() => import('../../../ColorModeSwitcher'));
 const Logo = React.lazy(() => import('../../../components/Logo'));
 
-export const AppHeader: React.FC<{ isAuthenticated: boolean }> = ({ isAuthenticated }) => {
+export const AppHeader: FC<{ isAuthenticated: boolean }> = ({ isAuthenticated }) => {
 	const setUser = useSetRecoilState(userAtom);
 	if (!isAuthenticated) return null;
 
@@ -46,3 +46,10 @@ export const AppHeader: React.FC<{ isAuthenticated: boolean }> = ({ isAuthentica
 		</Flex>
 	);
 };
+
+// eslint-disable-next-line react/display-name
+export const AuthHeader: FC = memo(() => (
+	<Stack align={'center'}>
+		<Logo w="10rem" />
+	</Stack>
+));

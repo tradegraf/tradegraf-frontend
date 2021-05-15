@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link as RouterLink } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { Formik, Form, Field } from 'formik';
 import {
@@ -8,15 +8,13 @@ import {
 	FormControl,
 	FormLabel,
 	FormErrorMessage,
+	Text,
 	Input,
-	Checkbox,
 	Stack,
 	Link,
 	Button,
-	Alert,
-	AlertIcon,
-	AlertDescription,
 	useColorModeValue,
+	Divider,
 } from '@chakra-ui/react';
 import { Auth } from 'aws-amplify';
 
@@ -26,8 +24,8 @@ type LoginValues = {
 };
 
 import Schema from './schema';
-
-import Logo from '../../components/Logo';
+import { AuthHeader } from '../../containers/Layout/AppHeader';
+import { AlertComponent } from '../../components/Error';
 import routes from '../../shared/routes';
 import { userAtom } from '../../state/user/atoms';
 
@@ -46,9 +44,11 @@ const Login: React.FC = () => {
 		setIsLoading(true);
 		Auth.signIn(email, password)
 			.then(res => {
+				setIsLoading(false);
 				return setUser(res);
 			})
 			.catch(err => {
+				setIsLoading(false);
 				return setError(err.message);
 			});
 	};
@@ -64,17 +64,14 @@ const Login: React.FC = () => {
 			{formik => (
 				<Form>
 					<Flex minH={'100vh'} align={'center'} justify={'center'}>
-						<Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-							<Stack align={'center'}>
-								<Logo w="10rem" />
-							</Stack>
-							<Box
-								rounded={'lg'}
-								bg={useColorModeValue('white', 'blackAlpha.300')}
-								boxShadow={'lg'}
-								p={8}
-							>
+						<Stack spacing={8} mx={'auto'} w="full" maxW={'lg'} py={12} px={6}>
+							<AuthHeader />
+							<Box rounded={'md'} bg={useColorModeValue('gray.50', 'blackAlpha.300')} p={8}>
 								<Stack spacing={4}>
+									<Text fontSize="2xl" alignSelf="center">
+										Sign in
+									</Text>
+									{error && <AlertComponent message={error} />}
 									<Field name="email">
 										{({ field, form }) => (
 											<FormControl isInvalid={form.errors.email && form.touched.email}>
@@ -93,27 +90,43 @@ const Login: React.FC = () => {
 											</FormControl>
 										)}
 									</Field>
-									<Stack spacing={8}>
-										<Stack
+									<Stack spacing={6}>
+										{/* <Stack
 											direction={{ base: 'column', sm: 'row' }}
-											align={'start'}
+											alignItems="end"
 											justify={'space-between'}
 										>
-											<Checkbox>Remember me</Checkbox>
-											<Link color={'blue.400'}>Forgot password?</Link>
-										</Stack>
-										<Button type="submit" isDisabled={!formik.isValid} isLoading={isLoading}>
+											<Link color={useColorModeValue('brand.700', 'brand.300')}>
+												Forgot password?
+											</Link>
+										</Stack> */}
+										<Button
+											type="submit"
+											colorScheme="brand"
+											isDisabled={!formik.isValid}
+											isLoading={isLoading}
+										>
 											Sign in
 										</Button>
+										<Divider />
+										<Flex alignItems="center" justifyContent="center">
+											<Text color={useColorModeValue('gray.500', 'gray.300')} fontSize="sm">
+												Don&apos;t have an account?
+											</Text>
+											<Link
+												as={RouterLink}
+												to={routes.get('SIGNUP').path}
+												fontSize="sm"
+												color={useColorModeValue('brand.700', 'brand.300')}
+												ml=".5rem"
+												_focus={{ shadow: 'none' }}
+											>
+												Sign up
+											</Link>
+										</Flex>
 									</Stack>
 								</Stack>
 							</Box>
-							{error && (
-								<Alert status="error">
-									<AlertIcon />
-									<AlertDescription>{error}</AlertDescription>
-								</Alert>
-							)}
 						</Stack>
 					</Flex>
 				</Form>

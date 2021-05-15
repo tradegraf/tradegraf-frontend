@@ -16,7 +16,7 @@
         "aphrodite9aa59596PostConfirmation": {
           "GROUP": "waitlist",
           "deploymentBucketName": "amplify-aphrodite-dev-195518-deployment",
-          "s3Key": "amplify-builds/aphrodite9aa59596PostConfirmation-56575541306d68725448-build.zip"
+          "s3Key": "amplify-builds/aphrodite9aa59596PostConfirmation-4871376e4b472b336c48-build.zip"
         }
       },
       "auth": {
