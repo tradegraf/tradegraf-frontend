@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, useHistory, RouteProps } from 'react-router-dom';
+import { Route, useHistory } from 'react-router-dom';
 
 import routes, { RouteItem } from '../shared/routes';
 
@@ -8,10 +8,7 @@ interface IRouteProps {
 	isAuthenticated: boolean;
 }
 
-export const PrivateRoute = ({
-	page,
-	isAuthenticated,
-}: IRouteProps): React.FC | RouteProps | void => {
+export const PrivateRoute: React.FC<IRouteProps> = ({ page, isAuthenticated }: IRouteProps) => {
 	if (isAuthenticated) {
 		return <Route path={page.path} exact={page.exact} component={page.component} />;
 	}
@@ -22,7 +19,7 @@ export const PrivateRoute = ({
 	return <Route path={page.path} exact={false} component={page.component} />;
 };
 
-export const PublicRotue = ({ page, isAuthenticated }: IRouteProps): React.FC | Route | void => {
+export const PublicRotue: React.FC<IRouteProps> = ({ page, isAuthenticated }: IRouteProps) => {
 	if (isAuthenticated) {
 		const history = useHistory();
 		return history.push(routes.get('LANDING').path);
