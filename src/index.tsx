@@ -1,21 +1,20 @@
-import { ColorModeScript } from '@chakra-ui/react';
-import * as React from 'react';
+import React, { Suspense } from 'react';
+import { ColorModeScript, Spinner } from '@chakra-ui/react';
 import ReactDOM from 'react-dom';
-import Auth0ProviderWithHistory from './auth/auth0ProviderWithHistory';
 import { RecoilRoot } from 'recoil';
 
-import { App } from './App';
+import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
 	<React.StrictMode>
-		<RecoilRoot>
-			<Auth0ProviderWithHistory>
+		<Suspense fallback={<Spinner />}>
+			<RecoilRoot>
 				<ColorModeScript />
 				<App />
-			</Auth0ProviderWithHistory>
-		</RecoilRoot>
+			</RecoilRoot>
+		</Suspense>
 	</React.StrictMode>,
 	document.getElementById('root'),
 );

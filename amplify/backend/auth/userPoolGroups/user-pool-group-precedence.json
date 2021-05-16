@@ -1,0 +1,10 @@
+[
+    {
+        "groupName": "waitlist",
+        "precedence": 1
+    },
+    {
+        "groupName": "active",
+        "precedence": 2
+    }
+]
