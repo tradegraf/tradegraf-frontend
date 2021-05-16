@@ -23,6 +23,8 @@ Amplify.configure(awsconfig);
 const App: FC = () => {
 	const [user, setUser] = useRecoilState(userAtom);
 
+	console.log('test');
+
 	useEffect(() => {
 		Hub.listen('auth', ({ payload }) => {
 			if (payload.event === 'signIn') setUser(payload.data);
