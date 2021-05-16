@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, useHistory, RouteChildrenProps } from 'react-router-dom';
+import { Route, useHistory, RouteProps } from 'react-router-dom';
 
 import routes, { RouteItem } from '../shared/routes';
 
@@ -11,7 +11,7 @@ interface IRouteProps {
 export const PrivateRoute = ({
 	page,
 	isAuthenticated,
-}: IRouteProps): React.FC | RouteChildrenProps | void => {
+}: IRouteProps): React.FC | RouteProps | void => {
 	if (isAuthenticated) {
 		return <Route path={page.path} exact={page.exact} component={page.component} />;
 	}

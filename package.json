@@ -34,6 +34,7 @@
   },
   "lint-staged": {
     "src/**/*.{ts,tsx,json,css}": [
+      "eslint --fix",
       "prettier --single-quote --write",
       "git add"
     ]
