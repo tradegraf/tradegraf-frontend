@@ -1,6 +1,6 @@
 import React, { useEffect, FC } from 'react';
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
-import { ChakraProvider } from '@chakra-ui/react';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+import { ChakraProvider, CSSReset } from '@chakra-ui/react';
 import Amplify, { Hub } from 'aws-amplify';
 import { useRecoilState } from 'recoil';
 
@@ -10,7 +10,7 @@ import { AppLayout } from './containers/Layout/AppLayout';
 import { ContentLayout } from './containers/Layout/ContentLayout';
 import { AppRoutes } from './containers/AppRoutes';
 import { Loading } from './components/Loading';
-import PrivateRoute from './utils/privateRoute';
+import { PublicRotue } from './utils/privateRoute';
 import routes from './shared/routes';
 import awsconfig from './aws-exports';
 import _ from 'lodash';
@@ -31,18 +31,22 @@ const App: FC = () => {
 
 	return (
 		<ChakraProvider theme={theme}>
+			<CSSReset />
 			<AppLayout>
 				<Router>
 					<Switch>
 						<React.Suspense fallback={<Loading />}>
-							<PrivateRoute page={routes.get('VERIFICATION')} isAuthenticated={!_.isEmpty(user)} />
-							<PrivateRoute page={routes.get('SIGNUP')} isAuthenticated={!_.isEmpty(user)} />
-							<PrivateRoute page={routes.get('LOGIN')} isAuthenticated={!_.isEmpty(user)} />
-							<PrivateRoute page={routes.get('LANDING')} isAuthenticated={!_.isEmpty(user)} />
+							<PublicRotue page={routes.get('VERIFICATION')} isAuthenticated={!_.isEmpty(user)} />
+							<PublicRotue page={routes.get('SIGNUP')} isAuthenticated={!_.isEmpty(user)} />
+							<PublicRotue page={routes.get('LOGIN')} isAuthenticated={!_.isEmpty(user)} />
+							<PublicRotue page={routes.get('LANDING')} isAuthenticated={!_.isEmpty(user)} />
 							<AppHeader isAuthenticated={!_.isEmpty(user)} />
-							<ContentLayout>
-								<AppRoutes />
-							</ContentLayout>
+							{user && (
+								<ContentLayout>
+									<AppRoutes />
+								</ContentLayout>
+							)}
+							<Route render={() => <Redirect to={routes.get('LANDING').path} />} />
 						</React.Suspense>
 					</Switch>
 				</Router>

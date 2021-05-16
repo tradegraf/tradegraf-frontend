@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, Link as RouterLink } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { Formik, Form, Field } from 'formik';
 import {
 	Flex,
@@ -35,7 +35,7 @@ type SignupValues = {
 };
 
 const Signup: React.FC = () => {
-	const [user, setUser] = useRecoilState(userAtom);
+	const user = useRecoilValue(userAtom);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [showPassword, setShowPassword] = useState<boolean>(false);
 	const [error, setError] = useState<string | null>(null);
