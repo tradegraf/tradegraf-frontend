@@ -11,45 +11,43 @@ import { userAtom } from '../../../state/user/atoms';
 const ColorModeSwitcher = React.lazy(() => import('../../../ColorModeSwitcher'));
 const Logo = React.lazy(() => import('../../../components/Logo'));
 
-export const AppHeader: FC<{ isAuthenticated: boolean }> = ({ isAuthenticated }) => {
-	const setUser = useSetRecoilState(userAtom);
-	if (!isAuthenticated) return null;
+export const AppHeader: FC = () => {
+  const setUser = useSetRecoilState(userAtom);
+  const history = useHistory();
 
-	const history = useHistory();
+  const handleSignOut = async () => {
+    return Auth.signOut({ global: true })
+      .then(() => {
+        setUser(null);
+        return history.push(routes.get('LANDING').path);
+      })
+      .catch(error => {
+        throw error;
+      });
+  };
 
-	const handleSignOut = async () => {
-		try {
-			await Auth.signOut({ global: true });
-			setUser(null);
-			return history.push(routes.get('LANDING').path);
-		} catch (error) {
-			console.log('error signing out: ', error);
-		}
-	};
-
-	return (
-		<Flex wrap="wrap" py=".75rem" justifyContent="space-between">
-			<Suspense fallback={<Spinner />}>
-				<Link as={RouterLink} to={routes.get('DASHBOARD').path} _focus={{ shadow: 'none' }}>
-					<Logo h="2rem" pointerEvents="none" />
-				</Link>
-			</Suspense>
-			<Flex>
-				<UserInputForJokes />
-				<Suspense fallback={<Spinner />}>
-					<ColorModeSwitcher justifySelf="flex-end" />
-				</Suspense>
-				<Button onClick={handleSignOut} ml="1rem" _focus={{ shadow: 'none' }}>
-					Logout
-				</Button>
-			</Flex>
-		</Flex>
-	);
+  return (
+    <Flex wrap="wrap" py=".75rem" justifyContent="space-between">
+      <Suspense fallback={<Spinner />}>
+        <Link as={RouterLink} to={routes.get('DASHBOARD').path} _focus={{ shadow: 'none' }}>
+          <Logo h="2rem" pointerEvents="none" />
+        </Link>
+      </Suspense>
+      <Flex>
+        <UserInputForJokes />
+        <Suspense fallback={<Spinner />}>
+          <ColorModeSwitcher justifySelf="flex-end" />
+        </Suspense>
+        <Button onClick={handleSignOut} ml="1rem" _focus={{ shadow: 'none' }}>
+          Logout
+        </Button>
+      </Flex>
+    </Flex>
+  );
 };
 
-// eslint-disable-next-line react/display-name
 export const AuthHeader: FC = memo(() => (
-	<Stack align={'center'}>
-		<Logo w="10rem" />
-	</Stack>
+  <Stack align="center">
+    <Logo w="10rem" />
+  </Stack>
 ));

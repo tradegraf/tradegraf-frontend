@@ -3,19 +3,19 @@ import { useHistory } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { Formik, Form, Field } from 'formik';
 import {
-	Flex,
-	Box,
-	FormControl,
-	FormLabel,
-	FormErrorMessage,
-	Text,
-	Input,
-	PinInput,
-	PinInputField,
-	HStack,
-	Stack,
-	Button,
-	useColorModeValue,
+  Flex,
+  Box,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  Text,
+  Input,
+  PinInput,
+  PinInputField,
+  HStack,
+  Stack,
+  Button,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { Auth } from 'aws-amplify';
 
@@ -24,171 +24,172 @@ import { AlertComponent, AlertComponentXL } from '../../components/Error';
 import { userAtom } from '../../state/user/atoms';
 import routes from '../../shared/routes';
 import verificationSchema from './schema';
+
 type VerificationValues = {
-	email: string;
+  email: string;
 };
 
 const Verification: React.FC = () => {
-	const [user, setUser] = useRecoilState(userAtom);
-	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const [error, setError] = useState<string | null>(null);
-	const [currentTab, setCurrentTab] = useState<string>('SUCCESS');
-	const [isVerificationCodeSent, setIsVerificationCodeSent] = useState<boolean>(false);
-	const [verificationCode, setVerificationCode] = useState<string>('');
-	const [userEmail, setUserEmail] = useState<string>('');
+  const [user, setUser] = useRecoilState(userAtom);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [currentTab, setCurrentTab] = useState<string>('REQUEST_CODE');
+  const [isVerificationCodeSent, setIsVerificationCodeSent] = useState<boolean>(false);
+  const [verificationCode, setVerificationCode] = useState<string>('');
+  const [userEmail, setUserEmail] = useState<string>('');
 
-	const history = useHistory();
+  const history = useHistory();
 
-	const initialValues: VerificationValues = {
-		email: '',
-	};
+  const initialValues: VerificationValues = {
+    email: '',
+  };
 
-	const resendConfirmationCode = async (
-		e: React.MouseEvent<HTMLButtonElement>,
-		{ email }: VerificationValues,
-	) => {
-		e.preventDefault();
-		setUserEmail(email);
-		return Auth.resendSignUp(email)
-			.then(res => {
-				setCurrentTab('VERIFICATION');
-				setIsVerificationCodeSent(true);
-				console.log(res);
-			})
-			.catch(error => {
-				setError(error.message);
-			});
-	};
+  const resendConfirmationCode = async (
+    e: React.MouseEvent<HTMLButtonElement>,
+    { email }: VerificationValues,
+  ) => {
+    e.preventDefault();
+    setUserEmail(email);
+    return Auth.resendSignUp(email)
+      .then(res => {
+        setCurrentTab('VERIFICATION');
+        setIsVerificationCodeSent(true);
+        console.log(res);
+      })
+      .catch(error => {
+        setErrorMessage(error.message);
+      });
+  };
 
-	const handleSignupVerification = async (e: React.MouseEvent<HTMLButtonElement>) => {
-		e.preventDefault();
-		setIsLoading(true);
-		return await Auth.confirmSignUp(userEmail, verificationCode)
-			.then(res => {
-				setIsLoading(false);
-				if (res === 'SUCCESS') setCurrentTab('SUCCESS');
-				setError(null);
-				setIsVerificationCodeSent(false);
-				// history.push(routes.get('DASHBOARD').path);
-			})
-			.catch(error => {
-				setIsLoading(false);
-				setError(error.message);
-			});
-	};
+  const handleSignupVerification = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+    return Auth.confirmSignUp(userEmail, verificationCode)
+      .then(res => {
+        setIsLoading(false);
+        if (res === 'SUCCESS') setCurrentTab('SUCCESS');
+        setErrorMessage(null);
+        setIsVerificationCodeSent(false);
+        // history.push(routes.get('DASHBOARD').path);
+      })
+      .catch(error => {
+        setIsLoading(false);
+        setErrorMessage(error.message);
+      });
+  };
 
-	const handleSigninRedirect = (e: React.MouseEvent<HTMLButtonElement>) => {
-		e.preventDefault();
-		history.push(routes.get('LOGIN').path);
-	};
+  const handleSigninRedirect = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    history.push(routes.get('LOGIN').path);
+  };
 
-	useEffect(() => {
-		if (user) {
-			history.push(routes.get('DASHBOARD').path);
-		}
-	}, [user]);
+  useEffect(() => {
+    if (user) {
+      history.push(routes.get('DASHBOARD').path);
+    }
+  }, [history, user]);
 
-	return (
-		<Flex minH={'100vh'} align={'center'} justify={'center'}>
-			<Stack spacing={8} mx={'auto'} w="full" maxW={'lg'} py={12} px={6}>
-				<AuthHeader />
-				<Box rounded={'md'} bg={useColorModeValue('gray.50', 'blackAlpha.300')} p={8}>
-					<Stack spacing={4}>
-						<Text fontSize="2xl" alignSelf="center">
-							Verify
-						</Text>
-						<Stack spacing={4} alignItems="center" w="full">
-							{isVerificationCodeSent && (
-								<AlertComponent
-									status="warning"
-									message="We sent a verification code to your email!"
-								/>
-							)}
-							{error && <AlertComponent message={error} />}
-							<Stack spacing={8} alignItems="center" flexDir="column" w="full">
-								{currentTab === 'REQUEST_CODE' && (
-									<Formik
-										initialValues={initialValues}
-										validationSchema={verificationSchema}
-										onSubmit={resendConfirmationCode}
-									>
-										{formik => (
-											<Form style={{ width: '100%' }}>
-												<Stack spacing={8}>
-													<Field name="email">
-														{({ field, form }) => (
-															<FormControl isInvalid={form.errors.email && form.touched.email}>
-																<FormLabel htmlFor="email">Email Address</FormLabel>
-																<Input {...field} id="email" placeholder="name@tradegraf.com" />
-																<FormErrorMessage>{form.errors.email}</FormErrorMessage>
-															</FormControl>
-														)}
-													</Field>
-													<Button
-														type="submit"
-														colorScheme="brand"
-														_focus={{ shadow: 'none' }}
-														isDisabled={!formik.isValid}
-														isLoading={isLoading}
-													>
-														Send
-													</Button>
-												</Stack>
-											</Form>
-										)}
-									</Formik>
-								)}
-								{currentTab === 'VERIFICATION' && (
-									<>
-										<Text mt="1rem" mb="-1rem">
-											Verification Code
-										</Text>
-										<HStack>
-											<PinInput onChange={setVerificationCode}>
-												<PinInputField />
-												<PinInputField />
-												<PinInputField />
-												<PinInputField />
-												<PinInputField />
-												<PinInputField />
-											</PinInput>
-										</HStack>
-										<Button
-											colorScheme="brand"
-											onClick={handleSignupVerification}
-											_focus={{ shadow: 'none' }}
-											isLoading={isLoading}
-											w="100%"
-										>
-											Verify
-										</Button>
-									</>
-								)}
-								{currentTab === 'SUCCESS' && (
-									<>
-										<AlertComponentXL
-											status="success"
-											title="Verification Successful!"
-											message="Thanks for verifying your account! You can log in to your account now!"
-										/>
-										<Button
-											colorScheme="brand"
-											onClick={handleSigninRedirect}
-											_focus={{ shadow: 'none' }}
-											isLoading={isLoading}
-											w="100%"
-										>
-											Login
-										</Button>
-									</>
-								)}
-							</Stack>
-						</Stack>
-					</Stack>
-				</Box>
-			</Stack>
-		</Flex>
-	);
+  return (
+    <Flex minH="100vh" align="center" justify="center">
+      <Stack spacing={8} mx="auto" w="full" maxW="lg" py={12} px={6}>
+        <AuthHeader />
+        <Box rounded="md" bg={useColorModeValue('gray.50', 'blackAlpha.600')} p={8}>
+          <Stack spacing={4}>
+            <Text fontSize="2xl" alignSelf="center">
+              Verify
+            </Text>
+            <Stack spacing={4} alignItems="center" w="full">
+              {isVerificationCodeSent && (
+                <AlertComponent
+                  status="warning"
+                  message="We sent a verification code to your email!"
+                />
+              )}
+              {errorMessage && <AlertComponent message={errorMessage} />}
+              <Stack spacing={8} alignItems="center" flexDir="column" w="full">
+                {currentTab === 'REQUEST_CODE' && (
+                  <Formik
+                    initialValues={initialValues}
+                    validationSchema={verificationSchema}
+                    onSubmit={resendConfirmationCode}
+                  >
+                    {formik => (
+                      <Form style={{ width: '100%' }}>
+                        <Stack spacing={8}>
+                          <Field name="email">
+                            {({ field, form }) => (
+                              <FormControl isInvalid={form.errors.email && form.touched.email}>
+                                <FormLabel htmlFor="email">Email Address</FormLabel>
+                                <Input {...field} id="email" placeholder="name@tradegraf.com" />
+                                <FormErrorMessage>{form.errors.email}</FormErrorMessage>
+                              </FormControl>
+                            )}
+                          </Field>
+                          <Button
+                            type="submit"
+                            colorScheme="brand"
+                            _focus={{ shadow: 'none' }}
+                            isDisabled={!formik.isValid}
+                            isLoading={isLoading}
+                          >
+                            Send
+                          </Button>
+                        </Stack>
+                      </Form>
+                    )}
+                  </Formik>
+                )}
+                {currentTab === 'VERIFICATION' && (
+                  <>
+                    <Text mt="1rem" mb="-1rem">
+                      Verification Code
+                    </Text>
+                    <HStack>
+                      <PinInput onChange={setVerificationCode}>
+                        <PinInputField />
+                        <PinInputField />
+                        <PinInputField />
+                        <PinInputField />
+                        <PinInputField />
+                        <PinInputField />
+                      </PinInput>
+                    </HStack>
+                    <Button
+                      colorScheme="brand"
+                      onClick={handleSignupVerification}
+                      _focus={{ shadow: 'none' }}
+                      isLoading={isLoading}
+                      w="100%"
+                    >
+                      Verify
+                    </Button>
+                  </>
+                )}
+                {currentTab === 'SUCCESS' && (
+                  <>
+                    <AlertComponentXL
+                      status="success"
+                      title="Verification Successful!"
+                      message="Thanks for verifying your account! You can log in to your account now!"
+                    />
+                    <Button
+                      colorScheme="brand"
+                      onClick={handleSigninRedirect}
+                      _focus={{ shadow: 'none' }}
+                      isLoading={isLoading}
+                      w="100%"
+                    >
+                      Login
+                    </Button>
+                  </>
+                )}
+              </Stack>
+            </Stack>
+          </Stack>
+        </Box>
+      </Stack>
+    </Flex>
+  );
 };
 
 export default Verification;

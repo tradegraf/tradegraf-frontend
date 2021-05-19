@@ -1,27 +1,51 @@
-import React from 'react';
-import { Switch } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import _ from 'lodash';
 
-import routes, { RoutesArr } from '../../shared/routes';
-import { PrivateRoute } from '../../utils/privateRoute';
+import routes from '../../shared/routes';
+import { PrivateRoute, PublicRoute } from '../../utils/privateRoute';
 import { userAtom } from '../../state/user/atoms';
 
 export const AppRoutes: React.FC = () => {
-	const user = useRecoilValue(userAtom);
+  const [pathName, setPathName] = useState('');
 
-	const appRoutes: RoutesArr = [];
-	routes.forEach(route => appRoutes.push(route));
+  useEffect(() => {
+    setPathName(getPageName(window.location.pathname) || 'DASHBOARD');
+  }, []);
 
-	return (
-		<Switch>
-			{!_.isEmpty(user) &&
-				appRoutes.map(
-					route =>
-						route.private && (
-							<PrivateRoute key={route.name} page={route} isAuthenticated={!_.isEmpty(user)} />
-						),
-				)}
-		</Switch>
-	);
+  const user = useRecoilValue(userAtom);
+
+  const foundPage = routes.get(pathName);
+
+  return foundPage ? (
+    <PrivateRoute key={foundPage.name} page={foundPage} isAuthenticated={!_.isEmpty(user)} />
+  ) : (
+    <Redirect to={routes.get('DASHBOARD').path} />
+  );
+};
+
+export const PublicRoutes: React.FC = ({ location }) => {
+  const [pathName, setPathName] = useState<string>('');
+
+  useEffect(() => {
+    setPathName(getPageName(location.pathname) || 'LANDING');
+  }, [location]);
+
+  const user = useRecoilValue(userAtom);
+
+  const foundPage = routes.get(pathName);
+
+  return foundPage ? (
+    <PublicRoute key={foundPage.name} page={foundPage} isAuthenticated={!_.isEmpty(user)} />
+  ) : (
+    <Redirect to={routes.get('LANDING').path} />
+  );
+};
+
+const getPageName = (path: string): string | null => {
+  const pathsList = path.split('/').filter(elem => elem !== '');
+
+  console.log(pathsList);
+  return pathsList.length ? pathsList[0].toUpperCase() : null;
 };

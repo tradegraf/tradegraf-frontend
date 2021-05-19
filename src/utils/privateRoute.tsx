@@ -1,29 +1,51 @@
 import React from 'react';
-import { Route, useHistory } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 
 import routes, { RouteItem } from '../shared/routes';
 
+import { PageLoader } from '../containers/PageLoader';
+
 interface IRouteProps {
-	page: RouteItem;
-	isAuthenticated: boolean;
+  page: RouteItem;
+  isAuthenticated: boolean;
 }
 
-export const PrivateRoute: React.FC<IRouteProps> = ({ page, isAuthenticated }: IRouteProps) => {
-	if (isAuthenticated) {
-		return <Route path={page.path} exact={page.exact} component={page.component} />;
-	}
-	if (page.private) {
-		const history = useHistory();
-		return history.push(routes.get('LANDING').path);
-	}
-	return <Route path={page.path} exact={false} component={page.component} />;
+export const PrivateRoute: React.FC<IRouteProps> = ({ page, isAuthenticated }) => {
+  const { component: Component, isExact, path, isPrivate } = page;
+
+  return isPrivate && isAuthenticated ? (
+    <Route
+      path={path}
+      exact={isExact}
+      render={() => {
+        return (
+          <PageLoader>
+            <Component />
+          </PageLoader>
+        );
+      }}
+    />
+  ) : (
+    <Redirect to={routes.get('DASHBOARD').path} />
+  );
 };
 
-export const PublicRotue: React.FC<IRouteProps> = ({ page, isAuthenticated }: IRouteProps) => {
-	if (isAuthenticated) {
-		const history = useHistory();
-		return history.push(routes.get('LANDING').path);
-	}
+export const PublicRoute: React.FC<IRouteProps> = ({ page, isAuthenticated }) => {
+  const { component: Component, isExact, path, isPrivate } = page;
 
-	return <Route path={page.path} exact={false} component={page.component} />;
+  return (
+    <Route
+      path={path}
+      exact={isExact}
+      render={() => {
+        return !isPrivate && !isAuthenticated ? (
+          <PageLoader>
+            <Component />
+          </PageLoader>
+        ) : (
+          <Redirect to={routes.get('DASHBOARD').path} />
+        );
+      }}
+    />
+  );
 };

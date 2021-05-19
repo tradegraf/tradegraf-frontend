@@ -5,16 +5,16 @@ import components from './components';
 import colors from './colors';
 
 const overrides = {
-	styles,
-	components,
-	colors,
-	// Other foundational style overrides go here
+  styles,
+  components,
+  colors,
+  // Other foundational style overrides go here
 };
 
 export default extendTheme(
-	overrides,
-	withDefaultColorScheme({
-		colorScheme: 'blackAlpha',
-		components: ['Stats'],
-	}),
+  overrides,
+  withDefaultColorScheme({
+    colorScheme: 'blackAlpha',
+    components: ['Stats'],
+  }),
 );
