@@ -27,11 +27,13 @@ const AppHeader: FC = () => {
   };
 
   return (
-    <Flex wrap="wrap" py=".75rem" justifyContent="space-between">
+    <Flex wrap="wrap" py=".75rem" alignItems="center" justifyContent="space-between">
       <Suspense fallback={<Spinner />}>
-        <Link as={RouterLink} to={routes.get('DASHBOARD').path} _focus={{ shadow: 'none' }}>
-          <Logo h="2rem" pointerEvents="none" />
-        </Link>
+        <Flex h="100%">
+          <Link as={RouterLink} to={routes.get('DASHBOARD').path} _focus={{ shadow: 'none' }}>
+            <Logo width="8rem" />
+          </Link>
+        </Flex>
       </Suspense>
       <Flex>
         <UserInputForJokes />
@@ -48,7 +50,7 @@ const AppHeader: FC = () => {
 
 export const AuthHeader: FC = memo(() => (
   <Stack align="center">
-    <Logo w="10rem" />
+    <Logo height="auto" width="10rem" />
   </Stack>
 ));
 

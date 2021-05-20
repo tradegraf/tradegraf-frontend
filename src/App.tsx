@@ -1,8 +1,8 @@
-import React, { useEffect, FC } from 'react';
+import React, { FC } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
-import Amplify, { Hub } from 'aws-amplify';
-import { useRecoilState } from 'recoil';
+import Amplify from 'aws-amplify';
+import { useRecoilValue } from 'recoil';
 
 import theme from './theme';
 import { AuthContainer } from './containers/Auth';
@@ -22,31 +22,24 @@ const AppHeader = React.lazy(() => import('./containers/Layout/AppHeader'));
 Amplify.configure(awsconfig);
 
 const App: FC = () => {
-  const [user, setUser] = useRecoilState(userAtom);
-
-  useEffect(() => {
-    Hub.listen('auth', ({ payload }) => {
-      if (payload.event === 'signIn') setUser(payload.data);
-    });
-  }, [setUser]);
-
-  console.log(user);
+  const token = useRecoilValue(userAtom);
 
   return (
     <Router>
       <ChakraProvider theme={theme}>
         <AppLayout>
-          {user && (
+          {token ? (
             <React.Suspense fallback={<FullPageLoading />}>
               <AppHeader />
               <ContentLayout>
                 <AppRoutes />
               </ContentLayout>
             </React.Suspense>
+          ) : (
+            <AuthContainer>
+              <PublicRoutes />
+            </AuthContainer>
           )}
-          <AuthContainer>
-            <PublicRoutes />
-          </AuthContainer>
         </AppLayout>
       </ChakraProvider>
     </Router>

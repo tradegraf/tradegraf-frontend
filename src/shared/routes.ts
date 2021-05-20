@@ -1,12 +1,14 @@
 import { LazyExoticComponent } from 'react';
+
 import pages from '../pages';
+import { RedirectContainer } from '../containers/Redirect';
 
 export type RouteItem = {
   name: string;
   path: string;
   isExact: boolean;
   isPrivate: boolean;
-  component: LazyExoticComponent<React.FC>;
+  component: LazyExoticComponent<React.FC> | React.FC;
 };
 
 export type RoutesArr = RouteItem[];
@@ -59,7 +61,7 @@ const ROUTE_LIST: RoutesArr = [
   {
     name: '404',
     path: '*',
-    component: pages.Landing,
+    component: RedirectContainer,
     isExact: true,
     isPrivate: false,
   },

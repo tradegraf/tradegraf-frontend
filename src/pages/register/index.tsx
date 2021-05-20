@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState, useEffect } from 'react';
 import { useHistory, Link as RouterLink } from 'react-router-dom';
@@ -61,7 +62,6 @@ const Signup: React.FC = () => {
       },
     })
       .then(res => {
-        console.log('signup: ', res);
         setIsLoading(false);
         setCurrentTab(REGISTER_TABS.VERIFY);
       })
@@ -76,15 +76,14 @@ const Signup: React.FC = () => {
     setIsLoading(true);
     return Auth.confirmSignUp(username, verificationCode)
       .then(res => {
-        setIsLoading(true);
-        console.log(res);
         // history.push(routes.get('DASHBOARD').path);
       })
       .catch(error => {
-        setIsLoading(false);
+        // eslint-disable-next-line no-console
         console.warn(error);
         setErrorMessage(error.message);
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   useEffect(() => {

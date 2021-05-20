@@ -3,8 +3,6 @@ import { useHistory } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { Formik, Form, Field } from 'formik';
 import {
-  Flex,
-  Box,
   FormControl,
   FormLabel,
   FormErrorMessage,
@@ -15,11 +13,9 @@ import {
   HStack,
   Stack,
   Button,
-  useColorModeValue,
 } from '@chakra-ui/react';
 import { Auth } from 'aws-amplify';
 
-import { AuthHeader } from '../../containers/Layout/AppHeader';
 import { AlertComponent, AlertComponentXL } from '../../components/Error';
 import { userAtom } from '../../state/user/atoms';
 import routes from '../../shared/routes';
@@ -30,6 +26,7 @@ type VerificationValues = {
 };
 
 const Verification: React.FC = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [user, setUser] = useRecoilState(userAtom);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -54,6 +51,7 @@ const Verification: React.FC = () => {
       .then(res => {
         setCurrentTab('VERIFICATION');
         setIsVerificationCodeSent(true);
+        // eslint-disable-next-line no-console
         console.log(res);
       })
       .catch(error => {
@@ -66,16 +64,15 @@ const Verification: React.FC = () => {
     setIsLoading(true);
     return Auth.confirmSignUp(userEmail, verificationCode)
       .then(res => {
-        setIsLoading(false);
         if (res === 'SUCCESS') setCurrentTab('SUCCESS');
         setErrorMessage(null);
         setIsVerificationCodeSent(false);
         // history.push(routes.get('DASHBOARD').path);
       })
       .catch(error => {
-        setIsLoading(false);
         setErrorMessage(error.message);
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   const handleSigninRedirect = (e: React.MouseEvent<HTMLButtonElement>) => {

@@ -24,8 +24,6 @@ const Dashboard: React.FC = () => {
     },
   ];
 
-  console.log('did this rendered');
-
   return (
     <PageLoader>
       <Stats statItems={statItems} />

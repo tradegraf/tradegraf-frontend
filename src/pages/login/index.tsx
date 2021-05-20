@@ -45,14 +45,13 @@ const Login: React.FC = () => {
       setLoading(true);
       Auth.signIn(email, password)
         .then(({ signInUserSession }) => {
-          setLoading(false);
           setUserToken(signInUserSession);
           return history.push(routes.get('DASHBOARD').path);
         })
         .catch(err => {
-          setLoading(false);
           setError(err.message);
-        });
+        })
+        .finally(() => setLoading(false));
     }
   };
 
