@@ -11,7 +11,7 @@ import { userAtom } from '../../../state/user/atoms';
 const ColorModeSwitcher = React.lazy(() => import('../../../ColorModeSwitcher'));
 const Logo = React.lazy(() => import('../../../components/Logo'));
 
-export const AppHeader: FC = () => {
+const AppHeader: FC = () => {
   const setUser = useSetRecoilState(userAtom);
   const history = useHistory();
 
@@ -51,3 +51,5 @@ export const AuthHeader: FC = memo(() => (
     <Logo w="10rem" />
   </Stack>
 ));
+
+export default memo(AppHeader);

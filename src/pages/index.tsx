@@ -4,7 +4,7 @@ const Pages = {
   Dashboard: React.lazy(() => import('./dashboard')),
   Landing: React.lazy(() => import('./landing')),
   Login: React.lazy(() => import('./login')),
-  Signup: React.lazy(() => import('./signup')),
+  Register: React.lazy(() => import('./register')),
   Verification: React.lazy(() => import('./verification')),
 };
 

@@ -34,9 +34,9 @@ const ROUTE_LIST: RoutesArr = [
     isPrivate: false,
   },
   {
-    name: 'SIGNUP',
-    path: '/signup',
-    component: pages.Signup,
+    name: 'REGISTER',
+    path: '/register',
+    component: pages.Register,
     isExact: true,
     isPrivate: false,
   },
@@ -54,6 +54,15 @@ const ROUTE_LIST: RoutesArr = [
   // 	isExact: true,
   // 	isPrivate: true,
   // },
+
+  /* KEEP 404 AT THE END */
+  {
+    name: '404',
+    path: '*',
+    component: pages.Landing,
+    isExact: true,
+    isPrivate: false,
+  },
 ];
 
 const routes = new Map();

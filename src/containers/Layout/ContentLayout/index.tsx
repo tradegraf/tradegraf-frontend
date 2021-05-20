@@ -1,3 +1,5 @@
 import React from 'react';
 
-export const ContentLayout: React.FC = ({ children }) => <>{children}</>;
+const ContentLayout: React.FC = ({ children }) => <>{children}</>;
+
+export default ContentLayout;

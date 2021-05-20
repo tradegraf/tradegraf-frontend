@@ -1,11 +1,15 @@
-import * as React from 'react';
-import { Image, ImageProps, forwardRef, useColorMode } from '@chakra-ui/react';
-import LogoBlack from './src/tradegraf-black.svg';
-import LogoWhite from './src/tradegraf-white.svg';
+import React, { memo } from 'react';
+import { Flex, useColorMode } from '@chakra-ui/react';
+import { ReactComponent as LogoBlack } from './src/tradegraf-black.svg';
+import { ReactComponent as LogoWhite } from './src/tradegraf-white.svg';
 
-const Logo = forwardRef<ImageProps, 'img'>((props, ref) => {
+const Logo: React.FC = props => {
   const { colorMode } = useColorMode();
-  return <Image src={colorMode === 'light' ? LogoBlack : LogoWhite} ref={ref} {...props} />;
-});
+  return (
+    <Flex {...props}>
+      {colorMode === 'light' ? <LogoBlack id="TradeGraf" /> : <LogoWhite id="TradeGraf" />}
+    </Flex>
+  );
+};
 
-export default Logo;
+export default memo(Logo);

@@ -7,7 +7,7 @@ export default {
   global: (props: Dict<any>) => ({
     body: {
       fontFamily: 'body',
-      color: mode('gray.800', 'whiteAlpha.900')(props),
+      color: mode('blackAlpha.800', 'whiteAlpha.900')(props),
       bg: mode('white', 'blackAlpha.900')(props),
       lineHeight: 'base',
     },

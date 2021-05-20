@@ -1,51 +1,58 @@
-import React, { useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import _ from 'lodash';
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 
-import routes from '../../shared/routes';
-import { PrivateRoute, PublicRoute } from '../../utils/privateRoute';
-import { userAtom } from '../../state/user/atoms';
+import routes, { RoutesArr } from '../../shared/routes';
+import { PageLoader } from '../PageLoader';
 
 export const AppRoutes: React.FC = () => {
-  const [pathName, setPathName] = useState('');
+  const appRoutes: RoutesArr = [];
+  routes.forEach(route => appRoutes.push(route));
 
-  useEffect(() => {
-    setPathName(getPageName(window.location.pathname) || 'DASHBOARD');
-  }, []);
-
-  const user = useRecoilValue(userAtom);
-
-  const foundPage = routes.get(pathName);
-
-  return foundPage ? (
-    <PrivateRoute key={foundPage.name} page={foundPage} isAuthenticated={!_.isEmpty(user)} />
-  ) : (
-    <Redirect to={routes.get('DASHBOARD').path} />
+  return (
+    <Switch>
+      {appRoutes
+        .filter(route => route.isPrivate)
+        .map(({ name, path, isExact, component: Component }) => (
+          <Route
+            key={name}
+            path={path}
+            exact={isExact}
+            render={() => {
+              return (
+                <PageLoader>
+                  <Component />
+                </PageLoader>
+              );
+            }}
+          />
+        ))}
+    </Switch>
   );
 };
 
-export const PublicRoutes: React.FC = ({ location }) => {
-  const [pathName, setPathName] = useState<string>('');
+export const PublicRoutes: React.FC = () => {
+  const appRoutes: RoutesArr = [];
+  routes.forEach(route => appRoutes.push(route));
 
-  useEffect(() => {
-    setPathName(getPageName(location.pathname) || 'LANDING');
-  }, [location]);
-
-  const user = useRecoilValue(userAtom);
-
-  const foundPage = routes.get(pathName);
-
-  return foundPage ? (
-    <PublicRoute key={foundPage.name} page={foundPage} isAuthenticated={!_.isEmpty(user)} />
-  ) : (
-    <Redirect to={routes.get('LANDING').path} />
+  return (
+    <Switch>
+      {appRoutes
+        .filter(route => !route.isPrivate)
+        .map(({ name, path, isExact, component: Component }) => (
+          // <PublicRoute key={route.name} page={route} isAuthenticated={!_.isEmpty(user)} />
+          <Route
+            key={name}
+            path={path}
+            exact={isExact}
+            render={() => {
+              return (
+                <PageLoader>
+                  <Component />
+                </PageLoader>
+              );
+            }}
+          />
+        ))}
+    </Switch>
   );
-};
-
-const getPageName = (path: string): string | null => {
-  const pathsList = path.split('/').filter(elem => elem !== '');
-
-  console.log(pathsList);
-  return pathsList.length ? pathsList[0].toUpperCase() : null;
 };

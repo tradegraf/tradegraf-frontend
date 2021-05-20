@@ -19,7 +19,7 @@ const Landing: React.FC = () => {
   }, [history, userState]);
 
   return (
-    <Box h="100vh" w="100%">
+    <Box h="20rem" w="100%">
       <Center flexDirection="column" h="100%">
         <Link as={RouterLink} to={routes.get('LOGIN').path} _focus={{ shadow: 'none' }}>
           Sign in <ArrowForwardIcon />

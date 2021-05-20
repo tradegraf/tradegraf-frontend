@@ -25,7 +25,7 @@ export const AlertComponentXL: React.FC<Props> = ({ title, message, status }) =>
 );
 
 export const AlertComponent: React.FC<Props> = ({ title, message, status = 'error' }) => (
-  <Alert status={status}>
+  <Alert status={status} rounded="md">
     <AlertIcon />
     {title && <AlertTitle mr={2}>{title}</AlertTitle>}
     <AlertDescription>{message}</AlertDescription>
