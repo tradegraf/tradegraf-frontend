@@ -37,7 +37,7 @@ type SignupValues = {
 
 const Signup: React.FC = () => {
   const user = useRecoilValue(userAtom);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [currentTab, setCurrentTab] = useState<number>(REGISTER_TABS.REGISTER);
@@ -52,7 +52,7 @@ const Signup: React.FC = () => {
   };
 
   const onSignupSubmit = ({ email, password }: SignupValues) => {
-    setIsLoading(true);
+    setLoading(true);
     setUserEmail(email);
     Auth.signUp({
       username: email,
@@ -62,18 +62,17 @@ const Signup: React.FC = () => {
       },
     })
       .then(res => {
-        setIsLoading(false);
         setCurrentTab(REGISTER_TABS.VERIFY);
       })
       .catch(err => {
-        setIsLoading(false);
         return setErrorMessage(err.message);
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   const handleSignupVerification = async () => {
     const username = userEmail;
-    setIsLoading(true);
+    setLoading(true);
     return Auth.confirmSignUp(username, verificationCode)
       .then(res => {
         // history.push(routes.get('DASHBOARD').path);
@@ -170,7 +169,7 @@ const Signup: React.FC = () => {
                     type="submit"
                     colorScheme="brand"
                     isDisabled={!formik.isValid}
-                    isLoading={isLoading}
+                    isLoading={loading}
                   >
                     Sign up
                   </Button>

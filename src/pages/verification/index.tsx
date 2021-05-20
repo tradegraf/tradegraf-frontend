@@ -28,7 +28,7 @@ type VerificationValues = {
 const Verification: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [user, setUser] = useRecoilState(userAtom);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [currentTab, setCurrentTab] = useState<string>('REQUEST_CODE');
   const [isVerificationCodeSent, setIsVerificationCodeSent] = useState<boolean>(false);
@@ -61,7 +61,7 @@ const Verification: React.FC = () => {
 
   const handleSignupVerification = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    setIsLoading(true);
+    setLoading(true);
     return Auth.confirmSignUp(userEmail, verificationCode)
       .then(res => {
         if (res === 'SUCCESS') setCurrentTab('SUCCESS');
@@ -120,7 +120,7 @@ const Verification: React.FC = () => {
                       colorScheme="brand"
                       _focus={{ shadow: 'none' }}
                       isDisabled={!formik.isValid}
-                      isLoading={isLoading}
+                      isLoading={loading}
                     >
                       Send
                     </Button>
@@ -148,7 +148,7 @@ const Verification: React.FC = () => {
                 colorScheme="brand"
                 onClick={handleSignupVerification}
                 _focus={{ shadow: 'none' }}
-                isLoading={isLoading}
+                isLoading={loading}
                 w="100%"
               >
                 Verify
@@ -166,7 +166,7 @@ const Verification: React.FC = () => {
                 colorScheme="brand"
                 onClick={handleSigninRedirect}
                 _focus={{ shadow: 'none' }}
-                isLoading={isLoading}
+                isLoading={loading}
                 w="100%"
               >
                 Login
