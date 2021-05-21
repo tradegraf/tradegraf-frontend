@@ -56,33 +56,33 @@ const Login: React.FC = () => {
   };
 
   return (
-    <Formik initialValues={initialValues} validationSchema={Schema} onSubmit={handleSubmit}>
-      {formik => (
-        <Form>
-          <Stack spacing={4}>
-            <Text fontSize="2xl" alignSelf="center">
-              Log In
-            </Text>
-            {error && <AlertComponent message={error} />}
-            <Field name="email">
-              {({ field, form }) => (
-                <FormControl isInvalid={form.errors.email && form.touched.email}>
-                  <FormLabel htmlFor="email">Email Address</FormLabel>
-                  <Input {...field} id="email" placeholder="name@tradegraf.com" />
-                  <FormErrorMessage>{form.errors.email}</FormErrorMessage>
-                </FormControl>
-              )}
-            </Field>
-            <Field name="password">
-              {({ field, form }) => (
-                <FormControl isInvalid={form.errors.password && form.touched.password}>
-                  <FormLabel htmlFor="password">Password</FormLabel>
-                  <Input {...field} id="password" placeholder="password" type="password" />
-                  <FormErrorMessage>{form.errors.password}</FormErrorMessage>
-                </FormControl>
-              )}
-            </Field>
+    <Stack spacing={6}>
+      <Formik initialValues={initialValues} validationSchema={Schema} onSubmit={handleSubmit}>
+        {formik => (
+          <Form>
             <Stack spacing={6}>
+              <Text fontSize="2xl" alignSelf="center">
+                Log In
+              </Text>
+              {error && <AlertComponent message={error} />}
+              <Field name="email">
+                {({ field, form }) => (
+                  <FormControl isInvalid={form.errors.email && form.touched.email}>
+                    <FormLabel htmlFor="email">Email Address</FormLabel>
+                    <Input {...field} id="email" placeholder="name@tradegraf.com" />
+                    <FormErrorMessage>{form.errors.email}</FormErrorMessage>
+                  </FormControl>
+                )}
+              </Field>
+              <Field name="password">
+                {({ field, form }) => (
+                  <FormControl isInvalid={form.errors.password && form.touched.password}>
+                    <FormLabel htmlFor="password">Password</FormLabel>
+                    <Input {...field} id="password" placeholder="Password" type="password" />
+                    <FormErrorMessage>{form.errors.password}</FormErrorMessage>
+                  </FormControl>
+                )}
+              </Field>
               {/* <Stack
 											direction={{ base: 'column', sm: 'row' }}
 											alignItems="end"
@@ -100,27 +100,27 @@ const Login: React.FC = () => {
               >
                 Sign in
               </Button>
-              <Divider />
-              <Flex alignItems="center" justifyContent="center">
-                <Text color={useColorModeValue('gray.500', 'gray.300')} fontSize="sm">
-                  Don&apos;t have an account?
-                </Text>
-                <Link
-                  as={RouterLink}
-                  to={routes.get('REGISTER').path}
-                  fontSize="sm"
-                  color={useColorModeValue('brand.700', 'brand.300')}
-                  ml=".5rem"
-                  _focus={{ shadow: 'none' }}
-                >
-                  Sign up
-                </Link>
-              </Flex>
             </Stack>
-          </Stack>
-        </Form>
-      )}
-    </Formik>
+          </Form>
+        )}
+      </Formik>
+      <Divider />
+      <Flex flexDirection="column" alignItems="center" justifyContent="center">
+        <Text color={useColorModeValue('gray.500', 'gray.300')} fontSize="sm">
+          Don&apos;t have an account?
+        </Text>
+        <Link
+          as={RouterLink}
+          to={routes.get('REGISTER').path}
+          fontSize="sm"
+          color={useColorModeValue('brand.700', 'brand.300')}
+          ml=".5rem"
+          _focus={{ shadow: 'none' }}
+        >
+          Register
+        </Link>
+      </Flex>
+    </Stack>
   );
 };
 
