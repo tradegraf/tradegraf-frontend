@@ -18,11 +18,14 @@ import {
   Divider,
 } from '@chakra-ui/react';
 import { Auth } from 'aws-amplify';
+import { useDebouncedCallback } from 'use-debounce';
 
 import Schema from './schema';
 import { AlertComponent } from '../../components/Error';
 import { authAtom, userAtom } from '../../state/user/atoms';
 import routes from '../../shared/routes';
+
+const loadVerificationPage = () => import(/* webpackPrefetc: true */ '../verification');
 
 type SignupValues = {
   email: string;
@@ -43,6 +46,8 @@ const Signup: React.FC = () => {
     password: '',
   };
 
+  const importVerification = useDebouncedCallback(loadVerificationPage, 150);
+
   const onSignupSubmit = ({ email, password }: SignupValues) => {
     setLoading(true);
     Auth.signUp({
@@ -52,7 +57,7 @@ const Signup: React.FC = () => {
         email,
       },
     })
-      .then(() => {
+      .then(res => {
         setAuthState({ username: email, password });
         setLoading(false);
         history.push(routes.get('VERIFICATION').path);
@@ -71,7 +76,7 @@ const Signup: React.FC = () => {
   return (
     <Stack spacing={6}>
       <Text fontSize="2xl" alignSelf="center">
-        Sign up
+        Register
       </Text>
       {errorMessage && <AlertComponent message={errorMessage} />}
       <Formik initialValues={initialValues} validationSchema={Schema} onSubmit={onSignupSubmit}>
@@ -119,6 +124,7 @@ const Signup: React.FC = () => {
                 colorScheme="brand"
                 isDisabled={!formik.isValid}
                 isLoading={loading}
+                onMouseEnter={importVerification}
               >
                 Sign up
               </Button>

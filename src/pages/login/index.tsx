@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from 'react';
-import { useHistory, Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { Formik, Form, Field } from 'formik';
 import {
@@ -23,17 +23,17 @@ import { AlertComponent } from '../../components/Error';
 import routes from '../../shared/routes';
 import { userAtom } from '../../state/user/atoms';
 
+const loadRegisterPage = () => import(/* webpackPrefetch: true */ '../register');
+
 interface LoginValues {
   email?: string;
   password?: string;
 }
 
 const Login: React.FC = () => {
-  const setUserToken = useSetRecoilState(userAtom);
+  const setUser = useSetRecoilState(userAtom);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  const history = useHistory();
 
   const initialValues: LoginValues = {
     email: '',
@@ -45,8 +45,7 @@ const Login: React.FC = () => {
       setLoading(true);
       Auth.signIn(email, password)
         .then(({ signInUserSession }) => {
-          setUserToken(signInUserSession);
-          return history.push(routes.get('DASHBOARD').path);
+          setUser(signInUserSession);
         })
         .catch(err => {
           setError(err.message);
@@ -116,6 +115,7 @@ const Login: React.FC = () => {
           color={useColorModeValue('brand.700', 'brand.300')}
           ml=".5rem"
           _focus={{ shadow: 'none' }}
+          onMouseEnter={loadRegisterPage}
         >
           Register
         </Link>

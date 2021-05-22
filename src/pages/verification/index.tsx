@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Formik, Form, Field } from 'formik';
 import {
   FormControl,
@@ -16,8 +16,8 @@ import {
 } from '@chakra-ui/react';
 import { Auth } from 'aws-amplify';
 
-import { AlertComponent, AlertComponentXL } from '../../components/Error';
-import { userAtom } from '../../state/user/atoms';
+import { AlertComponent } from '../../components/Error';
+import { authAtom, userAtom } from '../../state/user/atoms';
 import routes from '../../shared/routes';
 import verificationSchema from './schema';
 
@@ -26,30 +26,24 @@ type VerificationValues = {
 };
 
 const Verification: React.FC = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [user, setUser] = useRecoilState(userAtom);
+  const setUser = useSetRecoilState(userAtom);
+  const authState = useRecoilValue(authAtom);
+  const [userEmail, setUserEmail] = useState<string>(authState?.username || '');
+  const [verificationCode, setVerificationCode] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [currentTab, setCurrentTab] = useState<string>('REQUEST_CODE');
-  const [isVerificationCodeSent, setIsVerificationCodeSent] = useState<boolean>(false);
-  const [verificationCode, setVerificationCode] = useState<string>('');
-  const [userEmail, setUserEmail] = useState<string>('');
+  const [isVerificationCodeSent, setIsVerificationCodeSent] = useState<boolean>(!!authState);
 
   const history = useHistory();
 
   const initialValues: VerificationValues = {
-    email: '',
+    email: authState?.username || '',
   };
 
-  const resendConfirmationCode = async (
-    e: React.MouseEvent<HTMLButtonElement>,
-    { email }: VerificationValues,
-  ) => {
-    e.preventDefault();
+  const resendVerificationCode = async ({ email }: VerificationValues) => {
     setUserEmail(email);
     return Auth.resendSignUp(email)
       .then(res => {
-        setCurrentTab('VERIFICATION');
         setIsVerificationCodeSent(true);
         // eslint-disable-next-line no-console
         console.log(res);
@@ -64,27 +58,28 @@ const Verification: React.FC = () => {
     setLoading(true);
     return Auth.confirmSignUp(userEmail, verificationCode)
       .then(res => {
-        if (res === 'SUCCESS') setCurrentTab('SUCCESS');
         setErrorMessage(null);
-        setIsVerificationCodeSent(false);
-        // history.push(routes.get('DASHBOARD').path);
+        if (res === 'SUCCESS' && authState?.password) {
+          Auth.signIn(userEmail, authState.password)
+            .then(({ signInUserSession }) => {
+              setUser(signInUserSession);
+              setLoading(false);
+              history.push(routes.get('DASHBOARD').path);
+            })
+            .catch(err => {
+              setErrorMessage(err.message);
+              setLoading(false);
+            });
+        } else {
+          setLoading(false);
+          history.push(routes.get('LOGIN').path);
+        }
       })
       .catch(error => {
+        setLoading(false);
         setErrorMessage(error.message);
-      })
-      .finally(() => setLoading(false));
+      });
   };
-
-  const handleSigninRedirect = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    history.push(routes.get('LOGIN').path);
-  };
-
-  useEffect(() => {
-    if (user) {
-      history.push(routes.get('DASHBOARD').path);
-    }
-  }, [history, user]);
 
   return (
     <Stack spacing={4}>
@@ -97,11 +92,11 @@ const Verification: React.FC = () => {
         )}
         {errorMessage && <AlertComponent message={errorMessage} />}
         <Stack spacing={8} alignItems="center" flexDir="column" w="full">
-          {currentTab === 'REQUEST_CODE' && (
+          {isVerificationCodeSent ? (
             <Formik
               initialValues={initialValues}
               validationSchema={verificationSchema}
-              onSubmit={resendConfirmationCode}
+              onSubmit={resendVerificationCode}
             >
               {formik => (
                 <Form style={{ width: '100%' }}>
@@ -128,8 +123,7 @@ const Verification: React.FC = () => {
                 </Form>
               )}
             </Formik>
-          )}
-          {currentTab === 'VERIFICATION' && (
+          ) : (
             <>
               <Text mt="1rem" mb="-1rem">
                 Verification Code
@@ -152,24 +146,6 @@ const Verification: React.FC = () => {
                 w="100%"
               >
                 Verify
-              </Button>
-            </>
-          )}
-          {currentTab === 'SUCCESS' && (
-            <>
-              <AlertComponentXL
-                status="success"
-                title="Verification Successful!"
-                message="Thanks for verifying your account! You can log in to your account now!"
-              />
-              <Button
-                colorScheme="brand"
-                onClick={handleSigninRedirect}
-                _focus={{ shadow: 'none' }}
-                isLoading={loading}
-                w="100%"
-              >
-                Login
               </Button>
             </>
           )}

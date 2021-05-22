@@ -1,7 +1,7 @@
 import { LazyExoticComponent } from 'react';
 
 import pages from '../pages';
-import { RedirectContainer } from '../containers/Redirect';
+import { RedirectContainer, RedirectPrivateContainer } from '../containers/Redirect';
 
 export type RouteItem = {
   name: string;
@@ -64,6 +64,13 @@ const ROUTE_LIST: RoutesArr = [
     component: RedirectContainer,
     isExact: true,
     isPrivate: false,
+  },
+  {
+    name: '404-Private',
+    path: '*',
+    component: RedirectPrivateContainer,
+    isExact: true,
+    isPrivate: true,
   },
 ];
 
