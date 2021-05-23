@@ -1,21 +1,24 @@
 import React, { memo, Suspense, FC } from 'react';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
-import { Flex, Spinner, Link, Button, Stack } from '@chakra-ui/react';
-import { useSetRecoilState } from 'recoil';
+import { Flex, Spinner, Link, Stack } from '@chakra-ui/react';
+import { useRecoilState } from 'recoil';
 import { Auth } from 'aws-amplify';
 
 import { UserInputForJokes } from '../../../utils/userInputJokes';
 import routes from '../../../shared/routes';
 import { userAtom } from '../../../state/user/atoms';
+import { ProfileMenu } from './ProfileMenu';
 
 const ColorModeSwitcher = React.lazy(() => import('../../../ColorModeSwitcher'));
 const Logo = React.lazy(() => import('../../../components/Logo'));
 
 const AppHeader: FC = () => {
-  const setUser = useSetRecoilState(userAtom);
+  const [user, setUser] = useRecoilState(userAtom);
   const history = useHistory();
 
-  const handleSignOut = async () => {
+  const { payload } = user.idToken;
+
+  const handleSignout = async () => {
     return Auth.signOut({ global: true })
       .then(() => {
         setUser(null);
@@ -35,14 +38,12 @@ const AppHeader: FC = () => {
           </Link>
         </Flex>
       </Suspense>
-      <Flex>
+      <Flex alignItems="center">
         <UserInputForJokes />
         <Suspense fallback={<Spinner />}>
           <ColorModeSwitcher justifySelf="flex-end" />
         </Suspense>
-        <Button onClick={handleSignOut} ml="1rem" _focus={{ shadow: 'none' }}>
-          Logout
-        </Button>
+        <ProfileMenu user={payload} handleSignout={handleSignout} />
       </Flex>
     </Flex>
   );

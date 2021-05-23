@@ -1,10 +1,10 @@
 import React from 'react';
-import { Box, Center, Flex, Spinner, useColorModeValue } from '@chakra-ui/react';
+import { Box, Flex, Spinner, useColorModeValue } from '@chakra-ui/react';
 
 export const Loading: React.FC = () => (
-  <Center height="100%">
+  <Flex alignItems="center" justifyContent="center" height="18rem">
     <Spinner />
-  </Center>
+  </Flex>
 );
 
 export const FullPageLoading: React.FC = () => (

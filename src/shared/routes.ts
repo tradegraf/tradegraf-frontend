@@ -1,7 +1,11 @@
 import { LazyExoticComponent } from 'react';
 
 import pages from '../pages';
-import { RedirectContainer, RedirectPrivateContainer } from '../containers/Redirect';
+import {
+  RedirectContainer,
+  RedirectPrivateContainer,
+  RedirectProfile,
+} from '../containers/Redirect';
 
 export type RouteItem = {
   name: string;
@@ -20,13 +24,6 @@ const ROUTE_LIST: RoutesArr = [
     component: pages.Landing,
     isExact: true,
     isPrivate: false,
-  },
-  {
-    name: 'DASHBOARD',
-    path: '/dashboard',
-    component: pages.Dashboard,
-    isExact: true,
-    isPrivate: true,
   },
   {
     name: 'LOGIN',
@@ -49,13 +46,27 @@ const ROUTE_LIST: RoutesArr = [
     isExact: true,
     isPrivate: false,
   },
-  // PROFILE: {
-  //   key: 'PROFILE',
-  // 	path: '/profile',
-  // 	component: pages.Profile,
-  // 	isExact: true,
-  // 	isPrivate: true,
-  // },
+  {
+    name: 'DASHBOARD',
+    path: '/dashboard',
+    component: pages.Dashboard,
+    isExact: true,
+    isPrivate: true,
+  },
+  {
+    name: 'PROFILE_OVERVIEW',
+    path: '/profile/overview',
+    component: pages.Profile.Overview,
+    isExact: true,
+    isPrivate: true,
+  },
+  {
+    name: 'PROFILE',
+    path: '/profile',
+    component: RedirectProfile,
+    isExact: true,
+    isPrivate: true,
+  },
 
   /* KEEP 404 AT THE END */
   {
