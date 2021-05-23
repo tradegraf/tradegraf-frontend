@@ -109,4 +109,4 @@ amplifytools.xcconfig
 .secret-*
 
 #tests
-coverage
+coverage/
