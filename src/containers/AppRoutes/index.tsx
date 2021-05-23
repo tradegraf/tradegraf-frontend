@@ -1,27 +1,58 @@
 import React from 'react';
-import { Switch } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import _ from 'lodash';
+import { Switch, Route } from 'react-router-dom';
 
 import routes, { RoutesArr } from '../../shared/routes';
-import { PrivateRoute } from '../../utils/privateRoute';
-import { userAtom } from '../../state/user/atoms';
+import { PageLoader } from '../PageLoader';
 
 export const AppRoutes: React.FC = () => {
-	const user = useRecoilValue(userAtom);
+  const appRoutes: RoutesArr = [];
+  routes.forEach(route => appRoutes.push(route));
 
-	const appRoutes: RoutesArr = [];
-	routes.forEach(route => appRoutes.push(route));
+  return (
+    <Switch>
+      {appRoutes
+        .filter(route => route.isPrivate)
+        .map(({ name, path, isExact, component: Component }) => (
+          <Route
+            key={name}
+            path={path}
+            exact={isExact}
+            render={() => {
+              return (
+                <PageLoader>
+                  <Component />
+                </PageLoader>
+              );
+            }}
+          />
+        ))}
+    </Switch>
+  );
+};
 
-	return (
-		<Switch>
-			{!_.isEmpty(user) &&
-				appRoutes.map(
-					route =>
-						route.private && (
-							<PrivateRoute key={route.name} page={route} isAuthenticated={!_.isEmpty(user)} />
-						),
-				)}
-		</Switch>
-	);
+export const PublicRoutes: React.FC = () => {
+  const appRoutes: RoutesArr = [];
+  routes.forEach(route => appRoutes.push(route));
+
+  return (
+    <Switch>
+      {appRoutes
+        .filter(route => !route.isPrivate)
+        .map(({ name, path, isExact, component: Component }) => (
+          // <PublicRoute key={route.name} page={route} isAuthenticated={!_.isEmpty(user)} />
+          <Route
+            key={name}
+            path={path}
+            exact={isExact}
+            render={() => {
+              return (
+                <PageLoader>
+                  <Component />
+                </PageLoader>
+              );
+            }}
+          />
+        ))}
+    </Switch>
+  );
 };

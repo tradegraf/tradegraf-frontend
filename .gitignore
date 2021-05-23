@@ -107,3 +107,8 @@ amplify-build-config.json
 amplify-gradle-config.json
 amplifytools.xcconfig
 .secret-*
+
+# testing
+/coverage
+coverage
+coverage/*

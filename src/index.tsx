@@ -1,22 +1,24 @@
 import React, { Suspense } from 'react';
-import { ColorModeScript, Spinner } from '@chakra-ui/react';
 import ReactDOM from 'react-dom';
+import { ColorModeScript } from '@chakra-ui/react';
 import { RecoilRoot } from 'recoil';
+
+import { FullPageLoading } from './components/Loading';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-	<React.StrictMode>
-		<Suspense fallback={<Spinner />}>
-			<RecoilRoot>
-				<ColorModeScript />
-				<App />
-			</RecoilRoot>
-		</Suspense>
-	</React.StrictMode>,
-	document.getElementById('root'),
+  <React.StrictMode>
+    <Suspense fallback={<FullPageLoading />}>
+      <RecoilRoot>
+        <ColorModeScript />
+        <App />
+      </RecoilRoot>
+    </Suspense>
+  </React.StrictMode>,
+  document.getElementById('root'),
 );
 
 serviceWorker.unregister();

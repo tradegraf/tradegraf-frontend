@@ -1,4 +1,4 @@
 export const REGISTER_TABS = {
-	REGISTER: 1,
-	VERIFY: 2,
+  REGISTER: 1,
+  VERIFY: 2,
 };
