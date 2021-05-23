@@ -110,3 +110,5 @@ amplifytools.xcconfig
 
 # testing
 /coverage
+coverage
+coverage/*
