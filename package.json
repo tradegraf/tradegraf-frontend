@@ -110,7 +110,6 @@
       "./src/serviceWorker.ts"
     ],
     "coverageReporters": [
-      "html",
       "json",
       "lcov",
       "text-summary",
