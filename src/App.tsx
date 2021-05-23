@@ -6,10 +6,8 @@ import { useRecoilValue } from 'recoil';
 
 import theme from './theme';
 import { AuthContainer } from './containers/Auth';
-
 import AppLayout from './containers/Layout/AppLayout';
 import ContentLayout from './containers/Layout/ContentLayout';
-
 import { AppRoutes, PublicRoutes } from './containers/AppRoutes';
 import awsconfig from './aws-exports';
 

@@ -68,7 +68,7 @@ const Login: React.FC = () => {
                 {({ field, form }) => (
                   <FormControl isInvalid={form.errors.email && form.touched.email}>
                     <FormLabel htmlFor="email">Email Address</FormLabel>
-                    <Input {...field} id="email" placeholder="name@tradegraf.com" />
+                    <Input {...field} id="email" name="email" placeholder="name@tradegraf.com" />
                     <FormErrorMessage>{form.errors.email}</FormErrorMessage>
                   </FormControl>
                 )}
@@ -77,7 +77,13 @@ const Login: React.FC = () => {
                 {({ field, form }) => (
                   <FormControl isInvalid={form.errors.password && form.touched.password}>
                     <FormLabel htmlFor="password">Password</FormLabel>
-                    <Input {...field} id="password" placeholder="Password" type="password" />
+                    <Input
+                      {...field}
+                      id="password"
+                      name="password"
+                      placeholder="Password"
+                      type="password"
+                    />
                     <FormErrorMessage>{form.errors.password}</FormErrorMessage>
                   </FormControl>
                 )}

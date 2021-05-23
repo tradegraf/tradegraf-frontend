@@ -5,7 +5,7 @@ interface Props extends AlertProps {
   message: string;
 }
 
-export const AlertComponentXL: React.FC<Props> = ({ title, message, status }) => (
+export const AlertComponentXL: React.FC<Props> = ({ title, message, status = 'error' }) => (
   <Alert
     status={status}
     variant="subtle"
