@@ -23,7 +23,7 @@ interface ProfileProps {
 
 export const ProfileMenu: FC<ProfileProps> = ({ user, handleSignout }) => {
   return (
-    <Menu placement="bottom-start" isLazy>
+    <Menu placement="bottom-end" isLazy>
       <MenuButton
         marginLeft="1rem"
         padding=".5rem"
@@ -33,7 +33,7 @@ export const ProfileMenu: FC<ProfileProps> = ({ user, handleSignout }) => {
         <Avatar size="sm" background={useColorModeValue('blackAlpha.800', 'blackAlpha.600')} />
       </MenuButton>
       <MenuList fontSize="sm">
-        <MenuItem as={Link} to={routes.get('PROFILE_OVERVIEW').path}>
+        <MenuItem as={Link} to="/profile/overview">
           <HStack justify="space-between">
             <Text>{protectEmail(user.email)}</Text>
             <Tag colorScheme="brand">VIP</Tag>
@@ -41,9 +41,13 @@ export const ProfileMenu: FC<ProfileProps> = ({ user, handleSignout }) => {
         </MenuItem>
         <MenuDivider />
         <MenuGroup>
-          <MenuItem>API Management</MenuItem>
-          <MenuItem>Subscription</MenuItem>
-          <MenuItem>
+          <MenuItem as={Link} to="/profile/api">
+            API Management
+          </MenuItem>
+          <MenuItem as={Link} to={routes.get('SUBSCRIPTION').path}>
+            Subscription
+          </MenuItem>
+          <MenuItem as={Link} to={routes.get('REFERRAL').path}>
             <HStack>
               <Text>Referral</Text>
               <Tag size="sm" colorScheme="yellow">
@@ -51,7 +55,9 @@ export const ProfileMenu: FC<ProfileProps> = ({ user, handleSignout }) => {
               </Tag>
             </HStack>
           </MenuItem>
-          <MenuItem>Settings</MenuItem>
+          <MenuItem as={Link} to="/profile/settings">
+            Settings
+          </MenuItem>
         </MenuGroup>
         <MenuDivider />
         <MenuItem onClick={handleSignout}>Logout</MenuItem>

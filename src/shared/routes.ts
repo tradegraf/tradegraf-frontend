@@ -13,6 +13,7 @@ export type RouteItem = {
   isExact: boolean;
   isPrivate: boolean;
   component: LazyExoticComponent<React.FC> | React.FC;
+  children?: RouteItem[] | RouteItem[];
 };
 
 export type RoutesArr = RouteItem[];
@@ -54,16 +55,44 @@ const ROUTE_LIST: RoutesArr = [
     isPrivate: true,
   },
   {
-    name: 'PROFILE_OVERVIEW',
-    path: '/profile/overview',
-    component: pages.Profile.Overview,
+    name: 'SUBSCRIPTION',
+    path: '/subscription',
     isExact: true,
+    component: RedirectProfile,
     isPrivate: true,
   },
   {
-    name: 'PROFILE',
-    path: '/profile',
+    name: 'REFERRAL',
+    path: '/referral',
+    isExact: true,
     component: RedirectProfile,
+    isPrivate: true,
+  },
+  // {
+  //   name: 'PROFILE_OVERVIEW',
+  //   path: '/profile/overview',
+  //   component: pages.Profile.Overview,
+  //   isExact: true,
+  //   isPrivate: true,
+  // },
+  // {
+  //   name: 'PROFILE_API_MANAGEMENT',
+  //   path: '/profile/api',
+  //   component: pages.Profile.Api,
+  //   isExact: true,
+  //   isPrivate: true,
+  // },
+  // {
+  //   name: 'PROFILE_SETTINGS',
+  //   path: '/profile/settings',
+  //   component: pages.Profile.Overview,
+  //   isExact: true,
+  //   isPrivate: true,
+  // },
+  {
+    name: 'PROFILE',
+    path: '/profile/*',
+    component: pages.Profile.Default,
     isExact: true,
     isPrivate: true,
   },
