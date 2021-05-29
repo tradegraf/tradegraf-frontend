@@ -57,7 +57,7 @@ const Signup: React.FC = () => {
         email,
       },
     })
-      .then(res => {
+      .then(() => {
         setAuthState({ username: email, password });
         setLoading(false);
         history.push(routes.get('VERIFICATION').path);
