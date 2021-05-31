@@ -1,55 +1,37 @@
 module.exports = {
-  extends: [
-    'airbnb-typescript',
-    'airbnb/hooks',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:jest/recommended',
-    'plugin:prettier/recommended',
-  ],
-  plugins: ['react', '@typescript-eslint', 'prettier'],
+  parserOptions: {
+    ecmaVersion: 2020,
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true
+    }
+  },
   env: {
     browser: true,
-    jasmine: true,
-    jest: true,
+    node: true,
+    es6: true
   },
-  rules: {
-    'import/extensions': [
-      0,
-      'never',
-      {
-        ignorePackages: true,
-        pattern: {
-          js: 'never',
-          jsx: 'never',
-          ts: 'never',
-          tsx: 'never',
-        },
-      },
-    ],
-    'import/no-extraneous-dependencies': 'off',
-    'no-use-before-define': 'off',
-    '@typescript-eslint/no-use-before-define': 0,
-    '@typescript-eslint/naming-convention': 0,
-    'import/no-unresolved': 0,
-    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
-    'import/prefer-default-export': 0,
-    'react/prop-types': 0,
-    'react/static-property-placement': 0,
-    'react/jsx-props-no-spreading': 0,
-    'no-underscore-dangle': 0,
-    'react/destructuring-assignment': 0,
-    'no-undef': 0,
-  },
+  plugins: ['simple-import-sort'],
   settings: {
     react: {
-      pragma: 'React',
-      version: 'detect',
-    },
+      version: 'detect'
+    }
   },
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    project: 'tsconfig.eslint.json',
-    tsconfigRootDir: __dirname,
-    sourceType: 'module',
-  },
+  extends: [
+    'eslint:recommended',
+    'plugin:jsx-a11y/recommended',
+    'plugin:react/recommended',
+    'plugin:prettier/recommended',
+    'plugin:sonarjs/recommended',
+    'plugin:unicorn/recommended',
+    'plugin:security/recommended',
+    'plugin:react-hooks/recommended'
+  ],
+  rules: {
+    'no-console': 'error',
+    'react/react-in-jsx-scope': 'off',
+    'react/prop-types': 'off',
+    'simple-import-sort/sort': 'error',
+    'unicorn/filename-case': 'off'
+  }
 };

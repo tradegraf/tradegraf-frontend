@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <style>
+    .cls-1 {
+      fill: #1b1c1c;
+    }
+
+    .cls-2 {
+      fill: url(#spinner-linear-gradient);
+    }
+  </style>
+  <linearGradient id="spinner-linear-gradient" x1="0" y1="0" x2="60" y2="5" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#ec1c24" />
+    <stop offset="0.5" stop-color="#f6921e" />
+    <stop offset="1" stop-color="#37b34a" />
+  </linearGradient>
+  <rect id="rectangle-logo" class="cls-2" width="300" height="100" />
+</svg>
