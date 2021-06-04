@@ -1,0 +1,17 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# workaround for if any json file edited
+INITIAL_CHANGES=`git ls-files -m`
+
+npm run sort
+
+AFTER_SORT_CHANGES=`git ls-files -m`
+# if list of changed files are not same after sort, we edited some json files
+if [[ "$INITIAL_CHANGES" != "$AFTER_SORT_CHANGES" ]]
+then
+  echo "Include sorted json files into your commit!"
+  exit 1
+fi
+
+npx lint-staged

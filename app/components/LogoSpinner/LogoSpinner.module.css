@@ -1,0 +1,73 @@
+.container {
+  margin: 1rem 0;
+  line-height: 0%;
+}
+
+.logoLoading stop:nth-child(1) {
+  animation: AnimateSpinnerGradientFirst .6s ease infinite;
+}
+
+.logoLoading stop:nth-child(2) {
+  animation: AnimateSpinnerGradientSecond .6s ease infinite;
+}
+
+.logoLoading stop:nth-child(3) {
+  animation: AnimateSpinnerGradientThird .6s ease infinite;
+}
+
+@-webkit-keyframes AnimateSpinnerGradientFirst {
+  0%{stop-color:#ed2a2d}
+  33%{stop-color:#43b146}
+  66%{stop-color:#f3921e}
+  99%{stop-color:#ed2a2d}
+}
+@-moz-keyframes AnimateSpinnerGradientFirst {
+  0%{stop-color:#ed2a2d}
+  33%{stop-color:#43b146}
+  66%{stop-color:#f3921e}
+  99%{stop-color:#ed2a2d}
+}
+@keyframes AnimateSpinnerGradientFirst {
+  0%{stop-color:#ed2a2d}
+  33%{stop-color:#43b146}
+  66%{stop-color:#f3921e}
+  99%{stop-color:#ed2a2d}
+}
+
+@-webkit-keyframes AnimateSpinnerGradientSecond {
+  0%{stop-color:#f3921e}
+  33%{stop-color:#ed2a2d}
+  66%{stop-color:#43b146}
+  99%{stop-color:#f3921e}
+}
+@-moz-keyframes AnimateSpinnerGradientSecond {
+  0%{stop-color:#f3921e}
+  33%{stop-color:#ed2a2d}
+  66%{stop-color:#43b146}
+  99%{stop-color:#f3921e}
+}
+@keyframes AnimateSpinnerGradientSecond {
+  0%{stop-color:#f3921e}
+  33%{stop-color:#ed2a2d}
+  66%{stop-color:#43b146}
+  99%{stop-color:#f3921e}
+}
+
+@-webkit-keyframes AnimateSpinnerGradientThird {
+  0%{stop-color:#43b146}
+  33%{stop-color:#f3921e}
+  66%{stop-color:#ed2a2d}
+  99%{stop-color:#43b146}
+}
+@-moz-keyframes AnimateSpinnerGradientThird {
+  0%{stop-color:#43b146}
+  33%{stop-color:#f3921e}
+  66%{stop-color:#ed2a2d}
+  99%{stop-color:#43b146}
+}
+@keyframes AnimateSpinnerGradientThird {
+  0%{stop-color:#43b146}
+  33%{stop-color:#f3921e}
+  66%{stop-color:#ed2a2d}
+  99%{stop-color:#43b146}
+}
