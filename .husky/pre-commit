@@ -12,6 +12,7 @@ if [[ "$INITIAL_CHANGES" != "$AFTER_SORT_CHANGES" ]]
 then
   echo "Include sorted json files into your commit!"
   exit 1
+  `git add . --force`
 fi
 
 npx lint-staged
