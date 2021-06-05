@@ -10,6 +10,13 @@ const ROUTE_LIST = [
     isPrivate: false,
   },
   {
+    name: 'AUTH',
+    path: '/completeLogin',
+    component: pages.Auth,
+    isExact: true,
+    isPrivate: false,
+  },
+  {
     name: 'DASHBOARD',
     path: '/dashboard',
     component: pages.Dashboard,
@@ -78,7 +85,7 @@ const ROUTE_LIST = [
 
 const routes = new Map();
 
-ROUTE_LIST.forEach((route) => {
+ROUTE_LIST.forEach(route => {
   routes.set(route.name, route);
 });
 

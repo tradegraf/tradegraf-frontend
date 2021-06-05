@@ -13,7 +13,7 @@ const handleAuthModalLoad = () => import('./components/AuthModal');
 
 const { Content } = Layout;
 
-export const HomePage = () => {
+const HomePage = () => {
   const classes = useStyles();
   const [showModal, setShowModal] = useState(false);
 

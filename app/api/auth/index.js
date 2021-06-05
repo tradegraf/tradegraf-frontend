@@ -1,33 +1,24 @@
 import authAxios from '@app/axios/auth';
 import axios from '@app/axios/common';
 
-export const login = ({ email }) => {
-  return authAxios({
+export const login = ({ email }) =>
+  authAxios({
     method: 'POST',
     url: '/login',
     data: { email },
-  }).then(response => {
-    return response.data;
-  });
-};
+  }).then(response => response.data);
 
-export const authTempToken = ({ tempToken }) => {
-  return authAxios({
+export const authTempToken = ({ tempToken }) =>
+  authAxios({
     method: 'POST',
     url: '/login/authTempToken',
     data: { tempToken },
-  }).then(response => {
-    return response.data;
-  });
-};
+  }).then(response => response.data);
 
-export const logout = ({ userId: user, token }) => {
-  return axios({
+export const logout = ({ userId: user, token }) =>
+  axios({
     method: 'POST',
     url: '/logout',
     headers: { user, token },
     data: {},
-  }).then(response => {
-    return response.data;
-  });
-};
+  }).then(response => response.data);

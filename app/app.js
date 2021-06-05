@@ -13,6 +13,7 @@ import history from '@app/utils/history';
 import jssTheme from '@app/jssTheme';
 import { callback as i18NCallback } from '@app/i18n';
 import App from '@app/containers/App';
+
 import { FullpageSpinner } from './components/Spinner';
 
 import './default.less';

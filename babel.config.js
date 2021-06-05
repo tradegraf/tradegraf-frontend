@@ -9,9 +9,29 @@ module.exports = {
     '@babel/preset-react',
   ],
   plugins: [
-    'styled-components',
+    'lodash',
     '@babel/plugin-proposal-class-properties',
     '@babel/plugin-syntax-dynamic-import',
+    'transform-react-remove-prop-types',
+    '@babel/plugin-transform-react-inline-elements',
+    '@babel/plugin-transform-react-constant-elements',
+    [
+      'import',
+      {
+        libraryName: 'antd',
+        libraryDirectory: 'es',
+      },
+      'antd',
+    ],
+    [
+      'import',
+      {
+        libraryName: '@ant-design/icons',
+        libraryDirectory: 'lib/icons',
+        camel2DashComponentName: false,
+      },
+      '@ant-design/icons',
+    ],
   ],
   env: {
     production: {
@@ -21,13 +41,12 @@ module.exports = {
         'transform-react-remove-prop-types',
         '@babel/plugin-transform-react-inline-elements',
         '@babel/plugin-transform-react-constant-elements',
-      ],
-    },
-    test: {
-      plugins: [
         '@babel/plugin-transform-modules-commonjs',
         'dynamic-import-node',
       ],
+    },
+    test: {
+      plugins: ['@babel/plugin-transform-modules-commonjs', 'dynamic-import-node'],
     },
   },
 };

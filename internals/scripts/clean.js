@@ -52,10 +52,7 @@ shell.rm('-rf', 'internals/templates');
 addCheckMark();
 
 // Commit the changes
-if (
-  shell.exec('git add . --all && git commit -qm "Remove default example"')
-    .code !== 0
-) {
+if (shell.exec('git add . --all && git commit -qm "Remove default example"').code !== 0) {
   shell.echo('\nError: Git commit failed');
   shell.exit(1);
 }

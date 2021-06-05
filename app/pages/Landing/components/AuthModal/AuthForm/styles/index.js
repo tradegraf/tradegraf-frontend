@@ -1,6 +1,6 @@
 import { createUseStyles } from 'react-jss';
 
-export default createUseStyles(() => ({
+export default createUseStyles({
   container: {
     margin: '1rem auto',
   },
@@ -12,4 +12,4 @@ export default createUseStyles(() => ({
   submitButton: {
     margin: '1rem 0 0',
   },
-}));
+});

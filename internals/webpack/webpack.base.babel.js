@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 require('dotenv').config();
 
-module.exports = (options) => ({
+module.exports = options => ({
   mode: options.mode,
   entry: options.entry,
   output: Object.assign(
@@ -114,15 +114,24 @@ module.exports = (options) => ({
   plugins: options.plugins.concat([
     new webpack.DefinePlugin({
       'process.env': {
-        REACT_APP_API_GATEWAY_URI: JSON.stringify(
-          process.env.REACT_APP_API_GATEWAY_URI,
-        ),
+        REACT_APP_API_GATEWAY_URI: JSON.stringify(process.env.REACT_APP_API_GATEWAY_URI),
         REACT_APP_SENTRY_DSN: JSON.stringify(process.env.REACT_APP_SENTRY_DSN),
         REACT_APP_ENV: JSON.stringify(process.env.REACT_APP_ENV),
-        // eslint-disable-next-line global-require
-        REACT_APP_VERSION: JSON.stringify(
-          require('../../package.json').version,
+        REACT_APP_FIREBASE_API_KEY: JSON.stringify(process.env.REACT_APP_FIREBASE_API_KEY),
+        REACT_APP_FIREBASE_AUTH_DOMAIN: JSON.stringify(process.env.REACT_APP_FIREBASE_AUTH_DOMAIN),
+        REACT_APP_FIREBASE_PROJECT_ID: JSON.stringify(process.env.REACT_APP_FIREBASE_PROJECT_ID),
+        REACT_APP_FIREBASE_STORAGE_BUCKET: JSON.stringify(
+          process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
         ),
+        REACT_APP_FIREBASE_MESSAGING_SENDER_ID: JSON.stringify(
+          process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+        ),
+        REACT_APP_FIREBASE_APP_ID: JSON.stringify(process.env.REACT_APP_FIREBASE_APP_ID),
+        REACT_APP_FIREBASE_REDIRECT_URI: JSON.stringify(
+          process.env.REACT_APP_FIREBASE_REDIRECT_URI,
+        ),
+        // eslint-disable-next-line global-require
+        REACT_APP_VERSION: JSON.stringify(require('../../package.json').version),
       },
     }),
     // Always expose NODE_ENV to webpack, in order to use `process.env.NODE_ENV`
@@ -132,11 +141,6 @@ module.exports = (options) => ({
       NODE_ENV: 'development',
     }),
   ]),
-  resolve: {
-    modules: ['node_modules', 'app'],
-    extensions: ['.js', '.jsx', '.react.js'],
-    mainFields: ['browser', 'jsnext:main', 'main'],
-  },
   resolve: {
     modules: ['node_modules', 'app'],
     extensions: ['.js', '.jsx', '.react.js', '.less'],
