@@ -2,8 +2,7 @@ import React from 'react';
 import loadable from '@loadable/component';
 
 import { SPINNER } from '@app/shared/constants';
-import { FullpageSpinner, DefaultSpinner } from '@app/components/Spinner';
-import LogoSpinner from '@app/components/LogoSpinner';
+import { LogoSpinner, FullpageSpinner, DefaultSpinner } from '@app/components/Spinner';
 
 const Loadable = (importFunction, spinnerType = SPINNER.DEFAULT, options) => {
   let fallback;

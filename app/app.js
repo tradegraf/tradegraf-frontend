@@ -4,7 +4,6 @@ import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
-import { ConfigProvider as AntdConfigProvider } from 'antd';
 import { ThemeProvider } from 'react-jss';
 import FontFaceObserver from 'fontfaceobserver';
 
@@ -38,11 +37,9 @@ const render = () => {
     <Provider store={store}>
       <ConnectedRouter history={history}>
         <Suspense fallback={<FullpageSpinner />}>
-          <AntdConfigProvider>
-            <ThemeProvider theme={jssTheme}>
-              <App />
-            </ThemeProvider>
-          </AntdConfigProvider>
+          <ThemeProvider theme={jssTheme}>
+            <App />
+          </ThemeProvider>
         </Suspense>
       </ConnectedRouter>
     </Provider>,

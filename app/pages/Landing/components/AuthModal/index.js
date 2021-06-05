@@ -1,33 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Modal, Button, Space } from 'antd';
+import { Modal } from 'antd';
 
 import Header from './Header';
-
-import useStyles from './styles';
+import AuthForm from './AuthForm';
 
 const AuthModal = ({ visible, handleVisible }) => {
-  const [authInput, setAuthInput] = useState('');
-  const [currentTab, setCurrentTab] = useState('');
-
-  const classes = useStyles();
-
   const handleOk = () => {};
 
   return (
     <Modal
-      className={classes.container}
+      width={320}
       visible={visible}
       onOk={handleOk}
       onCancel={handleVisible}
       footer={null}
+      bodyStyle={{ backgroundColor: '#191919' }}
+      mask={false}
       centered
     >
       <Header />
-      <p>Some contents...</p>
-      <p>Some contents...</p>
-      <p>Some contents...</p>
-      <p>Some contents...</p>
+      <AuthForm />
     </Modal>
   );
 };

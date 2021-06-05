@@ -5,10 +5,11 @@ import { Layout, Button, Space } from 'antd';
 
 import Logo from '@app/components/Logo';
 import { DefaultSpinner } from '@app/components/Spinner';
-import { AuthModal } from './components';
 import useStyles from './styles';
 
-const handleLoadAuthModal = () => import('./components/AuthModal');
+import { AuthModal } from './components';
+
+const handleAuthModalLoad = () => import('./components/AuthModal');
 
 const { Content } = Layout;
 
@@ -33,7 +34,7 @@ export const HomePage = () => {
             <Logo />
             {showModal ? <AuthModal visible={showModal} handleVisible={handleShowModal} /> : null}
             <Suspense fallback={<DefaultSpinner />}>
-              <Button type="primary" onClick={handleShowModal} onMouseEnter={handleLoadAuthModal}>
+              <Button type="primary" onClick={handleShowModal} onMouseEnter={handleAuthModalLoad}>
                 {t('LOGIN')}
               </Button>
             </Suspense>
