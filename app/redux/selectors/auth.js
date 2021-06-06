@@ -1,35 +1,25 @@
+/* eslint-disable prefer-destructuring */
 import { createSelector } from 'reselect';
 
-import { REDUX_KEY } from '@app/shared/constants';
+import { REDUX_KEY, LOCAL_STORAGE } from '@app/shared/constants';
+import { Decrypt } from '@app/utils/encryption';
 
 export const getIsLoginPending = createSelector(
-  (state) => {
-    return state[REDUX_KEY.AUTH].isLoginPending;
-  },
-  (isLoginPending) => {
-    return isLoginPending;
-  },
+  state => state[REDUX_KEY.AUTH].isLoginPending,
+  isLoginPending => isLoginPending,
 );
 
 export const getIsLoginSuccess = createSelector(
-  (state) => {
-    return state[REDUX_KEY.AUTH].isLoginSuccess;
-  },
-  (isLoginSuccess) => {
-    return isLoginSuccess;
-  },
+  state => state[REDUX_KEY.AUTH].isLoginSuccess,
+  isLoginSuccess => isLoginSuccess,
 );
 
 export const getIsAuthTempTokenPending = createSelector(
-  (state) => {
-    return state[REDUX_KEY.AUTH].isAuthTempTokenPending;
-  },
-  (isAuthTempTokenPending) => {
-    return isAuthTempTokenPending;
-  },
+  state => state[REDUX_KEY.AUTH].isAuthTempTokenPending,
+  isAuthTempTokenPending => isAuthTempTokenPending,
 );
 
-export const getToken = (state) => {
+export const getToken = state => {
   let token;
   if (state) {
     token = state[REDUX_KEY.AUTH].token;
@@ -40,21 +30,21 @@ export const getToken = (state) => {
   return token;
 };
 
-export const getUser = (state) => {
+export const getUser = state => {
   let user;
   if (state) {
     user = state[REDUX_KEY.AUTH].user;
   }
   if (!user) {
-    user = localStorage.getItem('user');
+    user = localStorage.getItem(LOCAL_STORAGE.USER);
   }
   if (typeof user === 'string') {
-    user = JSON.parse(user);
+    user = Decrypt(JSON.parse(user));
   }
   return user || {};
 };
 
-export const getUserRolesAndGroupType = (state) => {
+export const getUserRolesAndGroupType = state => {
   const { groupType, roles } = getUser(state);
 
   return { groupType, roles };

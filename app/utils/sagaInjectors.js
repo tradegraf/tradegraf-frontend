@@ -7,19 +7,16 @@ import checkStore from './checkStore';
 
 const allowedModes = [RESTART_ON_REMOUNT, DAEMON, ONCE_TILL_UNMOUNT];
 
-const checkKey = key => {
-  return invariant(
+const checkKey = key =>
+  invariant(
     _.isString(key) && !_.isEmpty(key),
     '(app/utils...) injectSaga: Expected `key` to be a non empty string',
   );
-};
 
 const checkDescriptor = descriptor => {
   const shape = {
     saga: _.isFunction,
-    mode: mode => {
-      return _.isString(mode) && allowedModes.includes(mode);
-    },
+    mode: mode => _.isString(mode) && allowedModes.includes(mode),
   };
   invariant(
     _.conformsTo(descriptor, shape),
@@ -50,10 +47,7 @@ export function injectSagaFactory(store, isValid) {
       }
     }
 
-    if (
-      !hasSaga ||
-      (hasSaga && mode !== DAEMON && mode !== ONCE_TILL_UNMOUNT)
-    ) {
+    if (!hasSaga || (hasSaga && mode !== DAEMON && mode !== ONCE_TILL_UNMOUNT)) {
       /* eslint-disable no-param-reassign */
       store.injectedSagas[key] = {
         ...newDescriptor,

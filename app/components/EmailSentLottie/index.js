@@ -3,7 +3,7 @@ import Lottie from 'react-lottie';
 import PropTypes from 'prop-types';
 import animationData from '@app/assets/lotties/email-notification.json';
 
-const EmailNotification = ({ isStopped }) => {
+const EmailSentLottie = ({ isStopped, width = 175, height = 175 }) => {
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -13,11 +13,13 @@ const EmailNotification = ({ isStopped }) => {
     },
   };
 
-  return <Lottie options={defaultOptions} height={200} width={200} isStopped={isStopped} />;
+  return <Lottie options={defaultOptions} width={width} height={height} isStopped={isStopped} />;
 };
 
-EmailNotification.propTypes = {
+EmailSentLottie.propTypes = {
   isStopped: PropTypes.bool.isRequired,
+  width: PropTypes.number,
+  height: PropTypes.number,
 };
 
-export default EmailNotification;
+export default EmailSentLottie;

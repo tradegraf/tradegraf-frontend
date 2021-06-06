@@ -1,49 +1,31 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Form, Row, Button, Input } from 'antd';
 
+import { getIsLoginPending } from '@app/redux/selectors/auth';
+import { Creators } from '@app/redux/actions/auth';
 import { ArrowRightOutlined } from '@ant-design/icons';
-import getFirebase, { actionCodeSettings } from '@app/config/firebase';
-import { AUTH_STATUS } from '@app/utils/constants';
 
 import useStyles from './styles';
 
 const AuthForm = () => {
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
   const { t } = useTranslation();
 
-  const [status, setStatus] = useState(null);
-  const [error, setError] = useState(null);
+  const isLoginRequestPending = useSelector(getIsLoginPending);
 
   const classes = useStyles();
   const emailRef = useRef();
-  const firebaseInstance = getFirebase();
 
   const formLayout = {
     layout: 'vertical',
   };
 
   const onFinish = ({ email }) => {
-    if (firebaseInstance && email)
-      firebaseInstance
-        .auth()
-        .sendSignInLinkToEmail(email, actionCodeSettings)
-        .then(() => {
-          setStatus(AUTH_STATUS.EMAIL_SENT);
-          window.localStorage.setItem('ue', email);
-        })
-        .catch(err => {
-          const errorCode = err.code;
-          const errorMessage = err.message;
-          setStatus(AUTH_STATUS.ERROR);
-          setError({ errorCode, errorMessage });
-        });
+    dispatch(Creators.loginRequest({ email }));
   };
-
-  console.log('actionCodeSettings', actionCodeSettings);
-
-  console.log('status', status);
-  console.log('error', error);
 
   const onFinishFailed = () => {
     emailRef.current.focus();
@@ -84,6 +66,7 @@ const AuthForm = () => {
           shape="circle"
           icon={<ArrowRightOutlined />}
           size="large"
+          loading={isLoginRequestPending}
         />
       </Row>
     </Form>

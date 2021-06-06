@@ -16,9 +16,8 @@ import getInjectors from './sagaInjectors';
  *   - constants.ONCE_TILL_UNMOUNT — behaves like 'RESTART_ON_REMOUNT' but never runs it again.
  *
  */
-export default ({ key, saga, mode }) => {
-  return WrappedComponent => {
-    class InjectSaga extends React.Component {
+export default ({ key, saga, mode }) => WrappedComponent => {
+  class InjectSaga extends React.Component {
     static WrappedComponent = WrappedComponent;
 
     static contextType = ReactReduxContext;
@@ -42,10 +41,9 @@ export default ({ key, saga, mode }) => {
     render() {
       return <WrappedComponent {...this.props} />;
     }
-    }
+  }
 
-    return hoistNonReactStatics(InjectSaga, WrappedComponent);
-  };
+  return hoistNonReactStatics(InjectSaga, WrappedComponent);
 };
 
 const useInjectSaga = ({ key, saga, mode }) => {

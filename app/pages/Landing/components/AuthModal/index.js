@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { Modal } from 'antd';
 
+import { getIsLoginSuccess } from '@app/redux/selectors/auth';
+
+import { LogoSpinner } from '@app/components/Spinner';
 import Header from './Header';
 import AuthForm from './AuthForm';
+const PostAuth = lazy(() => import(/* webpackPrefetch: true */ './PostAuth'));
 
 const AuthModal = ({ visible, handleVisible }) => {
   const handleOk = () => {};
+
+  const isLoginSuccess = useSelector(getIsLoginSuccess);
 
   return (
     <Modal
@@ -20,7 +27,13 @@ const AuthModal = ({ visible, handleVisible }) => {
       centered
     >
       <Header />
-      <AuthForm />
+      {isLoginSuccess ? (
+        <Suspense fallback={<LogoSpinner />}>
+          <PostAuth />
+        </Suspense>
+      ) : (
+        <AuthForm />
+      )}
     </Modal>
   );
 };

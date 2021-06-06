@@ -130,6 +130,7 @@ module.exports = options => ({
         REACT_APP_FIREBASE_REDIRECT_URI: JSON.stringify(
           process.env.REACT_APP_FIREBASE_REDIRECT_URI,
         ),
+        REACT_APP_ENCRYPTION_KEY: JSON.stringify(process.env.REACT_APP_ENCRYPTION_KEY),
         // eslint-disable-next-line global-require
         REACT_APP_VERSION: JSON.stringify(require('../../package.json').version),
       },

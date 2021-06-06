@@ -22,19 +22,17 @@ const AppContent = () => {
       <Content>
         <Switch>
           {routes
-            .filter((route) => route.isPrivate)
-            .map((route) => {
-              return route.component ? (
+            .filter(route => route.isPrivate)
+            .map(route =>
+              route.component ? (
                 <Route
                   key={route.key}
                   path={route.path}
                   exact={route.exact}
-                  render={(propsParam) => {
-                    return <route.component {...propsParam} />;
-                  }}
+                  render={propsParam => <route.component {...propsParam} />}
                 />
-              ) : null;
-            })}
+              ) : null,
+            )}
           <Redirect to={INITIAL_ROUTE.path} />
         </Switch>
       </Content>

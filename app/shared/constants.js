@@ -3,6 +3,12 @@ export const DAEMON = '@@saga-injector/daemon';
 export const ONCE_TILL_UNMOUNT = '@@saga-injector/once-till-unmount';
 export const FIRST_ROW_CLASS_NAME = 'firstRow';
 
+export const LOCAL_STORAGE = {
+  USER_EMAIL: '_ue',
+  TOKEN: 'gtkn',
+  USER: 'gu',
+};
+
 export const LOCAL_DATE_FORMAT = {
   TR: 'DD/MM/YYYY',
   EN: 'YYYY/MM/DD',
@@ -18,6 +24,16 @@ export const SPINNER = {
   FULL_PAGE: 2,
   EMPTY: 3,
 };
+
+export const AUTH_ERRORS = {
+  EMAIL_NOT_FOUND: 'No valid email found',
+  UNKNOWN: 'Unknown error: ',
+};
+
+export const VALID_EMAIL_PROVIDERS = ['gmail.com'];
+
+export const EMAIL_SEARCH_LINK =
+  'https://mail.google.com/mail/u/0/#search/from%3A%40tradegraf+in%3Aanywhere';
 
 export const HTTP_STATUS_CODE = {
   ACCEPTED: 202,
