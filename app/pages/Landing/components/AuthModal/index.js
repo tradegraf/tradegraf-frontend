@@ -1,40 +1,46 @@
-import React, { useState } from 'react';
+import React, { lazy, Suspense } from 'react';
 import PropTypes from 'prop-types';
-import { Modal, Button, Space } from 'antd';
+import { useSelector } from 'react-redux';
+import { Modal } from 'antd';
 
+import { getIsLoginSuccess } from '@app/redux/selectors/auth';
+
+import { LogoSpinner } from '@app/components/Spinner';
 import Header from './Header';
-
-import useStyles from './styles';
+import AuthForm from './AuthForm';
+const PostAuth = lazy(() => import(/* webpackPrefetch: true */ './PostAuth'));
 
 const AuthModal = ({ visible, handleVisible }) => {
-  const [authInput, setAuthInput] = useState('');
-  const [currentTab, setCurrentTab] = useState('');
+	const handleOk = () => {};
 
-  const classes = useStyles();
+	const isLoginSuccess = useSelector(getIsLoginSuccess);
 
-  const handleOk = () => {};
-
-  return (
-    <Modal
-      className={classes.container}
-      visible={visible}
-      onOk={handleOk}
-      onCancel={handleVisible}
-      footer={null}
-      centered
-    >
-      <Header />
-      <p>Some contents...</p>
-      <p>Some contents...</p>
-      <p>Some contents...</p>
-      <p>Some contents...</p>
-    </Modal>
-  );
+	return (
+		<Modal
+			width={320}
+			visible={visible}
+			onOk={handleOk}
+			onCancel={handleVisible}
+			footer={null}
+			bodyStyle={{ backgroundColor: '#191919' }}
+			mask={false}
+			centered
+		>
+			<Header />
+			{isLoginSuccess ? (
+				<Suspense fallback={<LogoSpinner />}>
+					<PostAuth />
+				</Suspense>
+			) : (
+				<AuthForm />
+			)}
+		</Modal>
+	);
 };
 
 AuthModal.propTypes = {
-  visible: PropTypes.bool.isRequired,
-  handleVisible: PropTypes.func.isRequired,
+	visible: PropTypes.bool.isRequired,
+	handleVisible: PropTypes.func.isRequired,
 };
 
 export default AuthModal;

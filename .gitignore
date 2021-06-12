@@ -9,6 +9,8 @@ stats.json
 npm-debug.log
 .idea
 
+.eslintcache
+
 # Environment variables
 .env
 

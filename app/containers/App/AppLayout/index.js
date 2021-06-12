@@ -8,18 +8,18 @@ import AppHeader from './AppHeader';
 import AppContent from './AppContent';
 
 const AppLayout = () => {
-  const history = useHistory();
-  const location = useLocation();
-  const classes = useStyles();
+	const history = useHistory();
+	const location = useLocation();
+	const classes = useStyles();
 
-  return (
-    <Layout className={classes.appLayout}>
-      <Layout className="site-layout">
-        <AppHeader />
-        <AppContent />
-      </Layout>
-    </Layout>
-  );
+	return (
+		<Layout className={classes.appLayout}>
+			<Layout className="site-layout">
+				<AppHeader />
+				<AppContent />
+			</Layout>
+		</Layout>
+	);
 };
 
 export default AppLayout;

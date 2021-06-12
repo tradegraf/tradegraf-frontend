@@ -10,36 +10,34 @@ import useStyles from './styles';
 const { Content } = Layout;
 
 const AppContent = () => {
-  const classes = useStyles();
-  // const dispatch = useDispatch();
+	const classes = useStyles();
+	// const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(Creators.init());
-  // }, [dispatch]);
+	// useEffect(() => {
+	//   dispatch(Creators.init());
+	// }, [dispatch]);
 
-  return (
-    <Router>
-      <Content>
-        <Switch>
-          {routes
-            .filter((route) => route.isPrivate)
-            .map((route) => {
-              return route.component ? (
-                <Route
-                  key={route.key}
-                  path={route.path}
-                  exact={route.exact}
-                  render={(propsParam) => {
-                    return <route.component {...propsParam} />;
-                  }}
-                />
-              ) : null;
-            })}
-          <Redirect to={INITIAL_ROUTE.path} />
-        </Switch>
-      </Content>
-    </Router>
-  );
+	return (
+		<Router>
+			<Content>
+				<Switch>
+					{routes
+						.filter((route) => route.isPrivate)
+						.map((route) =>
+							route.component ? (
+								<Route
+									key={route.key}
+									path={route.path}
+									exact={route.exact}
+									render={(propsParam) => <route.component {...propsParam} />}
+								/>
+							) : null,
+						)}
+					<Redirect to={INITIAL_ROUTE.path} />
+				</Switch>
+			</Content>
+		</Router>
+	);
 };
 
 export default AppContent;

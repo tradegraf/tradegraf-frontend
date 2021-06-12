@@ -1,4 +1,4 @@
 export const clearLocalStorage = () => {
-  localStorage.clear();
-  window.location.reload();
+	localStorage.clear();
+	window.location.reload();
 };
