@@ -13,6 +13,7 @@ module.exports = (options) => ({
     },
     options.output,
   ), // Merge with env dependent settings
+  stats: 'summary',
   optimization: options.optimization,
   module: {
     rules: [
@@ -50,7 +51,11 @@ module.exports = (options) => ({
           { loader: 'css-loader' },
           {
             loader: 'less-loader',
-            options: { javascriptEnabled: true },
+            options: {
+              lessOptions: {
+                javascriptEnabled: true,
+              },
+            },
           },
         ],
       },
@@ -114,15 +119,11 @@ module.exports = (options) => ({
   plugins: options.plugins.concat([
     new webpack.DefinePlugin({
       'process.env': {
-        REACT_APP_API_GATEWAY_URI: JSON.stringify(
-          process.env.REACT_APP_API_GATEWAY_URI,
-        ),
+        REACT_APP_API_GATEWAY_URI: JSON.stringify(process.env.REACT_APP_API_GATEWAY_URI),
         REACT_APP_SENTRY_DSN: JSON.stringify(process.env.REACT_APP_SENTRY_DSN),
         REACT_APP_ENV: JSON.stringify(process.env.REACT_APP_ENV),
         // eslint-disable-next-line global-require
-        REACT_APP_VERSION: JSON.stringify(
-          require('../../package.json').version,
-        ),
+        REACT_APP_VERSION: JSON.stringify(require('../../package.json').version),
       },
     }),
     // Always expose NODE_ENV to webpack, in order to use `process.env.NODE_ENV`
@@ -132,11 +133,6 @@ module.exports = (options) => ({
       NODE_ENV: 'development',
     }),
   ]),
-  resolve: {
-    modules: ['node_modules', 'app'],
-    extensions: ['.js', '.jsx', '.react.js'],
-    mainFields: ['browser', 'jsnext:main', 'main'],
-  },
   resolve: {
     modules: ['node_modules', 'app'],
     extensions: ['.js', '.jsx', '.react.js', '.less'],
