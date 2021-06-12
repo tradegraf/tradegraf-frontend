@@ -19,6 +19,7 @@ import { FullpageSpinner } from './components/Spinner';
 import './default.less';
 
 // import '!file-loader?name=[name].[ext]!./images/favicon.ico';
+
 import 'file-loader?name=.htaccess!./.htaccess';
 
 const openSansObserver = new FontFaceObserver('Open Sans', {});
