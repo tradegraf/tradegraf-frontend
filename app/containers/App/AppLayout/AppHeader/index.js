@@ -13,49 +13,46 @@ import useStyles from './styles';
 const { Header } = Layout;
 const { Item, Divider } = Menu;
 
-const AppHeader = props => {
-  const dispatch = useDispatch();
-  const { logoutRequest } = props;
-  const { t } = useTranslation();
-  const classes = useStyles();
-  const user = getUser();
-  const userName = _.get(user, 'name', '');
+const AppHeader = (props) => {
+	const dispatch = useDispatch();
+	const { logoutRequest } = props;
+	const { t } = useTranslation();
+	const classes = useStyles();
+	const user = getUser();
+	const userName = _.get(user, 'name', '');
 
-  const menu = (
-    <Menu>
-      <Item key="Item-1">{userName}</Item>
+	const menu = (
+		<Menu>
+			<Item key="Item-1">{userName}</Item>
 
-      <Divider />
-      <Item key="Item-4" onClick={logoutRequest}>
-        <LogoutOutlined size="large" /> {t('LOGOUT')}
-      </Item>
-    </Menu>
-  );
+			<Divider />
+			<Item key="Item-4" onClick={logoutRequest}>
+				<LogoutOutlined size="large" /> {t('LOGOUT')}
+			</Item>
+		</Menu>
+	);
 
-  return (
-    <Header
-      className={['site-layout-background d-flex justify-content-between', classes.appHeader]}
-    >
-      <div className={classes.userMenu}>
-        <Dropdown overlay={menu} placement="bottomLeft">
-          <Button type="primary" shape="circle" size="large" className={classes.userButton}>
-            {userName.charAt(0)}
-          </Button>
-        </Dropdown>
-      </div>
-    </Header>
-  );
+	return (
+		<Header
+			className={['site-layout-background d-flex justify-content-between', classes.appHeader]}
+		>
+			<div className={classes.userMenu}>
+				<Dropdown overlay={menu} placement="bottomLeft">
+					<Button type="primary" shape="circle" size="large" className={classes.userButton}>
+						{userName.charAt(0)}
+					</Button>
+				</Dropdown>
+			</div>
+		</Header>
+	);
 };
 
-const mapStateToProps = state => ({});
+const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = {
-  logoutRequest: Creators.logoutRequest,
+	logoutRequest: Creators.logoutRequest,
 };
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 export default withConnect(AppHeader);

@@ -6,17 +6,17 @@ import { FullpageSpinner } from '@app/components/Spinner';
 import { LOCAL_STORAGE } from '@app/shared/constants';
 
 const AuthPage = () => {
-  const dispatch = useDispatch();
-  const location = window.location.href;
+	const dispatch = useDispatch();
+	const location = window.location.href;
 
-  const email = window.localStorage.getItem(LOCAL_STORAGE.USER_EMAIL);
-  if (email) window.localStorage.removeItem(LOCAL_STORAGE.USER_EMAIL);
+	const email = window.localStorage.getItem(LOCAL_STORAGE.USER_EMAIL);
+	if (email) window.localStorage.removeItem(LOCAL_STORAGE.USER_EMAIL);
 
-  useEffect(() => {
-    dispatch(Creators.authTempTokenRequest({ email, location }));
-  }, []);
+	useEffect(() => {
+		dispatch(Creators.authTempTokenRequest({ email, location }));
+	}, []);
 
-  return <FullpageSpinner />;
+	return <FullpageSpinner />;
 };
 
 export default AuthPage;

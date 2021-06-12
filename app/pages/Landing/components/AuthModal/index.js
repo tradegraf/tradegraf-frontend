@@ -11,36 +11,36 @@ import AuthForm from './AuthForm';
 const PostAuth = lazy(() => import(/* webpackPrefetch: true */ './PostAuth'));
 
 const AuthModal = ({ visible, handleVisible }) => {
-  const handleOk = () => {};
+	const handleOk = () => {};
 
-  const isLoginSuccess = useSelector(getIsLoginSuccess);
+	const isLoginSuccess = useSelector(getIsLoginSuccess);
 
-  return (
-    <Modal
-      width={320}
-      visible={visible}
-      onOk={handleOk}
-      onCancel={handleVisible}
-      footer={null}
-      bodyStyle={{ backgroundColor: '#191919' }}
-      mask={false}
-      centered
-    >
-      <Header />
-      {isLoginSuccess ? (
-        <Suspense fallback={<LogoSpinner />}>
-          <PostAuth />
-        </Suspense>
-      ) : (
-        <AuthForm />
-      )}
-    </Modal>
-  );
+	return (
+		<Modal
+			width={320}
+			visible={visible}
+			onOk={handleOk}
+			onCancel={handleVisible}
+			footer={null}
+			bodyStyle={{ backgroundColor: '#191919' }}
+			mask={false}
+			centered
+		>
+			<Header />
+			{isLoginSuccess ? (
+				<Suspense fallback={<LogoSpinner />}>
+					<PostAuth />
+				</Suspense>
+			) : (
+				<AuthForm />
+			)}
+		</Modal>
+	);
 };
 
 AuthModal.propTypes = {
-  visible: PropTypes.bool.isRequired,
-  handleVisible: PropTypes.func.isRequired,
+	visible: PropTypes.bool.isRequired,
+	handleVisible: PropTypes.func.isRequired,
 };
 
 export default AuthModal;

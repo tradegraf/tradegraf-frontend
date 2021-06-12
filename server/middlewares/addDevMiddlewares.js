@@ -4,27 +4,27 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 
 const createWebpackMiddleware = (compiler, publicPath) =>
-  webpackDevMiddleware(compiler, {
-    publicPath,
-    stats: 'errors-only',
-  });
+	webpackDevMiddleware(compiler, {
+		publicPath,
+		stats: 'errors-only',
+	});
 
 module.exports = function addDevMiddlewares(app, webpackConfig) {
-  const compiler = webpack(webpackConfig);
-  const middleware = createWebpackMiddleware(compiler, webpackConfig.output.publicPath);
+	const compiler = webpack(webpackConfig);
+	const middleware = createWebpackMiddleware(compiler, webpackConfig.output.publicPath);
 
-  app.use(middleware);
-  app.use(webpackHotMiddleware(compiler));
+	app.use(middleware);
+	app.use(webpackHotMiddleware(compiler));
 
-  const fs = compiler.outputFileSystem;
+	const fs = compiler.outputFileSystem;
 
-  app.get('*', (req, res) => {
-    fs.readFile(path.join(compiler.outputPath, 'index.html'), (err, file) => {
-      if (err) {
-        res.sendStatus(404);
-      } else {
-        res.send(file.toString());
-      }
-    });
-  });
+	app.get('*', (req, res) => {
+		fs.readFile(path.join(compiler.outputPath, 'index.html'), (err, file) => {
+			if (err) {
+				res.sendStatus(404);
+			} else {
+				res.send(file.toString());
+			}
+		});
+	});
 };

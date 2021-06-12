@@ -13,35 +13,35 @@ const handleAuthModalLoad = () => import('./components/AuthModal');
 const { Content } = Layout;
 
 const HomePage = () => {
-  const classes = useStyles();
-  const [showModal, setShowModal] = useState(false);
+	const classes = useStyles();
+	const [showModal, setShowModal] = useState(false);
 
-  const { t } = useTranslation('landing');
+	const { t } = useTranslation('landing');
 
-  const handleShowModal = () => {
-    setShowModal(!showModal);
-  };
+	const handleShowModal = () => {
+		setShowModal(!showModal);
+	};
 
-  return (
-    <article>
-      <Helmet>
-        <meta name="description" content="Tradegraf" />
-      </Helmet>
-      <Layout>
-        <Content>
-          <Space direction="vertical" size="large" className={classes.container}>
-            <Logo />
-            <Suspense fallback={<DefaultSpinner />}>
-              <Button type="primary" onClick={handleShowModal} onMouseEnter={handleAuthModalLoad}>
-                {t('LOGIN')}
-              </Button>
-            </Suspense>
-            {showModal ? <AuthModal visible={showModal} handleVisible={handleShowModal} /> : null}
-          </Space>
-        </Content>
-      </Layout>
-    </article>
-  );
+	return (
+		<article>
+			<Helmet>
+				<meta name="description" content="Tradegraf" />
+			</Helmet>
+			<Layout>
+				<Content>
+					<Space direction="vertical" size="large" className={classes.container}>
+						<Logo />
+						<Suspense fallback={<DefaultSpinner />}>
+							<Button type="primary" onClick={handleShowModal} onMouseEnter={handleAuthModalLoad}>
+								{t('LOGIN')}
+							</Button>
+						</Suspense>
+						{showModal ? <AuthModal visible={showModal} handleVisible={handleShowModal} /> : null}
+					</Space>
+				</Content>
+			</Layout>
+		</article>
+	);
 };
 
 HomePage.propTypes = {};

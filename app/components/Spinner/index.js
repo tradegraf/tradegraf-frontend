@@ -8,22 +8,22 @@ import styles from './styles/LogoSpinner.module.css';
 import useStyles from './classes';
 
 export const LogoSpinner = () => (
-  <div className={styles.container}>
-    <SpinnerSVG alt="Tradegraf Spinner" width={40} height={4} className={styles.logoLoading} />
-  </div>
+	<div className={styles.container}>
+		<SpinnerSVG alt="Tradegraf Spinner" width={40} height={4} className={styles.logoLoading} />
+	</div>
 );
 
 export const FullpageSpinner = () => {
-  const classes = useStyles();
-  return (
-    <div className={classes.container}>
-      <LogoSpinner />
-    </div>
-  );
+	const classes = useStyles();
+	return (
+		<div className={classes.container}>
+			<LogoSpinner />
+		</div>
+	);
 };
 
 export const DefaultSpinner = () => {
-  const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+	const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
-  return <Spin indicator={antIcon} />;
+	return <Spin indicator={antIcon} />;
 };

@@ -8,43 +8,43 @@ import { ENVIRONMENT } from '@app/config';
 const defaultLang = 'en';
 
 export const callback = i18n
-  .use(HttpApi)
-  .use(LanguageDetector)
-  .use(initReactI18next)
-  .init({
-    backend: {
-      loadPath: '/translations/{{lng}}/{{ns}}.json',
-      queryStringParams: { v: ENVIRONMENT.REACT_APP_VERSION },
-    },
-    ns: [
-      /* MISC */
-      'global',
-      'success',
-      'error',
-      'baseYupError',
-      'sidebar',
-      'button',
+	.use(HttpApi)
+	.use(LanguageDetector)
+	.use(initReactI18next)
+	.init({
+		backend: {
+			loadPath: '/translations/{{lng}}/{{ns}}.json',
+			queryStringParams: { v: ENVIRONMENT.REACT_APP_VERSION },
+		},
+		ns: [
+			/* MISC */
+			'global',
+			'success',
+			'error',
+			'baseYupError',
+			'sidebar',
+			'button',
 
-      /* PAGES */
-      'landing',
-      'authPage',
-    ],
-    defaultNS: 'global',
-    lng: 'en',
-    fallbackLng: defaultLang,
-    debug: false,
-    interpolation: { escapeValue: false },
-  });
+			/* PAGES */
+			'landing',
+			'authPage',
+		],
+		defaultNS: 'global',
+		lng: 'en',
+		fallbackLng: defaultLang,
+		debug: false,
+		interpolation: { escapeValue: false },
+	});
 
-export const changeLanguage = selectedLanguage => {
-  i18n.changeLanguage(selectedLanguage);
+export const changeLanguage = (selectedLanguage) => {
+	i18n.changeLanguage(selectedLanguage);
 };
 
 export const getLangKey = () => {
-  if (i18n.language) {
-    return i18n.language.split('-')[0];
-  }
-  return 'en';
+	if (i18n.language) {
+		return i18n.language.split('-')[0];
+	}
+	return 'en';
 };
 
 export const t = (translationKey, params = {}) => i18n.t(translationKey, params);

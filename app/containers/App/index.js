@@ -12,27 +12,27 @@ import { AppRoutes, PublicRoutes } from '@app/containers/AppRoutes';
 const AppHeader = React.lazy(() => import('@app/containers/App/AppLayout/AppHeader'));
 
 const App = ({ user, token }) => (
-  <>
-    <Helmet titleTemplate="%s - Tradegraf" defaultTitle="Tradegraf" />
-    {user && token ? (
-      <React.Suspense fallback={<FullpageSpinner />}>
-        <AppHeader />
-        <ContentLayout>
-          <AppRoutes />
-        </ContentLayout>
-      </React.Suspense>
-    ) : (
-      <PublicRoutes />
-    )}
-  </>
+	<>
+		<Helmet titleTemplate="%s - Tradegraf" defaultTitle="Tradegraf" />
+		{user && token ? (
+			<React.Suspense fallback={<FullpageSpinner />}>
+				<AppHeader />
+				<ContentLayout>
+					<AppRoutes />
+				</ContentLayout>
+			</React.Suspense>
+		) : (
+			<PublicRoutes />
+		)}
+	</>
 );
 
 App.propTypes = {
-  user: PropTypes.object,
-  token: PropTypes.string,
+	user: PropTypes.object,
+	token: PropTypes.string,
 };
 
-const mapStateToProps = state => ({ user: getUser(state), token: getToken(state) });
+const mapStateToProps = (state) => ({ user: getUser(state), token: getToken(state) });
 
 const withConnect = connect(mapStateToProps);
 

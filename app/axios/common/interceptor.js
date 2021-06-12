@@ -12,35 +12,35 @@ import { clearLocalStorage } from '@app/utils/localStorage';
  * @return {AxiosInstance} instance
  */
 export default function commonInterceptor(instance) {
-  instance.interceptors.request.use((config) => {
-    const token = getToken();
-    const user = getUser();
-    Object.assign(config.headers, {
-      token,
-      user: _.get(user, '_id', ''),
-    });
+	instance.interceptors.request.use((config) => {
+		const token = getToken();
+		const user = getUser();
+		Object.assign(config.headers, {
+			token,
+			user: _.get(user, '_id', ''),
+		});
 
-    return config;
-  });
+		return config;
+	});
 
-  instance.interceptors.response.use(
-    (response) => {
-      return response;
-    },
-    (error) => {
-      const httpResponseStatusCode = _.get(error, 'response.status');
-      if (
-        httpResponseStatusCode &&
-        (httpResponseStatusCode === HTTP_STATUS_CODE.FORBIDDEN ||
-          httpResponseStatusCode === HTTP_STATUS_CODE.UNAUTHORIZED)
-      ) {
-        // TODO: (MIGHT-TODO) "store.dispatch(Creators.logoutRequest())" stuck
-        //  inside at "yield take(Types.LOGOUT_REQUEST)" part,
-        //  so i fixed it quickly with clearLocalStorage();
-        // store.dispatch(Creators.logoutRequest());
-        clearLocalStorage();
-      }
-      return Promise.reject(error);
-    },
-  );
+	instance.interceptors.response.use(
+		(response) => {
+			return response;
+		},
+		(error) => {
+			const httpResponseStatusCode = _.get(error, 'response.status');
+			if (
+				httpResponseStatusCode &&
+				(httpResponseStatusCode === HTTP_STATUS_CODE.FORBIDDEN ||
+					httpResponseStatusCode === HTTP_STATUS_CODE.UNAUTHORIZED)
+			) {
+				// TODO: (MIGHT-TODO) "store.dispatch(Creators.logoutRequest())" stuck
+				//  inside at "yield take(Types.LOGOUT_REQUEST)" part,
+				//  so i fixed it quickly with clearLocalStorage();
+				// store.dispatch(Creators.logoutRequest());
+				clearLocalStorage();
+			}
+			return Promise.reject(error);
+		},
+	);
 }

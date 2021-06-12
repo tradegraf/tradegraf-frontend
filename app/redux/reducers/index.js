@@ -6,11 +6,11 @@ import { REDUX_KEY } from '@app/shared/constants';
 import authReducer from './auth';
 
 export default function createReducer(injectedReducers = {}) {
-  const rootReducer = combineReducers({
-    [REDUX_KEY.AUTH]: authReducer,
-    router: connectRouter(history),
-    ...injectedReducers,
-  });
+	const rootReducer = combineReducers({
+		[REDUX_KEY.AUTH]: authReducer,
+		router: connectRouter(history),
+		...injectedReducers,
+	});
 
-  return rootReducer;
+	return rootReducer;
 }
