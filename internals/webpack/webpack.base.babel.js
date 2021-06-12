@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 require('dotenv').config();
 
-module.exports = options => ({
+module.exports = (options) => ({
   mode: options.mode,
   entry: options.entry,
   output: Object.assign(
@@ -13,6 +13,7 @@ module.exports = options => ({
     },
     options.output,
   ), // Merge with env dependent settings
+  stats: 'summary',
   optimization: options.optimization,
   module: {
     rules: [
@@ -50,7 +51,11 @@ module.exports = options => ({
           { loader: 'css-loader' },
           {
             loader: 'less-loader',
-            options: { javascriptEnabled: true },
+            options: {
+              lessOptions: {
+                javascriptEnabled: true,
+              },
+            },
           },
         ],
       },
