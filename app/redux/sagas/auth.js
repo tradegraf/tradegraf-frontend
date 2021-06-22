@@ -49,7 +49,9 @@ export function* loginSuccess() {
 export function* authTempTokenRequest() {
 	while (true) {
 		try {
-			const { email, location } = yield take(Types.AUTH_TEMP_TOKEN_REQUEST);
+			const { requestData } = yield take(Types.AUTH_TEMP_TOKEN_REQUEST);
+			const { email, location } = requestData;
+
 			const { user } = yield call(authTempToken, { email: Decrypt(email), location });
 			yield put({
 				type: Types.AUTH_TEMP_TOKEN_SUCCESS,

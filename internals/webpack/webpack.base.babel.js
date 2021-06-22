@@ -120,6 +120,7 @@ module.exports = (options) => ({
 		new webpack.DefinePlugin({
 			'process.env': {
 				REACT_APP_API_GATEWAY_URI: JSON.stringify(process.env.REACT_APP_API_GATEWAY_URI),
+				REACT_APP_AUTH_SERVICE_URI: JSON.stringify(process.env.REACT_APP_AUTH_SERVICE_URI),
 				REACT_APP_SENTRY_DSN: JSON.stringify(process.env.REACT_APP_SENTRY_DSN),
 				REACT_APP_ENV: JSON.stringify(process.env.REACT_APP_ENV),
 				REACT_APP_FIREBASE_API_KEY: JSON.stringify(process.env.REACT_APP_FIREBASE_API_KEY),
@@ -140,9 +141,6 @@ module.exports = (options) => ({
 				REACT_APP_VERSION: JSON.stringify(require('../../package.json').version),
 			},
 		}),
-		// Always expose NODE_ENV to webpack, in order to use `process.env.NODE_ENV`
-		// inside your code for any environment checks; Terser will automatically
-		// drop any unreachable code.
 		new webpack.EnvironmentPlugin({
 			NODE_ENV: 'development',
 		}),

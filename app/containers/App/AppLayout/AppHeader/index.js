@@ -3,7 +3,9 @@ import { Layout, Menu, Dropdown, Button, Row, Col } from 'antd';
 import _ from 'lodash';
 import { LogoutOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
-import { connect, useDispatch } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
+
+import Logo from '@app/components/Logo';
 
 import { getUser } from '@app/redux/selectors/auth';
 import { Creators } from '@app/redux/actions/auth';
@@ -18,7 +20,8 @@ const AppHeader = (props) => {
 	const { logoutRequest } = props;
 	const { t } = useTranslation();
 	const classes = useStyles();
-	const user = getUser();
+	const user = useSelector(getUser);
+
 	const userName = _.get(user, 'name', '');
 
 	const menu = (
@@ -34,15 +37,20 @@ const AppHeader = (props) => {
 
 	return (
 		<Header
-			className={['site-layout-background d-flex justify-content-between', classes.appHeader]}
+			className={[
+				'd-flex align-items-center justify-content-between layout header-p',
+				classes.appHeader,
+			]}
 		>
-			<div className={classes.userMenu}>
+			<Logo />
+			<Logo />
+			{/* <div className={classes.userMenu}>
 				<Dropdown overlay={menu} placement="bottomLeft">
 					<Button type="primary" shape="circle" size="large" className={classes.userButton}>
 						{userName.charAt(0)}
 					</Button>
 				</Dropdown>
-			</div>
+			</div> */}
 		</Header>
 	);
 };
