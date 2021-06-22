@@ -1,7 +1,8 @@
 /* eslint-disable prefer-destructuring */
 import { createSelector } from 'reselect';
+import Cookies from 'js-cookie';
 
-import { REDUX_KEY, LOCAL_STORAGE } from '@app/shared/constants';
+import { REDUX_KEY } from '@app/shared/constants';
 import { Decrypt } from '@app/utils/encryption';
 
 export const getIsLoginPending = createSelector(
@@ -19,15 +20,8 @@ export const getIsAuthTempTokenPending = createSelector(
 	(isAuthTempTokenPending) => isAuthTempTokenPending,
 );
 
-export const getToken = (state) => {
-	let token;
-	if (state) {
-		token = state[REDUX_KEY.AUTH].token;
-	}
-	if (!token) {
-		token = localStorage.getItem('token');
-	}
-	return token;
+export const getToken = () => {
+	return !!Cookies.get('token');
 };
 
 export const getUser = (state) => {
@@ -35,13 +29,12 @@ export const getUser = (state) => {
 	if (state) {
 		user = state[REDUX_KEY.AUTH].user;
 	}
-	if (!user) {
-		user = localStorage.getItem(LOCAL_STORAGE.USER);
-	}
+
 	if (typeof user === 'string') {
 		user = Decrypt(JSON.parse(user));
 	}
-	return user || {};
+
+	return user;
 };
 
 export const getUserRolesAndGroupType = (state) => {

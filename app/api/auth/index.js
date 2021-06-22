@@ -1,42 +1,44 @@
-import authAxios from '@app/axios/auth';
+import firebase from 'firebase/app';
+import Cookies from 'js-cookie';
 import axios from '@app/axios/common';
-import getFirebase, { actionCodeSettings } from '@app/config/firebase';
+import { actionCodeSettings } from '@app/config/firebase';
 
 import { AUTH_ERRORS } from '@app/shared/constants';
 
-const firebaseInstance = getFirebase();
-
 export const login = ({ email }) => {
-	if (firebaseInstance)
-		firebaseInstance
-			.auth()
-			.sendSignInLinkToEmail(email, actionCodeSettings)
-			.then(() => email)
-			.catch((err) => {
-				const errorCode = err.code;
-				const errorMessage = err.message;
+	firebase
+		.auth()
+		.sendSignInLinkToEmail(email, actionCodeSettings)
+		.then(() => email)
+		.catch((err) => {
+			const errorCode = err.code;
+			const errorMessage = err.message;
 
-				throw new Error({ errorCode, errorMessage });
-			});
+			throw new Error({ errorCode, errorMessage });
+		});
 };
 
-// export const authTempToken = ({ tempToken }) =>
-//   authAxios({
-//     method: 'POST',
-//     url: '/login/authTempToken',
-//     data: { tempToken },
-//   }).then(response => response.data);
-
 export const authTempToken = ({ location, email }) => {
-	if (firebaseInstance.auth().isSignInWithEmailLink(location)) {
+	if (firebase.auth().isSignInWithEmailLink(location)) {
 		if (!email) throw new Error(AUTH_ERRORS.EMAIL_NOT_FOUND);
-
-		firebaseInstance
+		firebase
 			.auth()
-			.signInWithEmailLink(email, location)
-			.then((res) => res)
-			.catch((err) => {
-				throw new Error(AUTH_ERRORS.UNKNOWN + err);
+			.setPersistence(firebase.auth.Auth.Persistence.SESSION)
+			.then(() => {
+				return firebase
+					.auth()
+					.signInWithEmailLink(email, location)
+					.then(({ user }) => {
+						return user.getIdToken().then((token) => {
+							Cookies.set('token', token);
+						});
+					})
+					.catch((err) => {
+						throw new Error(AUTH_ERRORS.UNKNOWN + err);
+					});
+			})
+			.catch((error) => {
+				throw new Error(AUTH_ERRORS.UNKNOWN + error);
 			});
 	}
 };

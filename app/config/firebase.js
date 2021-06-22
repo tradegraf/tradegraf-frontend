@@ -15,15 +15,7 @@ export const actionCodeSettings = {
 	handleCodeInApp: true,
 };
 
-let instance;
+const app = firebase.initializeApp(firebaseConfig);
 
-export default function getFirebase() {
-	if (typeof window !== 'undefined') {
-		if (instance) return instance;
-		instance = firebase.initializeApp(firebaseConfig);
-		firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
-		return instance;
-	}
-
-	return null;
-}
+export const auth = app.auth();
+export default app;

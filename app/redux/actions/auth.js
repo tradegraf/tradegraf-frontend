@@ -6,9 +6,11 @@ export const { Types, Creators } = createActions(
 		loginSuccess: { response: null },
 		loginFailure: { failure: null },
 		logoutRequest: {},
-		authTempTokenRequest: { data: null },
+		authTempTokenRequest: { requestData: null },
 		authTempTokenSuccess: { response: null },
 		authTempTokenFailure: { failure: null },
+		setUser: { user: null },
+		setToken: { token: null },
 	},
 	{},
 );

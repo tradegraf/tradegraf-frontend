@@ -13,11 +13,9 @@ const AppLayout = () => {
 	const classes = useStyles();
 
 	return (
-		<Layout className={classes.appLayout}>
-			<Layout className="site-layout">
-				<AppHeader />
-				<AppContent />
-			</Layout>
+		<Layout className={['layout', classes.appLayout]}>
+			<AppHeader />
+			<AppContent />
 		</Layout>
 	);
 };

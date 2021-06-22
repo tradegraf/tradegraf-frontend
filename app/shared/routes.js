@@ -1,7 +1,7 @@
 import pages from '@app/pages';
 import { RedirectContainer, RedirectPrivateContainer } from '@app/containers/Redirect';
 
-const ROUTE_LIST = [
+export const ROUTE_LIST = [
 	{
 		name: 'LANDING',
 		path: '/',

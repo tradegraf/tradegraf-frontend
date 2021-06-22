@@ -13,8 +13,10 @@ const AuthPage = () => {
 	if (email) window.localStorage.removeItem(LOCAL_STORAGE.USER_EMAIL);
 
 	useEffect(() => {
-		dispatch(Creators.authTempTokenRequest({ email, location }));
-	}, []);
+		if (email) {
+			dispatch(Creators.authTempTokenRequest({ requestData: { email, location } }));
+		}
+	}, [dispatch, email, location]);
 
 	return <FullpageSpinner />;
 };

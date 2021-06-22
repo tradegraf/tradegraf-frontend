@@ -57,7 +57,7 @@ const AuthForm = () => {
 					},
 				]}
 			>
-				<Input placeholder={t('authPage:EMAIL_PLACEHOLDER')} ref={emailRef} />
+				<Input placeholder={t('authPage:EMAIL_PLACEHOLDER')} size="large" ref={emailRef} />
 			</Form.Item>
 			<Row justify="end">
 				<Button
