@@ -1,15 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import { Layout } from 'antd';
-import { useDispatch } from 'react-redux';
 
-import routes, { ROUTE_LIST, INITIAL_ROUTE } from '@app/shared/routes';
-import useStyles from './styles';
+import { ROUTE_LIST, INITIAL_ROUTE } from '@app/shared/routes';
+// import useStyles from './styles';
 
 const { Content } = Layout;
 
 const AppContent = () => {
-	const classes = useStyles();
+	// const classes = useStyles();
 
 	return (
 		<Router>

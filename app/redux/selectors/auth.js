@@ -2,7 +2,7 @@
 import { createSelector } from 'reselect';
 import Cookies from 'js-cookie';
 
-import { REDUX_KEY, LOCAL_STORAGE } from '@app/shared/constants';
+import { REDUX_KEY } from '@app/shared/constants';
 import { Decrypt } from '@app/utils/encryption';
 
 export const getIsLoginPending = createSelector(

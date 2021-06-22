@@ -38,9 +38,6 @@ export const authTempToken = ({ location, email }) => {
 					});
 			})
 			.catch((error) => {
-				// Handle Errors here.
-				const errorCode = error.code;
-				const errorMessage = error.message;
 				throw new Error(AUTH_ERRORS.UNKNOWN + error);
 			});
 	}
