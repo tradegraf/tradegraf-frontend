@@ -1,11 +1,13 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { Form, Row, Button, Input } from 'antd';
+import { Form, Row, Button, Input, Typography } from 'antd';
+import { MailOutlined } from '@ant-design/icons';
+
+const { Text } = Typography;
 
 import { getIsLoginPending } from '@app/redux/selectors/auth';
 import { Creators } from '@app/redux/actions/auth';
-import { ArrowRightOutlined } from '@ant-design/icons';
 
 import useStyles from './styles';
 
@@ -45,7 +47,6 @@ const AuthForm = () => {
 		>
 			<Form.Item
 				name="email"
-				label={t('global:EMAIL')}
 				rules={[
 					{
 						type: 'email',
@@ -56,19 +57,32 @@ const AuthForm = () => {
 						message: t('error:EMAIL_REQUIRED'),
 					},
 				]}
+				className={classes.marginReset}
 			>
-				<Input placeholder={t('authPage:EMAIL_PLACEHOLDER')} size="large" ref={emailRef} />
+				<Input
+					placeholder={t('authPage:EMAIL_PLACEHOLDER')}
+					prefix={<MailOutlined className={classes.inputIcon} />}
+					size="large"
+					ref={emailRef}
+					className={classes.input}
+				/>
 			</Form.Item>
-			<Row justify="end">
+			<Row justify="center" className={classes.submitButton}>
 				<Button
 					type="primary"
 					htmlType="submit"
-					shape="circle"
-					icon={<ArrowRightOutlined />}
 					size="large"
 					loading={isLoginRequestPending}
-				/>
+					className={classes.button}
+				>
+					{t('landing:LOGIN_VERB')}
+				</Button>
 			</Row>
+			{/* <Row>
+				<Text type="secondary" className={classes.approval}>
+					{t('authPage:APPROVAL')}
+				</Text>
+			</Row> */}
 		</Form>
 	);
 };

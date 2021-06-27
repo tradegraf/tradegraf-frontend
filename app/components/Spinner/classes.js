@@ -1,6 +1,6 @@
 import { createUseStyles } from 'react-jss';
 
-export default createUseStyles(() => ({
+export default createUseStyles({
 	container: {
 		position: 'fixed',
 		top: 0,
@@ -15,4 +15,4 @@ export default createUseStyles(() => ({
 		backdropFilter: 'blur(4px)',
 		zIndex: 999,
 	},
-}));
+});

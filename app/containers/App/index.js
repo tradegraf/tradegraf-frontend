@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect, useDispatch } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet';
+import _ from 'lodash';
 
 import { Creators } from '@app/redux/actions/auth';
 import { getUser, getToken } from '@app/redux/selectors/auth';
@@ -13,8 +13,10 @@ import { auth } from '@app/config/firebase';
 
 const AppHeader = React.lazy(() => import('@app/containers/App/AppLayout/AppHeader'));
 
-const App = ({ user, token }) => {
+const App = () => {
 	const dispatch = useDispatch();
+	const user = useSelector(getUser);
+	const isTokenAvailable = useSelector(getToken);
 
 	useEffect(() => {
 		auth.onAuthStateChanged((user) => {
@@ -25,7 +27,7 @@ const App = ({ user, token }) => {
 	return (
 		<>
 			<Helmet titleTemplate="%s - Tradegraf" defaultTitle="Tradegraf" />
-			{user && token ? (
+			{!_.isEmpty(user) && isTokenAvailable ? (
 				<React.Suspense fallback={<FullpageSpinner />}>
 					<AppHeader />
 					<ContentLayout>
@@ -39,13 +41,6 @@ const App = ({ user, token }) => {
 	);
 };
 
-App.propTypes = {
-	user: PropTypes.object,
-	token: PropTypes.string,
-};
-
-const mapStateToProps = () => ({ user: getUser(), token: getToken() });
-
-const withConnect = connect(mapStateToProps);
+const withConnect = connect();
 
 export default withConnect(App);

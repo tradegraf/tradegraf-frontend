@@ -10,6 +10,13 @@ export const ROUTE_LIST = [
 		isPrivate: false,
 	},
 	{
+		name: 'LOGIN',
+		path: '/login',
+		component: pages.Login,
+		isExact: true,
+		isPrivate: false,
+	},
+	{
 		name: 'AUTH',
 		path: '/completeLogin',
 		component: pages.Auth,

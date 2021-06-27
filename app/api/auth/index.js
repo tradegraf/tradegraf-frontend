@@ -31,6 +31,7 @@ export const authTempToken = ({ location, email }) => {
 					.then(({ user }) => {
 						return user.getIdToken().then((token) => {
 							Cookies.set('token', token);
+							return token;
 						});
 					})
 					.catch((err) => {

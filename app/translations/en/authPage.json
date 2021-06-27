@@ -1,7 +1,8 @@
 {
-  "EMAIL_PLACEHOLDER": "name@tradegraf.com",
+  "APPROVAL": "By clicking Log In, you agree to our Terms and that you have read our Data Use Policy, including our Cookie Use.",
+  "EMAIL_PLACEHOLDER": "Email",
   "MESSAGE_CLICK_TO_LOGIN": "Click the link to log in or sign up",
-  "MESSAGE_CTA": "Check your email",
+  "MESSAGE_CTA": "Click here to check your email",
   "MESSAGE_SENT_EMAIL": "We emailed a link to",
   "TITLE": "Login"
 }

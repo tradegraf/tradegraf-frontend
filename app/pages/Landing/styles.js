@@ -1,6 +1,6 @@
 import { createUseStyles } from 'react-jss';
 
-export default createUseStyles(() => ({
+export default createUseStyles({
 	container: {
 		display: 'flex',
 		alignItems: 'center',
@@ -9,4 +9,4 @@ export default createUseStyles(() => ({
 		width: '100vw',
 		height: '100vh',
 	},
-}));
+});

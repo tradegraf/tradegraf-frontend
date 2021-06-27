@@ -52,11 +52,15 @@ export function* authTempTokenRequest() {
 			const { requestData } = yield take(Types.AUTH_TEMP_TOKEN_REQUEST);
 			const { email, location } = requestData;
 
-			const { user } = yield call(authTempToken, { email: Decrypt(email), location });
-			yield put({
-				type: Types.AUTH_TEMP_TOKEN_SUCCESS,
-				user,
-			});
+			const decryptedEmail = Decrypt(email);
+
+			if (decryptedEmail) {
+				const user = yield call(authTempToken, { email, location });
+				yield put({
+					type: Types.AUTH_TEMP_TOKEN_SUCCESS,
+					user,
+				});
+			}
 		} catch (error) {
 			yield put({
 				type: Types.AUTH_TEMP_TOKEN_FAILURE,
