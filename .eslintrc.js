@@ -5,7 +5,7 @@ const prettierOptions = JSON.parse(fs.readFileSync(path.resolve(__dirname, '.pre
 
 module.exports = {
 	parser: 'babel-eslint',
-	extends: ['eslint:recommended', 'react-app', 'prettier'],
+	extends: ['eslint:recommended', 'prettier', 'plugin:react/recommended'],
 	plugins: ['prettier', 'redux-saga', 'react', 'react-hooks', 'jsx-a11y'],
 	env: {
 		jest: true,
@@ -52,12 +52,10 @@ module.exports = {
 		'react/destructuring-assignment': 0,
 		'react-hooks/rules-of-hooks': 'error',
 		'react/jsx-closing-tag-location': 0,
-		'react/forbid-prop-types': 0,
 		'react/jsx-first-prop-new-line': [2, 'multiline'],
 		'react/jsx-filename-extension': 0,
 		'react/jsx-no-target-blank': 0,
 		'react/jsx-uses-vars': 2,
-		'react/require-default-props': 0,
 		'react/require-extension': 0,
 		'react/self-closing-comp': 0,
 		'react/sort-comp': 0,

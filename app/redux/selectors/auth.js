@@ -2,7 +2,7 @@
 import { createSelector } from 'reselect';
 import Cookies from 'js-cookie';
 
-import { REDUX_KEY } from '@app/shared/constants';
+import { REDUX_KEY, LOCAL_STORAGE } from '@app/shared/constants';
 import { Decrypt } from '@app/utils/encryption';
 
 export const getIsLoginPending = createSelector(
@@ -12,7 +12,9 @@ export const getIsLoginPending = createSelector(
 
 export const getIsLoginSuccess = createSelector(
 	(state) => state[REDUX_KEY.AUTH].isLoginSuccess,
-	(isLoginSuccess) => isLoginSuccess,
+	(isLoginSuccess) => {
+		return isLoginSuccess || !!localStorage.getItem(LOCAL_STORAGE.USER_EMAIL);
+	},
 );
 
 export const getIsAuthTempTokenPending = createSelector(
@@ -20,22 +22,17 @@ export const getIsAuthTempTokenPending = createSelector(
 	(isAuthTempTokenPending) => isAuthTempTokenPending,
 );
 
-export const getToken = () => {
-	return !!Cookies.get('token');
-};
+export const getToken = createSelector(
+	(state) => state[REDUX_KEY.AUTH].token,
+	(token) => {
+		return token || !!Cookies.get('token');
+	},
+);
 
-export const getUser = (state) => {
-	let user;
-	if (state) {
-		user = state[REDUX_KEY.AUTH].user;
-	}
-
-	if (typeof user === 'string') {
-		user = Decrypt(JSON.parse(user));
-	}
-
-	return user;
-};
+export const getUser = createSelector(
+	(state) => state[REDUX_KEY.AUTH].user,
+	(user) => user,
+);
 
 export const getUserRolesAndGroupType = (state) => {
 	const { groupType, roles } = getUser(state);

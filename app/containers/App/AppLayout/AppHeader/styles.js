@@ -2,7 +2,7 @@ import { createUseStyles } from 'react-jss';
 
 export default createUseStyles((theme) => {
 	return {
-		appHeader: { color: '#ffffff' },
+		appHeader: { color: '#ffffff', background: 'transparent' },
 		menuIcon: {
 			display: 'flex',
 			alignItems: 'center',
