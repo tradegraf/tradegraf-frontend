@@ -17,6 +17,7 @@ export const LOCAL_DATE_FORMAT = {
 export const REDUX_KEY = {
 	AUTH: 'AUTH',
 	COMMON: 'COMMON',
+	PROFILE: 'PROFILE',
 };
 
 export const SPINNER = {

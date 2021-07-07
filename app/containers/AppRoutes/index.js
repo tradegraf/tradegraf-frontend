@@ -8,24 +8,26 @@ export const AppRoutes = () => {
 	const appRoutes = [];
 	routes.forEach((route) => appRoutes.push(route));
 
-	return (
-		<Switch>
-			{appRoutes
-				.filter((route) => route.isPrivate)
-				.map(({ name, path, isExact, component: Component }) => (
-					<Route
-						key={name}
-						path={path}
-						exact={isExact}
-						render={() => (
-							<PageLoader>
-								<Component />
-							</PageLoader>
-						)}
-					/>
-				))}
-		</Switch>
-	);
+	const renderRoute = (route) => {
+		if (route.children) route.children.map(renderRoute);
+
+		const { name, path, isExact, component: Component } = route;
+
+		return (
+			<Route
+				key={name}
+				path={path}
+				exact={isExact}
+				render={() => (
+					<PageLoader>
+						<Component />
+					</PageLoader>
+				)}
+			/>
+		);
+	};
+
+	return <Switch>{appRoutes.filter((route) => route.isPrivate).map(renderRoute)}</Switch>;
 };
 
 export const PublicRoutes = () => {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Layout, Menu, Dropdown, Button, Row, Col } from 'antd';
 import _ from 'lodash';
 import { LogoutOutlined } from '@ant-design/icons';
@@ -11,6 +12,7 @@ import { getUser } from '@app/redux/selectors/auth';
 import { Creators } from '@app/redux/actions/auth';
 import { getLangKey } from '@app/i18n';
 import useStyles from './styles';
+import routes from '@app/shared/routes';
 
 const { Header } = Layout;
 const { Item, Divider } = Menu;
@@ -41,7 +43,9 @@ const AppHeader = (props) => {
 				classes.appHeader,
 			]}
 		>
-			<Logo size="small" />
+			<Link to={routes.get('DASHBOARD').path}>
+				<Logo size="small" />
+			</Link>
 			{/* <div className={classes.userMenu}>
 				<Dropdown overlay={menu} placement="bottomLeft">
 					<Button type="primary" shape="circle" size="large" className={classes.userButton}>

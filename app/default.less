@@ -2,8 +2,10 @@
 
 @primary-color: #0d41e1; // primary color for all components
 @secondary-color: #6085f7; // primary color for all components
+@tabs-hover-color: #5086E9;
+@tabs-highlight-color: white;
 @border-radius-base: .3125rem;
-@body-background: #121212;
+@body-background: #000000;
 @box-shadow-base: 0 0 12px 0 rgb(0 0 0 / 10%), 0 10px 30px 0 rgb(0 0 0 / 20%);
 
 .d-flex {
@@ -19,6 +21,66 @@
   justify-content: space-between;
 }
 
+.p-0 {
+  padding: 0;
+}
+
 .header-p {
-  padding: 12px 50px;
+  padding: 1rem 0;
+}
+
+.page-title {
+  margin-bottom: 1rem;
+  padding: .5rem 2rem;
+
+  & .ant-page-header-heading-left {
+    margin: 0;
+  }
+  & .ant-page-header-content {
+    padding-top: 8px;
+  }
+
+  @media (max-width: 576px) {
+    width: 100%;
+    padding: 0rem 1.125rem;
+  }
+}
+
+.app-layout-container {
+  margin: 0 auto;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 0 1.125rem;
+  }
+
+  @media (min-width: 768px) {
+    width: 700px;
+  }
+
+  @media (min-width: 992px) {
+    width: 860px;
+  }
+
+  @media (min-width: 1280px) {
+    width: 1080px;
+  }
+}
+
+.site-layout-content, .ant-page-header {
+  background-color: #111111;
+}
+
+.ant-page-header-ghost {
+  background-color: transparent;
+}
+
+.ant-layout-header {
+  height: auto;
+  line-height: normal;
+}
+
+.ant-layout-header {
+  height: auto;
+  line-height: normal;
 }

@@ -25,7 +25,7 @@ const HomePage = () => {
 	};
 
 	return (
-		<article>
+		<>
 			<Helmet>
 				<meta name="description" content="Tradegraf" />
 			</Helmet>
@@ -45,7 +45,7 @@ const HomePage = () => {
 					</Space>
 				</Content>
 			</Layout>
-		</article>
+		</>
 	);
 };
 

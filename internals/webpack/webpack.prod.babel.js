@@ -1,10 +1,10 @@
+/* eslint-disable global-require */
 // Important modules this config uses
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 const OfflinePlugin = require('offline-plugin');
-const { HashedModuleIdsPlugin } = require('webpack');
-const TerserPlugin = require('terser-webpack-plugin');
+const webpack = require('webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = require('./webpack.base.babel')({
@@ -22,23 +22,26 @@ module.exports = require('./webpack.base.babel')({
 	optimization: {
 		minimize: true,
 		minimizer: [
-			new TerserPlugin({
-				terserOptions: {
-					warnings: false,
-					compress: {
-						comparisons: false,
+			(compiler) => {
+				const TerserPlugin = require('terser-webpack-plugin');
+				new TerserPlugin({
+					terserOptions: {
+						warnings: false,
+						compress: {
+							comparisons: false,
+						},
+						parse: {},
+						mangle: true,
+						output: {
+							comments: false,
+							ascii_only: true,
+						},
 					},
-					parse: {},
-					mangle: true,
-					output: {
-						comments: false,
-						ascii_only: true,
-					},
-				},
-				parallel: true,
-				cache: true,
-				sourceMap: true,
-			}),
+					parallel: true,
+					cache: true,
+					sourceMap: true,
+				}).apply(compiler);
+			},
 		],
 		nodeEnv: 'production',
 		sideEffects: true,
@@ -130,8 +133,7 @@ module.exports = require('./webpack.base.babel')({
 				},
 			],
 		}),
-
-		new HashedModuleIdsPlugin({
+		new webpack.ids.HashedModuleIdsPlugin({
 			hashFunction: 'sha256',
 			hashDigest: 'hex',
 			hashDigestLength: 20,
