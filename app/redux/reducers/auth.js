@@ -5,6 +5,7 @@ import { Types } from '@app/redux/actions/auth';
 export const INITIAL_STATE = {
 	user: {},
 	token: null,
+	tempEmail: null,
 	isLoginPending: false,
 	isLoginSuccess: false,
 	isAuthTempTokenPending: false,
@@ -21,9 +22,7 @@ export const loginSuccess = (state = INITIAL_STATE, { email }) => ({
 	...state,
 	isLoginPending: false,
 	isLoginSuccess: true,
-	user: {
-		email,
-	},
+	tempEmail: email,
 });
 
 export const loginFailure = (state = INITIAL_STATE) => ({
@@ -47,9 +46,8 @@ export const authTempTokenSuccess = (state = INITIAL_STATE, { user = {}, token }
 export const authTempTokenFailure = (state = INITIAL_STATE, { error }) => ({
 	...state,
 	isAuthTempTokenPending: false,
+	tempEmail: null,
 	error,
-	user: {},
-	token: null,
 });
 
 export const logoutRequest = (state = INITIAL_STATE) => ({
@@ -68,6 +66,8 @@ export const setToken = (state = INITIAL_STATE, { token }) => ({
 	token,
 });
 
+export const destroy = () => ({ ...INITIAL_STATE });
+
 export const HANDLERS = {
 	[Types.LOGIN_REQUEST]: loginRequest,
 	[Types.LOGIN_SUCCESS]: loginSuccess,
@@ -77,6 +77,7 @@ export const HANDLERS = {
 	[Types.AUTH_TEMP_TOKEN_FAILURE]: authTempTokenFailure,
 	[Types.LOGOUT_REQUEST]: logoutRequest,
 	[Types.SET_USER]: setUser,
+	[Types.DESTROY_PAGE]: destroy,
 };
 
 export default createReducer(INITIAL_STATE, HANDLERS);

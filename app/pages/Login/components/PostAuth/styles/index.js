@@ -1,6 +1,6 @@
 import { createUseStyles } from 'react-jss';
 
-export default createUseStyles(() => ({
+export default createUseStyles({
 	container: {
 		display: 'flex',
 		alignItems: 'center',
@@ -17,4 +17,4 @@ export default createUseStyles(() => ({
 	providerLink: {
 		color: '#5a7ce6 !important',
 	},
-}));
+});

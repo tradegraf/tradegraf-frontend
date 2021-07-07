@@ -1,20 +1,20 @@
-import { take, call, put, fork, all } from 'redux-saga/effects';
+import { take, call, put, fork, cancel, all, takeLatest } from 'redux-saga/effects';
 
 import { login, authTempToken, logout } from '@app/api/auth';
 import history from '@app/utils/history';
 import { Types } from '@app/redux/actions/auth';
 import routes, { INITIAL_ROUTE } from '@app/shared/routes';
 import { getUser, getToken } from '@app/redux/selectors/auth';
-import { LOCAL_STORAGE } from '@app/shared/constants';
+import { LOCAL_STORAGE, AUTH_ERRORS } from '@app/shared/constants';
 import { clearLocalStorage } from '@app/utils/localStorage';
-import { Encrypt, Decrypt } from '@app/utils/encryption';
+import { Encrypt } from '@app/utils/encryption';
 
 const setTokenToLocalStorage = (token) => {
 	window.localStorage.setItem(LOCAL_STORAGE.TOKEN, token);
 };
 
 const setEmailToLocalStorage = (email) => {
-	window.localStorage.setItem(LOCAL_STORAGE.USER_EMAIL, Encrypt(email));
+	localStorage.setItem(LOCAL_STORAGE.USER_EMAIL, Encrypt(email));
 };
 
 export function* loginRequest() {
@@ -22,7 +22,7 @@ export function* loginRequest() {
 		try {
 			const { email } = yield take(Types.LOGIN_REQUEST);
 			yield call(login, { email });
-			yield setEmailToLocalStorage(email);
+			yield call(setEmailToLocalStorage, email);
 			yield put({ type: Types.LOGIN_SUCCESS, email });
 		} catch (error) {
 			yield put({
@@ -46,28 +46,25 @@ export function* loginSuccess() {
 	}
 }
 
-export function* authTempTokenRequest() {
-	while (true) {
-		try {
-			const { requestData } = yield take(Types.AUTH_TEMP_TOKEN_REQUEST);
-			const { email, location } = requestData;
-
-			const decryptedEmail = Decrypt(email);
-
-			if (decryptedEmail) {
-				const user = yield call(authTempToken, { email, location });
-				yield put({
-					type: Types.AUTH_TEMP_TOKEN_SUCCESS,
-					user,
-				});
-			}
-		} catch (error) {
+export function* authTempTokenRequest({ data }) {
+	try {
+		console.log('{ email, location }', data);
+		if (data?.email) {
+			const user = yield call(authTempToken, data);
+			localStorage.removeItem(LOCAL_STORAGE.USER_EMAIL);
 			yield put({
-				type: Types.AUTH_TEMP_TOKEN_FAILURE,
-				error,
+				type: Types.AUTH_TEMP_TOKEN_SUCCESS,
+				user,
 			});
-			yield call(history.push, routes.get('LANDING').path);
+		} else {
+			throw new Error(AUTH_ERRORS.EMAIL_NOT_FOUND);
 		}
+	} catch (error) {
+		yield put({
+			type: Types.AUTH_TEMP_TOKEN_FAILURE,
+			error,
+		});
+		yield call(history.push, routes.get('LANDING').path);
 	}
 }
 
@@ -105,12 +102,20 @@ export function* logoutRequest() {
 	}
 }
 
+function* watchAuthTempTokenRequest() {
+	yield takeLatest(Types.AUTH_TEMP_TOKEN_REQUEST, authTempTokenRequest);
+}
+
 export default function* auth() {
-	yield all([
-		fork(loginRequest),
-		fork(loginSuccess),
-		fork(authTempTokenRequest),
-		fork(authTempTokenSuccess),
-		fork(logoutRequest),
-	]);
+	while (yield take(Types.INIT_PAGE)) {
+		const backgroundTasks = yield all([
+			fork(loginRequest),
+			fork(loginSuccess),
+			fork(watchAuthTempTokenRequest),
+			fork(authTempTokenSuccess),
+			fork(logoutRequest),
+		]);
+		yield take(Types.DESTROY_PAGE);
+		yield cancel(backgroundTasks);
+	}
 }

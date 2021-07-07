@@ -1,6 +1,6 @@
 import { createUseStyles } from 'react-jss';
 
-export default createUseStyles(() => ({
+export default createUseStyles({
 	center: {
 		display: 'flex',
 		justifyContent: 'center',
@@ -20,4 +20,4 @@ export default createUseStyles(() => ({
 	marginReset: {
 		margin: '0 !important',
 	},
-}));
+});

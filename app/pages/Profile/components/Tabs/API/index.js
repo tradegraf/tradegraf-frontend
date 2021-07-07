@@ -15,8 +15,6 @@ const API = () => {
 	const classes = useStyles();
 	const { t } = useTranslation('profile');
 
-	console.log('apiData', apiData);
-
 	return apiData ? (
 		<div>API</div>
 	) : (

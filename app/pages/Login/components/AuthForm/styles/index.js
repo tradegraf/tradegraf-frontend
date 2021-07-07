@@ -1,6 +1,6 @@
 import { createUseStyles } from 'react-jss';
 
-export default createUseStyles(() => ({
+export default createUseStyles({
 	container: {
 		width: '100%',
 		margin: '0',
@@ -33,4 +33,4 @@ export default createUseStyles(() => ({
 	approval: {
 		fontSize: '12px',
 	},
-}));
+});

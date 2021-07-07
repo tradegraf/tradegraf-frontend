@@ -5,7 +5,7 @@ import { actionCodeSettings } from '@app/config/firebase';
 
 import { AUTH_ERRORS } from '@app/shared/constants';
 
-export const login = ({ email }) => {
+export const login = ({ email }) =>
 	firebase
 		.auth()
 		.sendSignInLinkToEmail(email, actionCodeSettings)
@@ -16,7 +16,6 @@ export const login = ({ email }) => {
 
 			throw new Error({ errorCode, errorMessage });
 		});
-};
 
 export const authTempToken = ({ location, email }) => {
 	if (firebase.auth().isSignInWithEmailLink(location)) {
@@ -24,20 +23,20 @@ export const authTempToken = ({ location, email }) => {
 		firebase
 			.auth()
 			.setPersistence(firebase.auth.Auth.Persistence.SESSION)
-			.then(() => {
-				return firebase
+			.then(() =>
+				firebase
 					.auth()
 					.signInWithEmailLink(email, location)
-					.then(({ user }) => {
-						return user.getIdToken().then((token) => {
+					.then(({ user }) =>
+						user.getIdToken().then((token) => {
 							Cookies.set('token', token);
 							return token;
-						});
-					})
+						}),
+					)
 					.catch((err) => {
 						throw new Error(AUTH_ERRORS.UNKNOWN + err);
-					});
-			})
+					}),
+			)
 			.catch((error) => {
 				throw new Error(AUTH_ERRORS.UNKNOWN + error);
 			});
