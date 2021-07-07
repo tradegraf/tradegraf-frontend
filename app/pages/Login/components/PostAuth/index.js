@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Typography, Space } from 'antd';
 import { useTranslation } from 'react-i18next';
 
-import { getUser } from '@app/redux/selectors/auth';
+import { getTempUserMail } from '@app/redux/selectors/auth';
 import EmailSentLottie from '@app/components/EmailSentLottie';
 import { getMailProvider } from '@app/utils/getMailProvider';
 import { EMAIL_SEARCH_LINK } from '@app/shared/constants';
@@ -14,7 +14,7 @@ const PostAuth = () => {
 	const classes = useStyles();
 	const { t } = useTranslation('authPage');
 
-	const { email } = useSelector(getUser);
+	const email = useSelector(getTempUserMail);
 	const emailProvider = getMailProvider(email);
 
 	return (

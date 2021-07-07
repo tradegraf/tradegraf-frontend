@@ -1,9 +1,10 @@
 /* eslint-disable prefer-destructuring */
 import { createSelector } from 'reselect';
 import Cookies from 'js-cookie';
+import firebase from 'firebase/app';
 
 import { REDUX_KEY, LOCAL_STORAGE } from '@app/shared/constants';
-import firebase from 'firebase/app';
+import { Decrypt } from '@app/utils/encryption';
 
 export const getIsLoginPending = createSelector(
 	(state) => state[REDUX_KEY.AUTH].isLoginPending,
@@ -12,9 +13,7 @@ export const getIsLoginPending = createSelector(
 
 export const getIsLoginSuccess = createSelector(
 	(state) => state[REDUX_KEY.AUTH].isLoginSuccess,
-	(isLoginSuccess) => {
-		return isLoginSuccess || !!localStorage.getItem(LOCAL_STORAGE.USER_EMAIL);
-	},
+	(isLoginSuccess) => isLoginSuccess,
 );
 
 export const getIsAuthTempTokenPending = createSelector(
@@ -24,14 +23,20 @@ export const getIsAuthTempTokenPending = createSelector(
 
 export const getToken = createSelector(
 	(state) => state[REDUX_KEY.AUTH].token,
-	(token) => {
-		return token || !!Cookies.get('token');
-	},
+	(token) => token || !!Cookies.get('token'),
 );
 
 export const getUser = createSelector(
 	(state) => state[REDUX_KEY.AUTH].user,
 	(user) => user || firebase.auth().currentUser,
+);
+
+export const getTempUserMail = createSelector(
+	(state) => state[REDUX_KEY.AUTH].tempEmail,
+	(tempEmail) => {
+		const localEmail = localStorage.getItem(LOCAL_STORAGE.USER_EMAIL);
+		return tempEmail || (localEmail ? Decrypt(localEmail) : null);
+	},
 );
 
 export const getUserRolesAndGroupType = (state) => {

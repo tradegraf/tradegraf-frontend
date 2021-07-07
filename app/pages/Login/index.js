@@ -4,20 +4,21 @@ import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { Layout, Typography, Space } from 'antd';
 
-const { Title } = Typography;
-
 import Logo from '@app/components/Logo';
 import Box from '@app/components/Box';
+import { getIsLoginSuccess, getTempUserMail } from '@app/redux/selectors/auth';
+import { DefaultSpinner } from '@app/components/Spinner';
 import AuthForm from './components/AuthForm';
 import PostAuth from './components/PostAuth';
 import useStyles from './styles';
-import { getIsLoginSuccess } from '@app/redux/selectors/auth';
-import { DefaultSpinner } from '@app/components/Spinner';
+
+const { Title } = Typography;
 
 const { Content } = Layout;
 
 const LoginPage = () => {
 	const isLoginSuccess = useSelector(getIsLoginSuccess);
+	const tempUserEmail = useSelector(getTempUserMail);
 	const classes = useStyles();
 
 	const { t } = useTranslation('landing');
@@ -35,12 +36,12 @@ const LoginPage = () => {
 							<Title level={3} className={classes.marginReset}>
 								{t('LOGIN')}
 							</Title>
-							{!isLoginSuccess ? (
-								<AuthForm />
-							) : (
+							{isLoginSuccess || tempUserEmail ? (
 								<Suspense fallback={<DefaultSpinner />}>
 									<PostAuth />
 								</Suspense>
+							) : (
+								<AuthForm />
 							)}
 						</Box>
 					</Space>

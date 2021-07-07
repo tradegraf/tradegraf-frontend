@@ -1,15 +1,16 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Form, Row, Button, Input, Typography } from 'antd';
 import { MailOutlined } from '@ant-design/icons';
 
-const { Text } = Typography;
-
 import { getIsLoginPending } from '@app/redux/selectors/auth';
 import { Creators } from '@app/redux/actions/auth';
 
 import useStyles from './styles';
+
+const { Text } = Typography;
 
 const AuthForm = () => {
 	const dispatch = useDispatch();
