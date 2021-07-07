@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 import Cookies from 'js-cookie';
 
 import { REDUX_KEY, LOCAL_STORAGE } from '@app/shared/constants';
-import { Decrypt } from '@app/utils/encryption';
+import firebase from 'firebase/app';
 
 export const getIsLoginPending = createSelector(
 	(state) => state[REDUX_KEY.AUTH].isLoginPending,
@@ -31,7 +31,7 @@ export const getToken = createSelector(
 
 export const getUser = createSelector(
 	(state) => state[REDUX_KEY.AUTH].user,
-	(user) => user,
+	(user) => user || firebase.auth().currentUser,
 );
 
 export const getUserRolesAndGroupType = (state) => {

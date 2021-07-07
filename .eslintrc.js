@@ -5,8 +5,15 @@ const prettierOptions = JSON.parse(fs.readFileSync(path.resolve(__dirname, '.pre
 
 module.exports = {
 	parser: 'babel-eslint',
-	extends: ['eslint:recommended', 'prettier', 'plugin:react/recommended'],
-	plugins: ['prettier', 'redux-saga', 'react', 'react-hooks', 'jsx-a11y'],
+	// extends: ['eslint:recommended', 'prettier', 'plugin:react/recommended'],
+	extends: [
+		'airbnb',
+		'prettier',
+		'plugin:react/recommended',
+		'plugin:import-name/recommended',
+		'plugin:react-hooks/recommended',
+	],
+	plugins: ['prettier', 'redux-saga', 'jsx-a11y', 'react', 'react-hooks', 'jsx-a11y'],
 	env: {
 		jest: true,
 		browser: true,
@@ -18,6 +25,8 @@ module.exports = {
 		sourceType: 'module',
 		ecmaFeatures: {
 			jsx: true,
+			modules: true,
+			experimentalObjectRestSpread: true,
 		},
 	},
 	rules: {
@@ -66,21 +75,18 @@ module.exports = {
 		'no-setter-return': 0,
 		'no-import-assign': 0,
 		'no-unused-vars': 'warn',
+		'import/no-unresolved': ['error', { ignore: ['^@'] }],
 	},
 	settings: {
-		react: {
-			pragma: 'React',
-			fragment: 'Fragment',
-			version: 'detect',
-		},
 		'import/resolver': {
-			webpack: {
-				config: './internals/webpack/webpack.prod.babel.js',
-			},
 			alias: [
 				['@app', './app/'],
 				['@public', './public/'],
 			],
+			webpack: {
+				config: path.join(__dirname, './internals/webpack/webpack.prod.babel.js'),
+			},
 		},
+		'import/ignore': ['node_modules'],
 	},
 };

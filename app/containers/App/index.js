@@ -7,11 +7,10 @@ import { Creators } from '@app/redux/actions/auth';
 import { getUser, getToken } from '@app/redux/selectors/auth';
 
 import { FullpageSpinner } from '@app/components/Spinner';
-import ContentLayout from '@app/containers/App/AppLayout/AppContent';
 import { AppRoutes, PublicRoutes } from '@app/containers/AppRoutes';
 import { auth } from '@app/config/firebase';
 
-const AppHeader = React.lazy(() => import('@app/containers/App/AppLayout/AppHeader'));
+const AppLayout = React.lazy(() => import('@app/containers/App/AppLayout'));
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -27,12 +26,11 @@ const App = () => {
 	return (
 		<>
 			<Helmet titleTemplate="%s - Tradegraf" defaultTitle="Tradegraf" />
-			{!_.isEmpty(user) && isTokenAvailable ? (
+			{!_.isEmpty(user) || isTokenAvailable ? (
 				<React.Suspense fallback={<FullpageSpinner />}>
-					<AppHeader />
-					<ContentLayout>
+					<AppLayout>
 						<AppRoutes />
-					</ContentLayout>
+					</AppLayout>
 				</React.Suspense>
 			) : (
 				<PublicRoutes />

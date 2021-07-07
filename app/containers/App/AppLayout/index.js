@@ -1,23 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Layout } from 'antd';
-import { useHistory, useLocation } from 'react-router-dom';
 
-import { INITIAL_ROUTE } from '@app/shared/routes';
 import useStyles from './styles';
 import AppHeader from './AppHeader';
 import AppContent from './AppContent';
 
-const AppLayout = () => {
-	const history = useHistory();
-	const location = useLocation();
+const AppLayout = ({ children }) => {
 	const classes = useStyles();
 
 	return (
-		<Layout className={['layout', classes.appLayout]}>
+		<Layout className={[classes.appLayout, 'layout app-layout-container']}>
 			<AppHeader />
-			<AppContent />
+			<AppContent>{children}</AppContent>
 		</Layout>
 	);
+};
+
+AppLayout.propTypes = {
+	children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
 };
 
 export default AppLayout;

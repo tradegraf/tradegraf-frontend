@@ -30,6 +30,43 @@ export const ROUTE_LIST = [
 		isExact: true,
 		isPrivate: true,
 	},
+	{
+		name: 'PROFILE',
+		path: '/profile',
+		component: pages.Profile,
+		isExact: false,
+		isPrivate: true,
+		children: [
+			{
+				name: 'PROFILE_OVERVIEW',
+				path: '/profile/overview',
+				component: pages.Profile,
+				isExact: true,
+				isPrivate: true,
+			},
+			{
+				name: 'PROFILE_API',
+				path: '/profile/API',
+				component: pages.Profile,
+				isExact: true,
+				isPrivate: true,
+			},
+			{
+				name: 'PROFILE_SUBSCRIPTION',
+				path: '/profile/subscription',
+				component: pages.Profile,
+				isExact: true,
+				isPrivate: true,
+			},
+			{
+				name: 'PROFILE_INVITE',
+				path: '/profile/invite',
+				component: pages.Profile,
+				isExact: true,
+				isPrivate: true,
+			},
+		],
+	},
 	// {
 	//   name: 'SUBSCRIPTION',
 	//   path: '/subscription',

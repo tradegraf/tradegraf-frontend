@@ -1,0 +1,11 @@
+{
+  "ADD_NEW_EXCHANGE": "Add New Exchange",
+  "API_DESCRIPTION": "Connect your exchange with your API credentials.",
+  "API_TITLE": "API",
+  "CONNECT_YOUR_API": "Add your exchange account!",
+  "NO_API_CONNECTION_MESSAGE": "You haven't created or added any exchange accounts yet. Add your API information for live trading.",
+  "OVERVIEW_DESCRIPTION": "Profile Desc",
+  "OVERVIEW_TITLE": "Profile",
+  "SUBSCRIPTION_DESCRIPTION": "Subscription Desc",
+  "SUBSCRIPTION_TITLE": "Subscription"
+}

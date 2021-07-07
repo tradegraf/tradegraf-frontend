@@ -14,9 +14,9 @@ export default createUseStyles({
 		margin: '0 2rem',
 		width: '100%',
 		padding: '1.5rem',
-		backgroundColor: '#1e1e1e',
+		backgroundColor: '#111111',
 		borderRadius: '1rem',
-		boxShadow: '0 0 12px 0 rgb(0 0 0 / 10%), 0 10px 30px 0 rgb(0 0 0 / 20%)',
+		boxShadow: '0 6px 9px 10px rgb(15 5 15 / 7%)',
 		'@media (min-width: 576px)': {
 			width: '22rem',
 		},

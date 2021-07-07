@@ -5,7 +5,7 @@ export default createUseStyles(() => ({
 		display: 'flex',
 		justifyContent: 'center',
 		width: '100vw',
-		height: '100vh',
+		height: '90vh',
 	},
 	container: {
 		display: 'flex',
