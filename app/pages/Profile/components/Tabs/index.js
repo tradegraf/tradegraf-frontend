@@ -20,7 +20,6 @@ const TabsContainer = ({ match }) => {
 	const activeKey = match.params.tab.toLowerCase();
 
 	const { user } = useAuth();
-	const { width } = useWindowSize();
 
 	useEffect(() => {
 		if (!PANEL_TABS[activeKey]) {
@@ -34,7 +33,6 @@ const TabsContainer = ({ match }) => {
 			onChange={(key) => {
 				history.push(`/${key}`);
 			}}
-			tabBarGutter={width < 576 ? 12 : 24}
 		>
 			<TabPane tab="Overview" key={PANEL_TABS.overview}>
 				<a href={`${window.location.origin}/dashboard`}>{`${match.params.tab} ${user.uid}`}</a>

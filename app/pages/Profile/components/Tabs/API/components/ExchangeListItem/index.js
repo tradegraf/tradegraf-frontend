@@ -14,13 +14,13 @@ const ExchangeListItem = ({ data }) => {
 	const classes = useStyles();
 	const { t } = useTranslation('profile');
 
-	const confirm = (event) => {
-		console.log(event);
+	const confirm = ({ id }) => {
+		console.log(id);
 		message.success('Click on Yes');
 	};
 
-	const cancel = (event) => {
-		console.log(event);
+	const cancel = ({ id }) => {
+		console.log(id);
 		message.error('Click on No');
 	};
 
@@ -49,7 +49,7 @@ const ExchangeListItem = ({ data }) => {
 			<div className={classes.rightWrapper}>
 				<Popconfirm
 					title={t('DELETE_EXCHANGE_CONFIRM')}
-					onConfirm={confirm}
+					onConfirm={() => confirm({ id: data.id })}
 					onCancel={cancel}
 					okText={t('global:YES')}
 					cancelText={t('global:NO')}

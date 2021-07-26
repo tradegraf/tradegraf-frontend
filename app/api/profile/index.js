@@ -18,3 +18,12 @@ export const createExchangeConnection = ({ data, userId }) =>
 		},
 		data,
 	}).then((response) => response.data);
+
+export const deleteExchangeConnection = ({ userId }) =>
+	axios({
+		method: 'POST',
+		url: '/exchange/',
+		headers: {
+			user_id: userId,
+		},
+	}).then((response) => response.data);

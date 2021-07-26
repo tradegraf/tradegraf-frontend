@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { Typography, Space } from 'antd';
 import { useTranslation } from 'react-i18next';
+import { MarkEmailRead } from '@styled-icons/material-twotone/MarkEmailRead';
 
 import { getMailProvider } from '@app/utils/getMailProvider';
 import { EMAIL_SEARCH_LINK } from '@app/shared/constants';
@@ -20,6 +21,7 @@ const PostAuth = () => {
 	return (
 		<Space direction="vertical" align="center" className={classes.container} size="large">
 			<Space direction="vertical" align="center" className={classes.widthFull}>
+				<MarkEmailRead size={42} color="#52c41a" />
 				<Text className={classes.information}>{`${t('MESSAGE_SENT_EMAIL')}:`}</Text>
 				<Text className={classes.information} ellipsis strong>
 					{hideEmail(email)}
