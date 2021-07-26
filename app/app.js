@@ -2,16 +2,17 @@ import '@babel/polyfill';
 
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'connected-react-router';
+import { RecoilRoot } from 'recoil';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { ConfigProvider as AntdConfigProvider } from 'antd';
 import { ThemeProvider } from 'react-jss';
 import FontFaceObserver from 'fontfaceobserver';
+import { Settings } from 'luxon';
 
-import globalSagas from '@app/redux/sagas';
-import configureStore from '@app/redux/configureStore';
-import history from '@app/utils/history';
-import jssTheme from '@app/jssTheme';
-import { callback as i18NCallback } from '@app/i18n';
+import jssTheme from '@app/jss-theme';
+import { callback as index18NCallback } from '@app/i18n';
+import { getAntLocale } from '@app/utils/localization';
+import { AuthProvider } from '@app/shared/hooks/useAuth';
 import App from '@app/containers/App';
 
 import { FullpageSpinner } from './components/Spinner';
@@ -28,23 +29,23 @@ openSansObserver.load().then(() => {
 	document.body.classList.add('fontLoaded');
 });
 
-const initialState = {};
-const store = configureStore(initialState, history);
-store.runSaga(globalSagas);
-
-const MOUNT_NODE = document.getElementById('app');
+const MOUNT_NODE = document.querySelector('#app');
 
 const render = () => {
 	ReactDOM.render(
-		<Provider store={store}>
-			<ConnectedRouter history={history}>
-				<Suspense fallback={<FullpageSpinner />}>
-					<ThemeProvider theme={jssTheme}>
-						<App />
-					</ThemeProvider>
-				</Suspense>
-			</ConnectedRouter>
-		</Provider>,
+		<Router>
+			<Suspense fallback={<FullpageSpinner />}>
+				<AuthProvider>
+					<RecoilRoot>
+						<AntdConfigProvider locale={getAntLocale()}>
+							<ThemeProvider theme={jssTheme}>
+								<App />
+							</ThemeProvider>
+						</AntdConfigProvider>
+					</RecoilRoot>
+				</AuthProvider>
+			</Suspense>
+		</Router>,
 		MOUNT_NODE,
 	);
 };
@@ -59,9 +60,11 @@ if (module.hot) {
 	});
 }
 
-i18NCallback.then(() => {
+index18NCallback.then(() => {
 	render();
 });
+
+Settings.defaultLocale = 'tr-TR';
 
 // Install ServiceWorker and AppCache in the end since
 // it's not most important operation and if main code fails,

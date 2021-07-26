@@ -1,10 +1,8 @@
 import _ from 'lodash';
 
-import { getToken, getUser } from '@app/redux/selectors/auth';
 import { HTTP_STATUS_CODE } from '@app/shared/constants';
 import { clearLocalStorage } from '@app/utils/localStorage';
-// import { Creators } from '@app/redux/actions/auth';
-// import store from '@app/redux/store';
+import { useAuth } from '@app/shared/hooks/useAuth';
 
 /**
  * Common interceptor for Axios instances.
@@ -12,16 +10,7 @@ import { clearLocalStorage } from '@app/utils/localStorage';
  * @return {AxiosInstance} instance
  */
 export default function commonInterceptor(instance) {
-	instance.interceptors.request.use((config) => {
-		const token = getToken();
-		const user = getUser();
-		Object.assign(config.headers, {
-			token,
-			user: _.get(user, '_id', ''),
-		});
-
-		return config;
-	});
+	instance.interceptors.request.use((config) => config);
 
 	instance.interceptors.response.use(
 		(response) => response,
@@ -32,10 +21,6 @@ export default function commonInterceptor(instance) {
 				(httpResponseStatusCode === HTTP_STATUS_CODE.FORBIDDEN ||
 					httpResponseStatusCode === HTTP_STATUS_CODE.UNAUTHORIZED)
 			) {
-				// TODO: (MIGHT-TODO) "store.dispatch(Creators.logoutRequest())" stuck
-				//  inside at "yield take(Types.LOGOUT_REQUEST)" part,
-				//  so i fixed it quickly with clearLocalStorage();
-				// store.dispatch(Creators.logoutRequest());
 				clearLocalStorage();
 			}
 			return Promise.reject(error);

@@ -1,3 +1,4 @@
+/* eslint-disable no-dupe-keys */
 import { createUseStyles } from 'react-jss';
 
 export default createUseStyles({
@@ -5,7 +6,8 @@ export default createUseStyles({
 		display: 'flex',
 		justifyContent: 'center',
 		width: '100vw',
-		height: '90vh',
+		minHeight: '100vh' /* Fallback for browsers that do not support Custom Properties */,
+		minHeight: 'calc(var(--vh, 1vh) * 100)',
 	},
 	container: {
 		display: 'flex',
@@ -16,6 +18,9 @@ export default createUseStyles({
 	},
 	logo: {
 		margin: '.315rem 0',
+	},
+	title: {
+		fontSize: '1.3rem !important',
 	},
 	marginReset: {
 		margin: '0 !important',

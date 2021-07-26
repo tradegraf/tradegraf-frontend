@@ -1,34 +1,63 @@
-/* eslint-disable react/prop-types */
-import React, { Suspense, lazy } from 'react';
-import { Tabs } from 'antd';
+import React, { useEffect, Suspense, lazy } from 'react';
+import { useHistory } from 'react-router-dom';
+import ReactRouterPropTypes from 'react-router-prop-types';
+import { Tabs, Anchor } from 'antd';
+import { ErrorBoundary } from 'react-error-boundary';
 
+import ErrorFallback from '@app/components/ErrorFallback';
 import { DefaultSpinner } from '@app/components/Spinner';
+import useWindowSize from '@app/shared/hooks/useWindowSize';
+import { useAuth } from '@app/shared/hooks/useAuth';
+import { DEFAULT_TAB, PANEL_TABS } from './utils';
+
+const { Link } = Anchor;
 
 const { TabPane } = Tabs;
 const API = lazy(() => import('./API'));
 
-const TabsContainer = ({ match, history }) => (
-	<Tabs
-		activeKey={match.params.tab || 'overview'}
-		onChange={(key) => {
-			history.push(`/profile/${key}`);
-		}}
-	>
-		<TabPane tab="Overview" key="overview">
-			<p>{match.params.tab}</p>
-		</TabPane>
-		<TabPane tab="API" key="api">
-			<Suspense fallback={<DefaultSpinner />}>
-				<API />
-			</Suspense>
-		</TabPane>
-		<TabPane tab="Subscription" key="subscription">
-			<p>{match.params.tab}</p>
-		</TabPane>
-		<TabPane tab="Invite" key="invite">
-			<p>{match.params.tab}</p>
-		</TabPane>
-	</Tabs>
-);
+const TabsContainer = ({ match }) => {
+	const history = useHistory();
+	const activeKey = match.params.tab.toLowerCase();
+
+	const { user } = useAuth();
+	const { width } = useWindowSize();
+
+	useEffect(() => {
+		if (!PANEL_TABS[activeKey]) {
+			history.push(`/${DEFAULT_TAB}`);
+		}
+	}, [activeKey, history]);
+
+	return (
+		<Tabs
+			activeKey={PANEL_TABS[activeKey]}
+			onChange={(key) => {
+				history.push(`/${key}`);
+			}}
+			tabBarGutter={width < 576 ? 12 : 24}
+		>
+			<TabPane tab="Overview" key={PANEL_TABS.overview}>
+				<a href={`${window.location.origin}/dashboard`}>{`${match.params.tab} ${user.uid}`}</a>
+			</TabPane>
+			<TabPane tab="API" key={PANEL_TABS.api}>
+				<ErrorBoundary FallbackComponent={ErrorFallback} resetKeys={[activeKey]}>
+					<Suspense fallback={<DefaultSpinner />}>
+						<API />
+					</Suspense>
+				</ErrorBoundary>
+			</TabPane>
+			<TabPane tab="Subscription" key={PANEL_TABS.subscription}>
+				<p>{match.params.tab}</p>
+			</TabPane>
+			<TabPane tab="Invite" key={PANEL_TABS.invite}>
+				<p>{match.params.tab}</p>
+			</TabPane>
+		</Tabs>
+	);
+};
+
+TabsContainer.propTypes = {
+	match: ReactRouterPropTypes.match.isRequired,
+};
 
 export default TabsContainer;

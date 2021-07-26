@@ -8,3 +8,10 @@ export const AUTH_STATUS = {
 	SUCCESS: 2,
 	ERROR: 3,
 };
+
+export const REFERRAL_LINKS = {
+	BINANCE: {
+		SIGN_UP: 'https://accounts.binance.com/en/register?ref=39613898',
+		API_PAGE: 'https://www.binance.com/en/my/settings/api-management?ref=39613898',
+	},
+};

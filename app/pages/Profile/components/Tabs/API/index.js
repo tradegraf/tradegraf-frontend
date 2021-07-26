@@ -1,39 +1,67 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
+import { useRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
-import { Typography, Button, Empty } from 'antd';
 
-import { apiDataSelector } from '@app/pages/Profile/redux/selectors';
+import { exchangeConnectionsAtom } from '@app/recoil/atoms/profile';
+import { getExchangeConnections } from '@app/api/profile';
+import { useAuth } from '@app/shared/hooks/useAuth';
+import { DefaultSpinner } from '@app/components/Spinner';
 import useStyles from './styles';
 
-const { Title } = Typography;
+import ExchangeListItem from './components/ExchangeListItem';
+import NoExchangeWarning from './components/NoExchangeWarning';
+import AddExchangeButton from './components/AddExchangeButton';
+
+const AddExchangeModal = lazy(() => import('./components/AddExchangeModal'));
 
 const API = () => {
-	const apiData = useSelector(apiDataSelector.getData);
-	const isApiDataPending = useSelector(apiDataSelector.isPending);
+	const [exchangeConnections, setExchangeConnections] = useRecoilState(exchangeConnectionsAtom);
+	const [isExchangeDataPending, setIsExchangeDataPending] = useState(true);
+	const [showAddExchangeModal, setShowAddExchangeModal] = useState(false);
 
+	const { user } = useAuth();
 	const classes = useStyles();
 	const { t } = useTranslation('profile');
 
-	return apiData ? (
-		<div>API</div>
-	) : (
-		<Empty
-			className={classes.warningMessageContainer}
-			image={Empty.PRESENTED_IMAGE_SIMPLE}
-			description={
-				<>
-					<Title className="page-title" level={3}>
-						{t('CONNECT_YOUR_API')}
-					</Title>
-					<span>{t('NO_API_CONNECTION_MESSAGE')}</span>
-				</>
-			}
-		>
-			<Button type="primary" size="large">
-				{t('ADD_NEW_EXCHANGE')}
-			</Button>
-		</Empty>
+	const handleAddExchangeClick = () => {
+		setShowAddExchangeModal(!showAddExchangeModal);
+	};
+
+	useEffect(() => {
+		getExchangeConnections({
+			data: {
+				user_id: user.uid,
+			},
+		}).then(({ data }) => {
+			setExchangeConnections(data);
+			setIsExchangeDataPending(false);
+		});
+	}, [setExchangeConnections, user.uid]);
+
+	if (isExchangeDataPending) {
+		return <DefaultSpinner />;
+	}
+
+	return (
+		<>
+			{exchangeConnections.length ? (
+				<div>
+					<div className={classes.addExchangeRow}>
+						<AddExchangeButton onClick={handleAddExchangeClick} t={t} />
+					</div>
+					{exchangeConnections.map((item) => (
+						<ExchangeListItem key={item.id} data={item} />
+					))}
+				</div>
+			) : (
+				<NoExchangeWarning openAddExchangeModal={handleAddExchangeClick} t={t} />
+			)}
+			{showAddExchangeModal && (
+				<Suspense fallback={<DefaultSpinner />}>
+					<AddExchangeModal visible={showAddExchangeModal} close={handleAddExchangeClick} />
+				</Suspense>
+			)}
+		</>
 	);
 };
 

@@ -1,37 +1,38 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Form, Row, Button, Input, Typography } from 'antd';
 import { MailOutlined } from '@ant-design/icons';
 
-import { getIsLoginPending } from '@app/redux/selectors/auth';
-import { Creators } from '@app/redux/actions/auth';
+import { useAuth } from '@app/shared/hooks/useAuth';
 
 import useStyles from './styles';
 
 const { Text } = Typography;
 
 const AuthForm = () => {
-	const dispatch = useDispatch();
 	const [form] = Form.useForm();
 	const { t } = useTranslation();
 
-	const isLoginRequestPending = useSelector(getIsLoginPending);
+	const { sendSignInLinkToEmail, isLoginRequestPending } = useAuth();
 
 	const classes = useStyles();
-	const emailRef = useRef();
+	const emailReference = useRef();
 
 	const formLayout = {
 		layout: 'vertical',
 	};
 
 	const onFinish = ({ email }) => {
-		dispatch(Creators.loginRequest({ email }));
+		try {
+			sendSignInLinkToEmail(email);
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	const onFinishFailed = () => {
-		emailRef.current.focus();
+		emailReference.current.focus();
 	};
 
 	return (
@@ -63,9 +64,11 @@ const AuthForm = () => {
 				<Input
 					placeholder={t('authPage:EMAIL_PLACEHOLDER')}
 					prefix={<MailOutlined className={classes.inputIcon} />}
-					size="large"
-					ref={emailRef}
+					size="middle"
+					ref={emailReference}
 					className={classes.input}
+					maxLength={128}
+					type="email"
 				/>
 			</Form.Item>
 			<Row justify="center" className={classes.submitButton}>
@@ -79,11 +82,11 @@ const AuthForm = () => {
 					{t('landing:LOGIN_VERB')}
 				</Button>
 			</Row>
-			{/* <Row>
+			<Row>
 				<Text type="secondary" className={classes.approval}>
 					{t('authPage:APPROVAL')}
 				</Text>
-			</Row> */}
+			</Row>
 		</Form>
 	);
 };

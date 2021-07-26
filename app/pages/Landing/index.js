@@ -6,8 +6,8 @@ import { Layout, Button, Space } from 'antd';
 
 import Logo from '@app/components/Logo';
 import { DefaultSpinner } from '@app/components/Spinner';
-import useStyles from './styles';
 import routes from '@app/shared/routes';
+import useStyles from './styles';
 
 const handleAuthModalLoad = () => import('@app/pages/Login');
 
@@ -29,7 +29,7 @@ const HomePage = () => {
 			<Helmet>
 				<meta name="description" content="Tradegraf" />
 			</Helmet>
-			<Layout>
+			<Layout className={classes.wrapper}>
 				<Content>
 					<Space direction="vertical" size="large" className={classes.container}>
 						<Logo />

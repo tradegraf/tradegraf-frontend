@@ -4,7 +4,7 @@ export const getMailProvider = (email) => {
 	if (!email) return null;
 
 	const provider = email.split('@').pop();
-	if (VALID_EMAIL_PROVIDERS.some((p) => p === provider)) return provider;
+	if (VALID_EMAIL_PROVIDERS.includes(provider)) return provider;
 
 	return null;
 };

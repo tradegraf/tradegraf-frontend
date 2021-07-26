@@ -15,22 +15,22 @@ export default createUseStyles({
 		borderRadius: '8px',
 	},
 	input: {
-		// height: '3rem',
 		borderRadius: '8px',
 		marginTop: '1rem',
-		marginBottom: '1rem !important',
-		fontSize: '1rem',
+		fontSize: '1rem !important',
+		padding: '4px',
+	},
+	inputIcon: {
+		margin: '0 6px 0 8px',
 	},
 	marginReset: {
 		margin: '0',
-	},
-	inputIcon: {
-		margin: '0 8px 0 2px',
 	},
 	submitButton: {
 		margin: '1rem 0 0',
 	},
 	approval: {
 		fontSize: '12px',
+		marginTop: '1rem',
 	},
 });

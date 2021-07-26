@@ -1,23 +1,23 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import { Creators } from '@app/redux/actions/auth';
 import { FullpageSpinner } from '@app/components/Spinner';
-import { getTempUserMail } from '@app/redux/selectors/auth';
+import { useAuth } from '@app/shared/hooks/useAuth';
+
 import { INITIAL_ROUTE } from '@app/shared/routes';
+import { getEmailFromLocalStorage } from '@app/utils/localStorage';
 
 const AuthPage = () => {
-	const dispatch = useDispatch();
+	const { signInWithEmailLink } = useAuth();
 
-	const email = useSelector(getTempUserMail);
+	const email = getEmailFromLocalStorage();
 	const location = window.location.href;
 
 	useEffect(() => {
 		if (email) {
-			dispatch(Creators.authTempTokenRequest({ data: { email, location } }));
+			signInWithEmailLink({ email, location });
 		}
-	}, [dispatch, email, location]);
+	}, [email, location, signInWithEmailLink]);
 
 	return email ? <FullpageSpinner /> : <Redirect to={INITIAL_ROUTE} />;
 };

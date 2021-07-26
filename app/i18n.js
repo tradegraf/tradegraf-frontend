@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/prevent-abbreviations */
 import i18n from 'i18next';
 import HttpApi from 'i18next-xhr-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
@@ -28,6 +29,7 @@ export const callback = i18n
 			/* PAGES */
 			'landing',
 			'authPage',
+			'profile',
 		],
 		defaultNS: 'global',
 		lng: 'en',
@@ -47,6 +49,6 @@ export const getLangKey = () => {
 	return 'en';
 };
 
-export const t = (translationKey, params = {}) => i18n.t(translationKey, params);
+export const t = (translationKey, parameters = {}) => i18n.t(translationKey, parameters);
 
 export default i18n;
