@@ -10,13 +10,12 @@ export default createUseStyles({
 	innerContainer: {
 		display: 'flex',
 		justifyContent: 'center',
-		flexDirection: (props) => props.direction,
+		flexDirection: (properties) => properties.direction,
 		margin: '0 2rem',
 		width: '100%',
 		padding: '1.5rem',
-		backgroundColor: '#111111',
+		backgroundColor: '#ffffff',
 		borderRadius: '1rem',
-		boxShadow: '0 6px 9px 10px rgb(15 5 15 / 7%)',
 		'@media (min-width: 576px)': {
 			width: '22rem',
 		},

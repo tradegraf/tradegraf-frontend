@@ -4,24 +4,21 @@ import { Layout, Menu, Dropdown, Button, Row, Col } from 'antd';
 import _ from 'lodash';
 import { LogoutOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
-import { connect, useDispatch, useSelector } from 'react-redux';
 
 import Logo from '@app/components/Logo';
 
-import { getUser } from '@app/redux/selectors/auth';
-import { Creators } from '@app/redux/actions/auth';
 import { getLangKey } from '@app/i18n';
-import useStyles from './styles';
 import routes from '@app/shared/routes';
+import { useAuth } from '@app/shared/hooks/useAuth';
+import useStyles from './styles';
 
 const { Header } = Layout;
 const { Item, Divider } = Menu;
 
-const AppHeader = (props) => {
-	const dispatch = useDispatch();
+const AppHeader = (properties) => {
 	const { t } = useTranslation();
 	const classes = useStyles();
-	const user = useSelector(getUser);
+	const { user, logout } = useAuth();
 
 	const userName = _.get(user, 'name', '');
 
@@ -53,16 +50,11 @@ const AppHeader = (props) => {
 					</Button>
 				</Dropdown>
 			</div> */}
+			<Button icon={<LogoutOutlined />} onClick={logout}>
+				Logout
+			</Button>
 		</Header>
 	);
 };
 
-const mapStateToProps = (state) => ({});
-
-const mapDispatchToProps = {
-	logoutRequest: Creators.logoutRequest,
-};
-
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
-export default withConnect(AppHeader);
+export default AppHeader;

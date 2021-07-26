@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import useStyles from './styles';
 
-const Box = ({ children, ...props }) => {
-	const classes = useStyles(props);
+const Box = ({ children, ...properties }) => {
+	const classes = useStyles(properties);
 
 	return (
 		<div className={classes.container}>
@@ -13,10 +14,10 @@ const Box = ({ children, ...props }) => {
 };
 
 Box.propTypes = {
-	children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+	children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
 	props: {
-		direction: PropTypes.oneOf(['row', 'column']).isRequired(),
-	},
+		direction: PropTypes.oneOf(['row', 'column']).isRequired,
+	}.isRequired,
 };
 
 export default Box;

@@ -23,7 +23,8 @@ export const FullpageSpinner = () => {
 };
 
 export const DefaultSpinner = () => {
+	const classes = useStyles();
 	const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
-	return <Spin indicator={antIcon} />;
+	return <Spin indicator={antIcon} className={classes.fullWidth} />;
 };

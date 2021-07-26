@@ -1,24 +1,27 @@
-import React, { Suspense } from 'react';
-import { useSelector } from 'react-redux';
+import React, { Suspense, lazy } from 'react';
 import { Helmet } from 'react-helmet';
+import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
 import { Layout, Typography, Space } from 'antd';
 
 import Logo from '@app/components/Logo';
 import Box from '@app/components/Box';
-import { getIsLoginSuccess, getTempUserMail } from '@app/redux/selectors/auth';
 import { DefaultSpinner } from '@app/components/Spinner';
+import ErrorFallback from '@app/components/ErrorFallback';
+import { useAuth } from '@app/shared/hooks/useAuth';
+import { getEmailFromLocalStorage } from '@app/utils/localStorage';
+
 import AuthForm from './components/AuthForm';
-import PostAuth from './components/PostAuth';
 import useStyles from './styles';
 
 const { Title } = Typography;
-
 const { Content } = Layout;
 
+const PostAuth = lazy(() => import('./components/PostAuth'));
+
 const LoginPage = () => {
-	const isLoginSuccess = useSelector(getIsLoginSuccess);
-	const tempUserEmail = useSelector(getTempUserMail);
+	const { isLoginRequestSent } = useAuth();
+	const temporaryEmail = getEmailFromLocalStorage();
 	const classes = useStyles();
 
 	const { t } = useTranslation('landing');
@@ -33,15 +36,17 @@ const LoginPage = () => {
 					<Space direction="vertical" size="small" className={classes.container}>
 						<Logo className={classes.logo} />
 						<Box direction="column">
-							<Title level={3} className={classes.marginReset}>
-								{t('LOGIN')}
-							</Title>
-							{isLoginSuccess || tempUserEmail ? (
+							{isLoginRequestSent || temporaryEmail ? (
 								<Suspense fallback={<DefaultSpinner />}>
 									<PostAuth />
 								</Suspense>
 							) : (
-								<AuthForm />
+								<ErrorBoundary FallbackComponent={ErrorFallback}>
+									<Title level={3} className={`${classes.marginReset} ${classes.title}`}>
+										{t('LOGIN')}
+									</Title>
+									<AuthForm />
+								</ErrorBoundary>
 							)}
 						</Box>
 					</Space>

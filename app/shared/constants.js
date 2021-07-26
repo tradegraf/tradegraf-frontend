@@ -14,16 +14,34 @@ export const LOCAL_DATE_FORMAT = {
 	EN: 'YYYY/MM/DD',
 };
 
-export const REDUX_KEY = {
-	AUTH: 'AUTH',
-	COMMON: 'COMMON',
+export const LOCAL_DATE_TIME_FORMAT = {
+	TR: 'DD/MM/YYYY HH:mm',
+	EN: 'YYYY/MM/DD hh:mm A ',
+};
+
+export const ATOM_KEY = {
 	PROFILE: 'PROFILE',
+	EXCHANGE_CONNECTIONS: 'EXCHANGE_CONNECTIONS',
 };
 
 export const SPINNER = {
 	DEFAULT: 1,
 	FULL_PAGE: 2,
 	EMPTY: 3,
+};
+
+export const EXCHANGES = {
+	BINANCE: 'binance',
+};
+
+export const EXCHANGE_CONNECTION_STATUSES = {
+	CONNECTED: 'connected',
+	FAILED: 'failed',
+};
+
+export const EXCHANGE_CONNECTION_STATUSES_COLORS = {
+	CONNECTED: 'success',
+	FAILED: 'error',
 };
 
 export const AUTH_ERRORS = {

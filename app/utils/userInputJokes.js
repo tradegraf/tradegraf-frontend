@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
 import React from 'react';
-import { HiddenEasterEgg } from 'react-hidden-easter-egg';
+// import { HiddenEasterEgg } from 'react-hidden-easter-egg';
 import { createUseStyles } from 'react-jss';
 
 const useStyles = createUseStyles(() => ({
@@ -20,21 +20,22 @@ export const UserInputForJokes = () => {
 	const classes = useStyles();
 	return (
 		<div className={classes.container}>
-			<div className={classes.margin}>
-				<HiddenEasterEgg resetEggMs={10000} code={['b', 'e', 'r', 'k', 'a', 'y']} codeMode="KEY">
+			{/* TODO */}
+			{/* <div className={classes.margin}>
+				<HiddenEasterEgg resetEggMs={10_000} code={['b', 'e', 'r', 'k', 'a', 'y']} codeMode="KEY">
 					🐒
 				</HiddenEasterEgg>
 			</div>
 			<div className={classes.margin}>
-				<HiddenEasterEgg resetEggMs={10000} code={['l', 'o', 'a', 'r', 'd']} codeMode="KEY">
+				<HiddenEasterEgg resetEggMs={10_000} code={['l', 'o', 'a', 'r', 'd']} codeMode="KEY">
 					👑
 				</HiddenEasterEgg>
 			</div>
 			<div className={classes.margin}>
-				<HiddenEasterEgg resetEggMs={10000} code={['d', 'o', 'g', 'e']} codeMode="KEY">
+				<HiddenEasterEgg resetEggMs={10_000} code={['d', 'o', 'g', 'e']} codeMode="KEY">
 					🚀
 				</HiddenEasterEgg>
-			</div>
+			</div> */}
 		</div>
 	);
 };

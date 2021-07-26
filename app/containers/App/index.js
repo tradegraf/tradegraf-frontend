@@ -1,40 +1,22 @@
-import React, { useEffect } from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 import { Helmet } from 'react-helmet';
-import _ from 'lodash';
-
-import { Creators as AuthCreators } from '@app/redux/actions/auth';
-import { getUser, getToken } from '@app/redux/selectors/auth';
 
 import { FullpageSpinner } from '@app/components/Spinner';
 import { AppRoutes, PublicRoutes } from '@app/containers/AppRoutes';
-import { auth } from '@app/config/firebase';
+import { useAuth } from '@app/shared/hooks/useAuth';
 
 const AppLayout = React.lazy(() => import('@app/containers/App/AppLayout'));
 
 const App = () => {
-	const dispatch = useDispatch();
-	const user = useSelector(getUser);
-	const isTokenAvailable = useSelector(getToken);
+	const { user } = useAuth();
 
-	useEffect(() => {
-		dispatch(AuthCreators.initPage());
-
-		return () => {
-			dispatch(AuthCreators.destroyPage());
-		};
-	}, [dispatch]);
-
-	useEffect(() => {
-		auth.onAuthStateChanged((authUser) => {
-			dispatch(AuthCreators.setUser({ user: authUser }));
-		});
-	}, [dispatch]);
+	const vh = window.innerHeight * 0.01;
+	document.documentElement.style.setProperty('--vh', `${vh}px`);
 
 	return (
 		<>
 			<Helmet titleTemplate="%s - Tradegraf" defaultTitle="Tradegraf" />
-			{!_.isEmpty(user) || isTokenAvailable ? (
+			{user ? (
 				<React.Suspense fallback={<FullpageSpinner />}>
 					<AppLayout>
 						<AppRoutes />
@@ -47,6 +29,4 @@ const App = () => {
 	);
 };
 
-const withConnect = connect();
-
-export default withConnect(App);
+export default App;

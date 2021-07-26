@@ -1,4 +1,15 @@
 {
+  "CONNECTED": "Connected",
+  "DELETE": "Delete",
   "EMAIL": "Email",
-  "LOGIN": "Login"
+  "EXCHANGE": "Exchange",
+  "FAILED": "Failed",
+  "LABEL": "Label",
+  "LAST_ACTIVITY": "Last activity",
+  "LOGIN": "Login",
+  "NAME": "Name",
+  "NO": "No",
+  "SECRET": "Secret",
+  "TOKEN": "Token",
+  "YES": "Yes"
 }

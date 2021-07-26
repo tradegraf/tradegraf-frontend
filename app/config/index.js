@@ -1,3 +1,3 @@
-import env from './env';
+import environment from './environment';
 
-export const ENVIRONMENT = { ...env };
+export const ENVIRONMENT = { ...environment };

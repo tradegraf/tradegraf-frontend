@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import PropTypes from 'prop-types';
+import { Spin } from 'antd';
 
-import LogoImage from '@app/assets/images/logo/tradegraf-white.svg';
 import styles from './styles/Logo.module.css';
+
+// const LogoWhite = lazy(() => import('@app/assets/images/logo/tradegraf-white.svg'));
+const LogoBlack = lazy(() => import('@app/assets/images/logo/tradegraf-black.svg'));
 
 export default function Logo({ size, className }) {
 	const sizes = {
@@ -20,28 +23,35 @@ export default function Logo({ size, className }) {
 		},
 	};
 
-	const logoSize = Object.keys(sizes).some((sizeOptions) => sizeOptions === size)
-		? sizes[size]
-		: sizes.medium;
+	const logoSize = Object.keys(sizes).includes(size) ? sizes[size] : sizes.medium;
 
-	return className ? (
-		<div className={className}>
-			<LogoImage
-				alt="Tradegraf Logo"
-				width={logoSize.width}
-				height={logoSize.height}
-				className={styles.logo}
-			/>
-		</div>
-	) : (
-		<LogoImage
-			alt="Tradegraf Logo"
-			width={logoSize.width}
-			height={logoSize.height}
-			className={styles.logo}
-		/>
+	return (
+		<Suspense fallback={<Spin />}>
+			{className ? (
+				<div className={className}>
+					<LogoBlack
+						alt="Tradegraf Logo"
+						width={logoSize.width}
+						height={logoSize.height}
+						className={styles.logo}
+					/>
+				</div>
+			) : (
+				<LogoBlack
+					alt="Tradegraf Logo"
+					width={logoSize.width}
+					height={logoSize.height}
+					className={styles.logo}
+				/>
+			)}
+		</Suspense>
 	);
 }
+
+Logo.defaultProps = {
+	size: 'medium',
+	className: null,
+};
 
 Logo.propTypes = {
 	size: PropTypes.oneOf(['small', 'medium', 'large']),

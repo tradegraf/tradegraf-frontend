@@ -1,11 +1,9 @@
-@import '~antd/dist/antd.dark.less';
+@import '~antd/dist/antd.less';
 
 @primary-color: #0d41e1; // primary color for all components
 @secondary-color: #6085f7; // primary color for all components
-@tabs-hover-color: #5086E9;
-@tabs-highlight-color: white;
 @border-radius-base: .3125rem;
-@body-background: #000000;
+@body-background: #f0f2f5;
 @box-shadow-base: 0 0 12px 0 rgb(0 0 0 / 10%), 0 10px 30px 0 rgb(0 0 0 / 20%);
 
 .d-flex {
@@ -46,27 +44,6 @@
   }
 }
 
-.app-layout-container {
-  margin: 0 auto;
-
-  @media (max-width: 768px) {
-    width: 100%;
-    padding: 0 1.125rem;
-  }
-
-  @media (min-width: 768px) {
-    width: 700px;
-  }
-
-  @media (min-width: 992px) {
-    width: 860px;
-  }
-
-  @media (min-width: 1280px) {
-    width: 1080px;
-  }
-}
-
 .site-layout-content, .ant-page-header {
   background-color: #111111;
 }
@@ -83,4 +60,24 @@
 .ant-layout-header {
   height: auto;
   line-height: normal;
+}
+
+.ant-form-item-required {
+  color: rgb(58, 58, 95);
+  margin: 10px 0px;
+  opacity: 0.5;
+}
+
+.ant-form-item-label > label {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.ant-form-vertical .ant-form-item-label, .ant-col-24.ant-form-item-label, .ant-col-xl-24.ant-form-item-label {
+  padding-bottom: 4px !important;
+}
+
+.ant-input-affix-wrapper > input.ant-input {
+  padding: inherit;
+  font-size: 1rem;
 }
