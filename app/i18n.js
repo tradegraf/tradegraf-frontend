@@ -30,6 +30,7 @@ export const callback = i18n
 			'landing',
 			'authPage',
 			'profile',
+			'menu',
 		],
 		defaultNS: 'global',
 		lng: 'en',
