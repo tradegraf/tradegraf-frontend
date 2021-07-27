@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Menu, Dropdown, Button } from 'antd';
-import _ from 'lodash';
 import {
 	LogoutOutlined,
 	UserAddOutlined,
