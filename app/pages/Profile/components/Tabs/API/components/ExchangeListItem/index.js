@@ -2,25 +2,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { DateTime } from 'luxon';
-import { Button, Tag, Typography, Popconfirm, message } from 'antd';
+import { Button, Tag, Popconfirm, message } from 'antd';
 
-import { EXCHANGES, EXCHANGE_CONNECTION_STATUSES_COLORS } from '@app/shared/constants';
 import { BinanceLogo } from '@app/components/ExchangeLogos';
+import { deleteExchangeConnection } from '@app/api/profile';
+import { EXCHANGES, EXCHANGE_CONNECTION_STATUSES_COLORS } from '@app/shared/constants';
 import useWindowSize from '@app/shared/hooks/useWindowSize';
+import { useAuth } from '@app/shared/hooks/useAuth';
+
 import useStyles from './styles';
 
 const ExchangeListItem = ({ data }) => {
 	const classes = useStyles();
 	const { t } = useTranslation('profile');
 
-	const confirm = (event) => {
-		console.log(event);
+	const { user } = useAuth();
+
+	const confirm = ({ exchangeId }) => {
+		deleteExchangeConnection({
+			userId: user.uid,
+			exchangeId,
+		}).then(({ data: responseData }) => {
+			console.log(responseData);
+		});
 		message.success('Click on Yes');
 	};
 
-	const cancel = (event) => {
-		console.log(event);
+	const cancel = ({ id }) => {
+		console.log(id);
 		message.error('Click on No');
 	};
 
@@ -39,7 +48,7 @@ const ExchangeListItem = ({ data }) => {
 							color={EXCHANGE_CONNECTION_STATUSES_COLORS[data.connection_status.toUpperCase()]}
 							className={classes.connectionStatusTag}
 						>
-							{t(`global:${data.connection_status.toUpperCase()}`)}
+							{t(`global:${data.connection_status?.toUpperCase()}`)}
 						</Tag>
 					</div>
 					{/* {width > 470 && <div>{`${t('global:TOKEN')}: ${data.token.slice(0, 4)}***`}</div>} */}
@@ -49,7 +58,7 @@ const ExchangeListItem = ({ data }) => {
 			<div className={classes.rightWrapper}>
 				<Popconfirm
 					title={t('DELETE_EXCHANGE_CONFIRM')}
-					onConfirm={confirm}
+					onConfirm={() => confirm({ exchangeId: data.id })}
 					onCancel={cancel}
 					okText={t('global:YES')}
 					cancelText={t('global:NO')}

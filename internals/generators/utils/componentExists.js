@@ -6,16 +6,17 @@
 
 const fs = require('fs');
 const path = require('path');
+
 const pageComponents = fs.readdirSync(
 	path.join(__dirname, '../../../app/components'),
 );
 const pageContainers = fs.readdirSync(
 	path.join(__dirname, '../../../app/containers'),
 );
-const components = pageComponents.concat(pageContainers);
+const components = new Set([...pageComponents, ...pageContainers]);
 
 function componentExists(comp) {
-	return components.indexOf(comp) >= 0;
+	return components.has(comp);
 }
 
 module.exports = componentExists;

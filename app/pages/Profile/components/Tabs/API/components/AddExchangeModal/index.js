@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Form, Modal, Select, Input, Space, Divider, Button } from 'antd';
+import { useSetRecoilState } from 'recoil';
+import { Form, Modal, Select, Input, Space, Divider, Button, Alert } from 'antd';
 import { useTranslation } from 'react-i18next';
 
+import { exchangeConnectionsAtom } from '@app/recoil/atoms/profile';
 import { useAuth } from '@app/shared/hooks/useAuth';
 import { createExchangeConnection } from '@app/api/profile';
 import { removeWhiteSpaceFromString } from '@app/utils/common';
@@ -15,22 +17,16 @@ const { Option } = Select;
 
 const AddExchangeModal = ({ visible, close }) => {
 	const [form] = Form.useForm();
+	const setExchangeConnections = useSetRecoilState(exchangeConnectionsAtom);
 	const { t } = useTranslation('profile');
 
 	const { user } = useAuth();
 
 	const classes = useStyles();
-
+	const [formError, setFormError] = useState(null);
 	const [confirmLoading, setConfirmLoading] = useState(false);
 
-	// TODO
-	// eslint-disable-next-line unicorn/consistent-function-scoping
-	const handleCancel = () => {
-		console.log('cancel');
-	};
-
 	const onFinish = () => {
-		// setConfirmLoading(true);
 		const values = form.getFieldsValue();
 		const filteredData = {
 			name: removeWhiteSpaceFromString(values.name),
@@ -51,15 +47,22 @@ const AddExchangeModal = ({ visible, close }) => {
 			},
 			userId: user.uid,
 		})
-			.then((response) => {
-				console.log('response', response);
+			.then(({ data, error }) => {
+				if (error) {
+					throw new Error(t('INVALID_EXCHANGE_CREDENTIALS'));
+				}
+				setExchangeConnections((previousExchangeConnections) => [
+					...previousExchangeConnections,
+					data,
+				]);
 				setConfirmLoading(false);
+				close();
 			})
 			.catch((error) => {
-				console.error('response', error);
+				setFormError(error);
+				form.resetFields();
 				setConfirmLoading(false);
-			})
-			.finally(() => close());
+			});
 	};
 
 	return (
@@ -74,12 +77,17 @@ const AddExchangeModal = ({ visible, close }) => {
 		>
 			<Space direction="vertical" size="middle" className={classes.full}>
 				<InstructionSteps />
+				{formError && <Alert message={formError.message} type="error" showIcon closable />}
 				<Form
 					form={form}
 					layout="vertical"
 					name="add-exchange"
 					requiredMark={false}
-					onFinish={onFinish}
+					onFinish={() => {
+						setFormError(null);
+						setConfirmLoading(true);
+						onFinish();
+					}}
 				>
 					<Space direction="vertical" size="middle" className={classes.full}>
 						<div>
