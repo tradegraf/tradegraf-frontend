@@ -2,8 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { DateTime } from 'luxon';
-import { Button, Tag, Typography, Popconfirm, message } from 'antd';
+import { Button, Tag, Popconfirm, message } from 'antd';
 
 import { BinanceLogo } from '@app/components/ExchangeLogos';
 import { deleteExchangeConnection } from '@app/api/profile';
