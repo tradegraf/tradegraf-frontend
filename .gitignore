@@ -11,6 +11,8 @@ npm-debug.log
 
 .eslintcache
 
+package-lock.json
+
 # Environment variables
 .env
 
