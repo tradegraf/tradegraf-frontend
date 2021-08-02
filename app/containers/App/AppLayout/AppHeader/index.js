@@ -50,7 +50,7 @@ const AppHeader = (properties) => {
 					</Button>
 				</Dropdown>
 			</div> */}
-			<Button icon={<LogoutOutlined />} onClick={logout}>
+			<Button icon={<LogoutOutlined />} danger onClick={logout}>
 				Logout
 			</Button>
 		</Header>

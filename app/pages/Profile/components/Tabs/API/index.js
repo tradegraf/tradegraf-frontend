@@ -1,4 +1,4 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import React, { useState, useEffect, lazy, Suspense, memo } from 'react';
 import { useRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
 
@@ -14,6 +14,7 @@ import AddExchangeButton from './components/AddExchangeButton';
 
 const AddExchangeModal = lazy(() => import('./components/AddExchangeModal'));
 
+// TODO: It re-renders the existing connections. Possible improvement.
 const API = () => {
 	const [exchangeConnections, setExchangeConnections] = useRecoilState(exchangeConnectionsAtom);
 	const [isExchangeDataPending, setIsExchangeDataPending] = useState(true);
@@ -45,14 +46,14 @@ const API = () => {
 	return (
 		<>
 			{exchangeConnections.length ? (
-				<div>
+				<>
 					<div className={classes.addExchangeRow}>
 						<AddExchangeButton onClick={handleAddExchangeClick} t={t} />
 					</div>
 					{exchangeConnections.map((item) => (
 						<ExchangeListItem key={item.id} data={item} />
 					))}
-				</div>
+				</>
 			) : (
 				<NoExchangeWarning openAddExchangeModal={handleAddExchangeClick} t={t} />
 			)}
@@ -65,4 +66,4 @@ const API = () => {
 	);
 };
 
-export default API;
+export default memo(API);

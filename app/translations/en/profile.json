@@ -10,6 +10,7 @@
   "EXCHANGE_CONNECTION_DETAILS": "BINANCE CONNECTION DETAILS",
   "GO_TO": "Go to",
   "HOW_TO": "How to create an API connection?",
+  "INVALID_EXCHANGE_CREDENTIALS": "Invalid exchange credentials.",
   "MISSING_SECRET": "Check your secret!",
   "MISSING_TOKEN": "Check your token!",
   "NO_ACCOUNT_BINANCE": "Don't have an account on Binance?",

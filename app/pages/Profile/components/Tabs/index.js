@@ -1,16 +1,13 @@
 import React, { useEffect, Suspense, lazy } from 'react';
 import { useHistory } from 'react-router-dom';
 import ReactRouterPropTypes from 'react-router-prop-types';
-import { Tabs, Anchor } from 'antd';
+import { Tabs } from 'antd';
 import { ErrorBoundary } from 'react-error-boundary';
 
 import ErrorFallback from '@app/components/ErrorFallback';
 import { DefaultSpinner } from '@app/components/Spinner';
-import useWindowSize from '@app/shared/hooks/useWindowSize';
 import { useAuth } from '@app/shared/hooks/useAuth';
 import { DEFAULT_TAB, PANEL_TABS } from './utils';
-
-const { Link } = Anchor;
 
 const { TabPane } = Tabs;
 const API = lazy(() => import('./API'));
