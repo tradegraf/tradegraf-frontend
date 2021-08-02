@@ -77,7 +77,7 @@ const AddExchangeModal = ({ visible, close }) => {
 		>
 			<Space direction="vertical" size="middle" className={classes.full}>
 				<InstructionSteps />
-				{formError && <Alert message={formError?.message} type="error" showIcon closable />}
+				{formError && <Alert message={formError.message} type="error" showIcon closable />}
 				<Form
 					form={form}
 					layout="vertical"
