@@ -5,14 +5,12 @@ require('dotenv').config();
 module.exports = (options) => ({
 	mode: options.mode,
 	entry: options.entry,
-	output: Object.assign(
-		{
-			// Compile into js/build.js
-			path: path.resolve(process.cwd(), 'build'),
-			publicPath: '/',
-		},
-		options.output,
-	), // Merge with env dependent settings
+	output: {
+		// Compile into js/build.js
+		path: path.resolve(process.cwd(), 'build'),
+		publicPath: '/',
+		...options.output,
+	}, // Merge with env dependent settings
 	stats: 'summary',
 	optimization: options.optimization,
 	module: {
@@ -110,13 +108,14 @@ module.exports = (options) => ({
 				use: {
 					loader: 'url-loader',
 					options: {
-						limit: 10000,
+						limit: 10_000,
 					},
 				},
 			},
 		],
 	},
-	plugins: options.plugins.concat([
+	plugins: [
+		...options.plugins,
 		new webpack.DefinePlugin({
 			'process.env': {
 				REACT_APP_API_GATEWAY_URI: JSON.stringify(process.env.REACT_APP_API_GATEWAY_URI),
@@ -144,7 +143,7 @@ module.exports = (options) => ({
 		new webpack.EnvironmentPlugin({
 			NODE_ENV: 'development',
 		}),
-	]),
+	],
 	resolve: {
 		modules: ['node_modules', 'app'],
 		extensions: ['.js', '.jsx', '.react.js', '.less'],

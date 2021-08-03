@@ -1,9 +1,19 @@
 import CryptoJS from 'crypto-js';
 
-export const Encrypt = (message) =>
-	CryptoJS.AES.encrypt(message, process.env.REACT_APP_ENCRYPTION_KEY).toString();
+import ENVIRONMENT from '../config/environment';
+import { removeWhiteSpaceFromString, isValidString } from './common';
+
+export const Encrypt = (message) => {
+	const cleanedString = removeWhiteSpaceFromString(message);
+	if (isValidString(cleanedString))
+		return CryptoJS.AES.encrypt(message, ENVIRONMENT.ENCRYPTION_SALT).toString();
+
+	return null;
+};
 
 export const Decrypt = (message) => {
-	const bytes = CryptoJS.AES.decrypt(message, process.env.REACT_APP_ENCRYPTION_KEY);
+	if (!message || typeof message !== 'string') return null;
+
+	const bytes = CryptoJS.AES.decrypt(message, ENVIRONMENT.ENCRYPTION_SALT);
 	return bytes.toString(CryptoJS.enc.Utf8);
 };

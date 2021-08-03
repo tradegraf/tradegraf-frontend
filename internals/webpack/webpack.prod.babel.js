@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/prevent-abbreviations */
 /* eslint-disable global-require */
 // Important modules this config uses
 const path = require('path');
@@ -53,9 +54,9 @@ module.exports = require('./webpack.base.babel')({
 			minSize: 0,
 			cacheGroups: {
 				vendor: {
-					test: /[\\/]node_modules[\\/]/,
+					test: /[/\\]node_modules[/\\]/,
 					name(module) {
-						const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+						const packageName = module.context.match(/[/\\]node_modules[/\\](.*?)([/\\]|$)/)[1];
 						return `npm.${packageName.replace('@', '')}`;
 					},
 				},
@@ -109,7 +110,7 @@ module.exports = require('./webpack.base.babel')({
 		new CompressionPlugin({
 			algorithm: 'gzip',
 			test: /\.js$|\.css$|\.html$/,
-			threshold: 10240,
+			threshold: 10_240,
 			minRatio: 0.8,
 		}),
 

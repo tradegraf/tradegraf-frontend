@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const primaryColor = '#0d41e1';
 
 const theme = {

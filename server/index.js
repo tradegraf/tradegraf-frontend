@@ -1,10 +1,11 @@
 const express = require('express');
+const { resolve } = require('path');
 const logger = require('./logger');
 
 const argv = require('./argv');
 const port = require('./port');
 const setup = require('./middlewares/frontendMiddleware');
-const { resolve } = require('path');
+
 const app = express();
 
 // If you need a backend, e.g. an API, add your custom backend-specific middleware here
@@ -26,16 +27,17 @@ const host = customHost || null; // Let http.Server use its default IPv6/4 host
 const prettyHost = customHost || 'localhost';
 
 // use the gzipped bundle
-app.get('*.js', (req, res, next) => {
-  req.url = req.url + '.gz'; // eslint-disable-line
-	res.set('Content-Encoding', 'gzip');
+app.get('*.js', (request, response, next) => {
+	request.url = `${request.url}.gz`;
+	response.set('Content-Encoding', 'gzip');
 	next();
 });
 
 // Start your app.
-app.listen(port, host, async (err) => {
-	if (err) {
-		return logger.error(err.message);
+// eslint-disable-next-line consistent-return
+app.listen(port, host, async (error) => {
+	if (error) {
+		return logger.error(error.message);
 	}
 
 	logger.appStarted(port, prettyHost);

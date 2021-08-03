@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import Loadable from '@app/utils/loadable';
 
 import { SPINNER } from '@app/shared/constants';

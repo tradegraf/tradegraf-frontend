@@ -129,6 +129,7 @@ export const ROUTE_LIST = [
 
 const routes = new Map();
 
+// eslint-disable-next-line unicorn/no-array-for-each
 ROUTE_LIST.forEach((route) => {
 	routes.set(route.name, route);
 });

@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/prevent-abbreviations */
 const path = require('path');
 const express = require('express');
 const compression = require('compression');
@@ -8,7 +9,7 @@ const rateLimitMiddleware = rateLimit({
 	max: 100,
 });
 
-module.exports = function addProdMiddlewares(app, options) {
+module.exports = function addProductionMiddlewares(app, options) {
 	const publicPath = options.publicPath || '/';
 	const outputPath = options.outputPath || path.resolve(process.cwd(), 'build');
 
@@ -18,7 +19,7 @@ module.exports = function addProdMiddlewares(app, options) {
 	app.use(compression());
 	app.use(publicPath, express.static(outputPath));
 
-	app.get('*', rateLimitMiddleware, (req, res) =>
+	app.get('*', rateLimitMiddleware, (request, res) =>
 		res.sendFile(path.resolve(outputPath, 'index.html')),
 	);
 };

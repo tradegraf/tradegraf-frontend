@@ -2,7 +2,6 @@ import _ from 'lodash';
 
 import { HTTP_STATUS_CODE } from '@app/shared/constants';
 import { clearLocalStorage } from '@app/utils/localStorage';
-import { useAuth } from '@app/shared/hooks/useAuth';
 
 /**
  * Common interceptor for Axios instances.

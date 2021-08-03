@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/no-array-for-each */
+/* eslint-disable unicorn/no-array-callback-reference */
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 

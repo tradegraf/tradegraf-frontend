@@ -7,9 +7,9 @@
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
-const componentGenerator = require('./component/index.js');
-const containerGenerator = require('./container/index.js');
-const languageGenerator = require('./language/index.js');
+const componentGenerator = require('./component/index');
+const containerGenerator = require('./container/index');
+const languageGenerator = require('./language/index');
 
 /**
  * Every generated backup file gets this extension
@@ -25,7 +25,7 @@ module.exports = (plop) => {
 		try {
 			fs.accessSync(path.join(__dirname, `../../app/containers/${comp}`), fs.F_OK);
 			return `containers/${comp}`;
-		} catch (e) {
+		} catch {
 			return `components/${comp}`;
 		}
 	});
@@ -43,8 +43,8 @@ module.exports = (plop) => {
 		try {
 			execSync(`npm run prettify -- "${folderPath}"`);
 			return folderPath;
-		} catch (err) {
-			throw new Error(err);
+		} catch (error) {
+			throw new Error(error);
 		}
 	});
 	plop.setActionType('backup', (answers, config) => {
@@ -55,8 +55,8 @@ module.exports = (plop) => {
 				'utf8',
 			);
 			return path.join(__dirname, config.path, `${config.file}.${BACKUPFILE_EXTENSION}`);
-		} catch (err) {
-			throw new Error(err);
+		} catch (error) {
+			throw new Error(error);
 		}
 	});
 };

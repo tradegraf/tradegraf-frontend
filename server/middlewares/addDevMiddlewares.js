@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/prevent-abbreviations */
 const path = require('path');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
@@ -9,7 +10,7 @@ const createWebpackMiddleware = (compiler, publicPath) =>
 		stats: 'errors-only',
 	});
 
-module.exports = function addDevMiddlewares(app, webpackConfig) {
+module.exports = function addDevelopmentMiddlewares(app, webpackConfig) {
 	const compiler = webpack(webpackConfig);
 	const middleware = createWebpackMiddleware(compiler, webpackConfig.output.publicPath);
 
@@ -18,9 +19,9 @@ module.exports = function addDevMiddlewares(app, webpackConfig) {
 
 	const fs = compiler.outputFileSystem;
 
-	app.get('*', (req, res) => {
-		fs.readFile(path.join(compiler.outputPath, 'index.html'), (err, file) => {
-			if (err) {
+	app.get('*', (request, res) => {
+		fs.readFile(path.join(compiler.outputPath, 'index.html'), (error, file) => {
+			if (error) {
 				res.sendStatus(404);
 			} else {
 				res.send(file.toString());

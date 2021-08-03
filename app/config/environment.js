@@ -1,4 +1,7 @@
+/* istanbul ignore file */
 import _ from 'lodash';
+
+const window = window;
 
 const hostname = _.get(window, 'location.hostname', '');
 const isLocalHost = hostname === 'localhost' || hostname === '127.0.0.1';
@@ -11,4 +14,5 @@ export default {
 	REACT_APP_VERSION: process.env.REACT_APP_VERSION || 'N/A',
 	REACT_APP_API_GATEWAY_URI: process.env.REACT_APP_API_GATEWAY_URI,
 	REACT_APP_AUTH_SERVICE_URI: process.env.REACT_APP_AUTH_SERVICE_URI,
+	ENCRYPTION_SALT: process.env.REACT_APP_ENCRYPTION_KEY || 'salt',
 };

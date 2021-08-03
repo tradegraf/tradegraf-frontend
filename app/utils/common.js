@@ -1,6 +1,11 @@
-import _ from 'lodash';
+export const removeWhiteSpaceFromString = (text) => {
+	if (!text || typeof text !== 'string' || !text.length) return null;
 
-export const getStateObject = (state, reducerKey, objectKey, { initialValue = {} } = {}) =>
-	_.get(state, `[${reducerKey}].${objectKey}`, initialValue);
+	const cleanedString = text.split(' ').join('').trim();
+	return cleanedString || null;
+};
 
-export const removeWhiteSpaceFromString = (text) => text.split(' ').join('').trim();
+export const isValidString = (text) => {
+	if (text && typeof text === 'string') return true;
+	return false;
+};

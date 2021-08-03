@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 /* eslint-disable unicorn/prevent-abbreviations */
 import i18n from 'i18next';
 import HttpApi from 'i18next-xhr-backend';

@@ -4,15 +4,15 @@
  * Front-end middleware
  */
 module.exports = (app, options) => {
-	const isProd = process.env.NODE_ENV === 'production';
+	const isProduction = process.env.NODE_ENV === 'production';
 
-	if (isProd) {
-		const addProdMiddlewares = require('./addProdMiddlewares');
-		addProdMiddlewares(app, options);
+	if (isProduction) {
+		const addProductionMiddlewares = require('./addProdMiddlewares');
+		addProductionMiddlewares(app, options);
 	} else {
 		const webpackConfig = require('../../internals/webpack/webpack.dev.babel');
-		const addDevMiddlewares = require('./addDevMiddlewares');
-		addDevMiddlewares(app, webpackConfig);
+		const addDevelopmentMiddlewares = require('./addDevMiddlewares');
+		addDevelopmentMiddlewares(app, webpackConfig);
 	}
 
 	return app;

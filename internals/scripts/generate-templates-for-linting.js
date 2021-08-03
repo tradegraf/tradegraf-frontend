@@ -92,6 +92,7 @@ function reportSuccess(message) {
 function reportErrors(reason) {
 	// TODO Replace with our own helpers/log that is guaranteed to be blocking?
 	xmark(() => console.error(chalk.red(` ${reason}`)));
+	// eslint-disable-next-line unicorn/no-process-exit
 	process.exit(1);
 }
 
@@ -141,15 +142,16 @@ function runLintingOnFile(filePath) {
  * @param {string} relativePath
  * @returns {Promise<any>}
  */
+// eslint-disable-next-line unicorn/prevent-abbreviations
 function removeDir(relativePath) {
 	return new Promise((resolve, reject) => {
 		try {
-			rimraf(path.join(__dirname, '/../../app/', relativePath), (err) => {
-				if (err) throw err;
+			rimraf(path.join(__dirname, '/../../app/', relativePath), (error) => {
+				if (error) throw error;
 			});
 			resolve(relativePath);
-		} catch (err) {
-			reject(err);
+		} catch (error) {
+			reject(error);
 		}
 	});
 }
@@ -162,12 +164,12 @@ function removeDir(relativePath) {
 function removeFile(filePath) {
 	return new Promise((resolve, reject) => {
 		try {
-			fs.unlink(filePath, (err) => {
-				if (err) throw err;
+			fs.unlink(filePath, (error) => {
+				if (error) throw error;
 			});
 			resolve(filePath);
-		} catch (err) {
-			reject(err);
+		} catch (error) {
+			reject(error);
 		}
 	});
 }
@@ -182,12 +184,12 @@ async function restoreModifiedFile(filePath, backupFileExtension = BACKUPFILE_EX
 	return new Promise((resolve, reject) => {
 		const targetFile = filePath.replace(`.${backupFileExtension}`, '');
 		try {
-			fs.copyFile(filePath, targetFile, (err) => {
-				if (err) throw err;
+			fs.copyFile(filePath, targetFile, (error) => {
+				if (error) throw error;
 			});
 			resolve(targetFile);
-		} catch (err) {
-			reject(err);
+		} catch (error) {
+			reject(error);
 		}
 	});
 }
@@ -213,13 +215,13 @@ async function generateComponent({ name, memo }) {
 		})
 		.then(handleResult)
 		.then(feedbackToUser(`Generated '${component}'`))
-		.catch((reason) => reportErrors(reason));
+		.catch((error) => reportErrors(error));
 	await runLintingOnDirectory(relativePath)
 		.then(reportSuccess(`Linting test passed for '${component}'`))
-		.catch((reason) => reportErrors(reason));
+		.catch((error) => reportErrors(error));
 	await removeDir(relativePath)
 		.then(feedbackToUser(`Cleanup '${component}'`))
-		.catch((reason) => reportErrors(reason));
+		.catch((error) => reportErrors(error));
 
 	return component;
 }
@@ -248,13 +250,13 @@ async function generateContainer({ name, memo }) {
 		})
 		.then(handleResult)
 		.then(feedbackToUser(`Generated '${container}'`))
-		.catch((reason) => reportErrors(reason));
+		.catch((error) => reportErrors(error));
 	await runLintingOnDirectory(relativePath)
 		.then(reportSuccess(`Linting test passed for '${container}'`))
-		.catch((reason) => reportErrors(reason));
+		.catch((error) => reportErrors(error));
 	await removeDir(relativePath)
 		.then(feedbackToUser(`Cleanup '${container}'`))
-		.catch((reason) => reportErrors(reason));
+		.catch((error) => reportErrors(error));
 
 	return container;
 }
@@ -294,18 +296,19 @@ async function generateLanguage(language) {
 		.then(handleResult)
 		.then(feedbackToUser(`Added new language: '${language}'`))
 		.then((changes) =>
-			changes.reduce((acc, change) => {
+			// eslint-disable-next-line unicorn/no-array-reduce
+			changes.reduce((accumulator, change) => {
 				const pathWithRemovedAnsiEscapeCodes = change.path.replace(
 					/* eslint-disable-next-line no-control-regex */
-					/(\u001b\[3(?:4|9)m)/g,
+					/(\u001B\[3[49]m)/g,
 					'',
 				);
-				const obj = {};
-				obj[pathWithRemovedAnsiEscapeCodes] = change.type;
-				return Object.assign(acc, obj);
+				const object = {};
+				object[pathWithRemovedAnsiEscapeCodes] = change.type;
+				return Object.assign(accumulator, object);
 			}, {}),
 		)
-		.catch((reason) => reportErrors(reason));
+		.catch((error) => reportErrors(error));
 
 	// Run eslint on modified and added JS files
 	const lintingTasks = Object.keys(generatedFiles)
@@ -316,7 +319,7 @@ async function generateLanguage(language) {
 		.map(async (filePath) => {
 			const result = await runLintingOnFile(filePath)
 				.then(reportSuccess(`Linting test passed for '${filePath}'`))
-				.catch((reason) => reportErrors(reason));
+				.catch((error) => reportErrors(error));
 
 			return result;
 		});
@@ -331,7 +334,7 @@ async function generateLanguage(language) {
 				.then(
 					feedbackToUser(`Restored file: '${filePath.replace(`.${BACKUPFILE_EXTENSION}`, '')}'`),
 				)
-				.catch((reason) => reportErrors(reason));
+				.catch((error) => reportErrors(error));
 
 			return result;
 		});
@@ -346,7 +349,7 @@ async function generateLanguage(language) {
 		.map(async (filePath) => {
 			const result = await removeFile(filePath)
 				.then(feedbackToUser(`Removed '${filePath}'`))
-				.catch((reason) => reportErrors(reason));
+				.catch((error) => reportErrors(error));
 
 			return result;
 		});
@@ -365,7 +368,7 @@ async function generateLanguage(language) {
 		{ kind: 'component', name: 'MemoizedComponent', memo: true },
 		{ kind: 'container', name: 'Container', memo: false },
 		{ kind: 'container', name: 'MemoizedContainer', memo: true },
-	]).catch((reason) => reportErrors(reason));
+	]).catch((error) => reportErrors(error));
 
-	await generateLanguage('fr').catch((reason) => reportErrors(reason));
+	await generateLanguage('fr').catch((error) => reportErrors(error));
 })();

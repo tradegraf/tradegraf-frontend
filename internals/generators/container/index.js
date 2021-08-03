@@ -96,45 +96,33 @@ module.exports = {
 				path: '../../app/containers/{{properCase name}}/actions.js',
 				templateFile: './container/actions.js.hbs',
 				abortOnFail: true,
-			});
-			actions.push({
+			}, {
 				type: 'add',
 				path: '../../app/containers/{{properCase name}}/tests/actions.test.js',
 				templateFile: './container/actions.test.js.hbs',
 				abortOnFail: true,
-			});
-
-			// Constants
-			actions.push({
+			}, {
 				type: 'add',
 				path: '../../app/containers/{{properCase name}}/constants.js',
 				templateFile: './container/constants.js.hbs',
 				abortOnFail: true,
-			});
-
-			// Selectors
-			actions.push({
+			}, {
 				type: 'add',
 				path: '../../app/containers/{{properCase name}}/selectors.js',
 				templateFile: './container/selectors.js.hbs',
 				abortOnFail: true,
-			});
-			actions.push({
+			}, {
 				type: 'add',
 				path:
           '../../app/containers/{{properCase name}}/tests/selectors.test.js',
 				templateFile: './container/selectors.test.js.hbs',
 				abortOnFail: true,
-			});
-
-			// Reducer
-			actions.push({
+			}, {
 				type: 'add',
 				path: '../../app/containers/{{properCase name}}/reducer.js',
 				templateFile: './container/reducer.js.hbs',
 				abortOnFail: true,
-			});
-			actions.push({
+			}, {
 				type: 'add',
 				path: '../../app/containers/{{properCase name}}/tests/reducer.test.js',
 				templateFile: './container/reducer.test.js.hbs',
@@ -149,8 +137,7 @@ module.exports = {
 				path: '../../app/containers/{{properCase name}}/saga.js',
 				templateFile: './container/saga.js.hbs',
 				abortOnFail: true,
-			});
-			actions.push({
+			}, {
 				type: 'add',
 				path: '../../app/containers/{{properCase name}}/tests/saga.test.js',
 				templateFile: './container/saga.test.js.hbs',

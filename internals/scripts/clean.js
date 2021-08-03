@@ -1,5 +1,5 @@
 const shell = require('shelljs');
-const addCheckMark = require('./helpers/checkmark.js');
+const addCheckMark = require('./helpers/checkmark');
 
 if (!shell.which('git')) {
   shell.echo('Sorry, this script requires git');
